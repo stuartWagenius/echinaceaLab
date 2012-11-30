@@ -1,0 +1,10 @@
+Package: echinaceaLab
+Type: Package
+Title: useful functions for the Echinacea Project
+Version: 0.001
+Date: 2012-11-20
+Author: Stuart Wagenius <swagenius@chicagobotanic.org>
+Maintainer: Stuart Wagenius <swagenius@chicagobotanic.org>
+Description: functions to help manage and visualize 
+             Echinacea Project datasets
+License: GPL (>= 2)
