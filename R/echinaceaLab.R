@@ -140,3 +140,34 @@ full <- function(x, cut.off = 0.002) sum(x > cut.off)
 
 # function for counting empty achenes in a sample #####
 empty <- function(x, cut.off = 0.002) sum(x <= cut.off)
+
+# function  for twist tie colors #####
+standardizeTtColors <- function(x){
+  x <- gsub("Yellow", "yel", x)
+  x <- gsub("yellow", "yel", x)
+  x <- gsub("ylw", "yel", x)
+  x <- gsub("Green", "grn", x)
+  x <- gsub("green", "grn", x)
+  x <- gsub("Black", "bac", x)
+  x <- gsub("black", "bac", x)
+  x <- gsub("Blk", "bac", x)
+  x <- gsub("blk", "bac", x)
+  x <- gsub("White", "wht", x)
+  x <- gsub("white", "wht", x)
+  x <- gsub("Red", "red", x)
+  x <- gsub("Clear", "clr", x)
+  x <- gsub("clear", "clr", x)
+  x <- gsub("Blue", "blu", x)
+  x <- gsub("blue", "blu", x)
+  x
+}
+
+# another function for twist-tie colors# #####
+# this needs the entire list of legit colors and color combinations
+# we could use a function is.standardTtColor that retuns a logical vector
+
+all.standardTtColor <- function(x) {
+  standard <- c("bac", "blu", "clr", "grn", "red", "wht", "yel", "nott")
+  all(x %in% standard)
+}
+
