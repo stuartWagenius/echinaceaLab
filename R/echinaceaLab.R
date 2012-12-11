@@ -167,7 +167,8 @@ standardizeTtColors <- function(x){
 # we could use a function is.standardTtColor that retuns a logical vector
 
 all.standardTtColor <- function(x) {
-  standard <- c("bac", "blu", "clr", "grn", "red", "wht", "yel", "nott")
+  standard <- c("bac", "bacred", "bacwht", "blu", "bluclr", "bluyel", "clr", 
+                "grn", "grnbac", "grnred", "grnwht", "org", "red", "redwht",
+                "wht", "yel", "yelbac", "yelgrn", "nott")
   all(x %in% standard)
 }
-
