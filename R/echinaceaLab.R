@@ -141,7 +141,19 @@ full <- function(x, cut.off = 0.002) sum(x > cut.off)
 # function for counting empty achenes in a sample #####
 empty <- function(x, cut.off = 0.002) sum(x <= cut.off)
 
-# function  for twist tie colors #####
+
+
+
+#' Standardize twist-tie colors
+#'
+#' @param x input character vector
+#' @return  character vector the same length as input vector with each element a legitimate abbreviation of the color
+#' @keywords twist-tie color
+#' @seealso \code{\link{all.standardTtColor}} which tests is abbreviations are legitimate
+#' @export
+#' @examples
+#' x <- c("Black", "blue", "Blue", "Yellow")
+#' standardizeTtColors(x)
 standardizeTtColors <- function(x){
   x <- gsub("Yellow", "yel", x)
   x <- gsub("yellow", "yel", x)
