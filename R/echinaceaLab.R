@@ -178,6 +178,18 @@ standardizeTtColors <- function(x){
 # this needs the entire list of legit colors and color combinations
 # we could use a function is.standardTtColor that retuns a logical vector
 
+#' Check if twist-ties abbreviation are legitimate.
+#'
+#' @param x input character vector
+#' @return logical value returning TRUE if all elements in the string are legitimate tt color abreviations
+#' @keywords twist-tie
+#' @seealso \code{\link{standardizeTtColors}} which abbreviates colors
+#' @export
+#' @examples
+#' all.standardTtColor(c("blue", "Blue", "blu"))
+#' x <- c("bac", "blu", "clr", "yel", "wht")
+#' all.standardTtColor(x)
+
 all.standardTtColor <- function(x) {
   standard <- c("bac", "bacred", "bacwht", "blu", "bluclr", "bluyel", "clr", 
                 "grn", "grnbac", "grnred", "grnwht", "org", "red", "redwht",
