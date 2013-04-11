@@ -12,7 +12,7 @@ Functions to help manage and visualize Echinacea Project datasets.
 \tabular{ll}{
 Package: \tab echinaceaLab\cr
 Type: \tab Package\cr
-Version: \tab 0.001\cr
+Version: \tab 0.002\cr
 Date: \tab 2012-11-20\cr
 License: \tab What license is it under?\cr
 }
@@ -27,8 +27,7 @@ Maintainer: Stuart Wagenius <swagenius@chicagobotanic.org>
 }
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+~~ Optional links to other man pages
 }
 \examples{
 standardizeTtColors("black") # simple examples of the most important functions
