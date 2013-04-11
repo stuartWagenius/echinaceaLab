@@ -1,10 +1,19 @@
-##################################################
-# this function reads a csv file and outputs df & csv
-# output is three dataframes--two useful for checking csv
-# dfs are invisible
-# writeCsv argument defaults to not writing csv file
-##################################################
 
+
+#' read a raw mass file and output useful objects
+#' 
+#' This function reads a csv file and outputs df & csv. The output is three
+#' dataframes--two useful for checking csv. dfs are returned invisibly. The
+#' writeCsv argument defaults to not writing csv file.
+#' 
+#' @param file character filename or filename with path of raw mass data file
+#' @param writeCsv logical indicating whether to print output to csv file
+#' @return list of bad lines, strange lines and good masses, returned invisibly.
+#'   A csv file is returned if writeCsv is TRUE.
+#' @keywords mass file
+#' @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
+#'   \code{\link{investigateMassFiles}} which are other useful functions that 
+#'   deal with mass files
 readMassFile <- function(file, writeCsv = FALSE){
   mm <- read.csv(file)
   rawNames <- names(mm)
@@ -41,16 +50,23 @@ readMassFile <- function(file, writeCsv = FALSE){
 # str(yy$good)
 # dim(yy$bad)
 
-
-
-
 ##################################################
 # now write functions to investigate all txt files
 # function reports strange, bad, and good lines
 # BEWARE: 
-# if a call to readMassFile function throws and error, no notice is given
-##################################################
+# if a call to readMassFile function throws an error, no notice is given
 
+
+#' investigate all txt files in a directory
+#' 
+#' investigate all mass files in a directory to find potential errors
+#' 
+#' @param path character designating directory containing files of interest
+#' @return data frame that summarizes characteristics of mass files
+#' @keywords mass file
+#' @seealso \code{\link{combineMassFiles}} and \code{\link{readMassFile}} and
+#'   \code{\link{listBadFiles}} which are other useful functions that
+#'   deal with mass files
 investigateMassFiles <- function(path = ".") {
   fn <- list.files(pattern = "\\.txt$")
   count <- length(fn)
@@ -65,21 +81,26 @@ investigateMassFiles <- function(path = ".") {
   ) # end try
   hh
 } # end function investigateMassFiles
-##################################################
-
-
-# examples
-
-# investigateMassFiles()
 
 
 
 
 
-#####################################################
-# this function puts all good records together in one df and, optionally, writes a csv
-##################################################
 
+#' combine raw mas data txt file into useful output
+#' 
+#' this function puts all good records together in one df and, optionally,
+#' writes a csv
+#' 
+#' @param path character designating directory containing files of interest
+#' @param writeCsv logical indicating whether to print output to csv file
+#' @param fileName character for name of output file
+#' @return dataframe of mass data from all raw mass files in directory of 
+#'   interest, returned invisibly. A csv file is returned if writeCsv is TRUE.
+#' @keywords mass file
+#' @seealso \code{\link{listBadFiles}} and \code{\link{readMassFile}} and 
+#'   \code{\link{investigateMassFiles}} which are other useful functions that 
+#'   deal with mass files
 combineMassFiles <- function(path = ".", writeCsv = FALSE, fileName = "allMassFiles.csv") {
   # run investigateMassFiles() and  return warning if a record count is zero
   problemFile <- any(investigateMassFiles()$records == 0)
@@ -96,7 +117,6 @@ combineMassFiles <- function(path = ".", writeCsv = FALSE, fileName = "allMassFi
   if(writeCsv) write.csv(ans, file = fileName, row.names = FALSE)
   invisible(ans)
 } # end function combineMassFiles
-#####################################################
 
 # examples
 
@@ -105,12 +125,20 @@ combineMassFiles <- function(path = ".", writeCsv = FALSE, fileName = "allMassFi
 # xx <- combineMassFiles(writeCsv = FALSE)
 # str(xx)
 
-#####################################################
-# this function finds mass files that don't make proper csvs
-# probably resulting from an extra comma in the first line
-##################################################
 
 
+
+#' find mass files that don't make proper csvs
+#' 
+#' find mass files that don't return a good csv files, probably resulting from 
+#' an extra comma in the first line
+#' 
+#' @param path character designating directory containing files of interest
+#' @return character vector of bad file names
+#' @keywords mass file
+#' @seealso \code{\link{combineMassFiles}} and \code{\link{readMassFile}} and
+#'   \code{\link{investigateMassFiles}} which are other useful functions that
+#'   deal with mass files
 listBadFiles <- function(path = ".") {
   fn <- list.files(pattern = "\\.txt$")
   count <- length(fn)
@@ -124,32 +152,45 @@ listBadFiles <- function(path = ".") {
   ) # end try
   fn[jj]
 }# end function listBadFiles
-#####################################################
 
 
 
 
-# save("readMassFile", 
-#      "investigateMassFiles", 
-#      "listBadFiles",
-#      "combineMassFiles", 
-#      file = "massFileFunctions.v02.RData")
 
-# function for counting full achenes in a sample #####
+
+#' count values greater than a threshold value
+#' 
+#' counts full achenes in a sample of weighed achenes
+#' 
+#' @param x numeric vector
+#' @param cut.off numeric value threshold default is 0.002
+#' @return integer count of elements in x greater than the threshold cut.off
+#' @keywords full achene
+#' @seealso \code{\link{empty}} which counts elements less than the threshold
+#'   value
 full <- function(x, cut.off = 0.002) sum(x > cut.off)
 
-# function for counting empty achenes in a sample #####
+#' count values less than a threshold value
+#' 
+#' counts empty achenes in a sample of weighed achenes
+#' 
+#' @param x numeric vector
+#' @param cut.off numeric value threshold default is 0.002
+#' @return integer count of elements in x less than the threshold cut.off
+#' @keywords empty achene
+#' @seealso \code{\link{full}} which counts elements greater than the threshold
+#'   value
 empty <- function(x, cut.off = 0.002) sum(x <= cut.off)
 
 
-
-
 #' Standardize twist-tie colors
-#'
+#' 
 #' @param x input character vector
-#' @return  character vector the same length as input vector with each element a legitimate abbreviation of the color
+#' @return  character vector the same length as input vector with each element
+#'   a legitimate abbreviation of the color
 #' @keywords twist-tie color
-#' @seealso \code{\link{all.standardTtColor}} which tests is abbreviations are legitimate
+#' @seealso \code{\link{all.standardTtColor}} which tests if abbreviations are 
+#'   legitimate
 #' @export
 #' @examples
 #' x <- c("Black", "blue", "Blue", "Yellow")
@@ -174,17 +215,18 @@ standardizeTtColors <- function(x){
   x
 }
 
-# another function for twist-tie colors# #####
+# another function for twist-tie colors# ####
 # this needs the entire list of legit colors and color combinations
 # we could use a function is.standardTtColor that retuns a logical vector
 
 #' Check if twist-ties abbreviation are legitimate.
-#'
-#' @param x input character vector
-#' @return logical value returning TRUE if all elements in the string are legitimate tt color abreviations
+#' 
+#' @param x character vector
+#' @return logical value returning TRUE if all elements in the string are
+#'   legitimate tt color abreviations
 #' @keywords twist-tie
 #' @seealso \code{\link{standardizeTtColors}} which abbreviates colors
-#' @export
+#'
 #' @examples
 #' all.standardTtColor(c("blue", "Blue", "blu"))
 #' x <- c("bac", "blu", "clr", "yel", "wht")
