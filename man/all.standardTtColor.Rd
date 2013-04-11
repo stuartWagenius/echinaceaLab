@@ -5,7 +5,7 @@
   all.standardTtColor(x)
 }
 \arguments{
-  \item{x}{input character vector}
+  \item{x}{character vector}
 }
 \value{
   logical value returning TRUE if all elements in the
