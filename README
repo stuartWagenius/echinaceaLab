@@ -1,5 +1,8 @@
 Useful R functions for the Echinacea Project.
 
+2013-04-11
+This R package now has documentation for each function, at least a little bit.
+
 2013-01-12
 This R package now has a function to visualize growth chamber settings and performance. 
 
