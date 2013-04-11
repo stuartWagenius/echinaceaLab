@@ -1,0 +1,33 @@
+\name{combineMassFiles}
+\alias{combineMassFiles}
+\title{combine raw mas data txt file into useful output}
+\usage{
+  combineMassFiles(path = ".", writeCsv = FALSE,
+    fileName = "allMassFiles.csv")
+}
+\arguments{
+  \item{path}{character designating directory containing
+  files of interest}
+
+  \item{writeCsv}{logical indicating whether to print
+  output to csv file}
+
+  \item{fileName}{character for name of output file}
+}
+\value{
+  dataframe of mass data from all raw mass files in
+  directory of interest, returned invisibly. A csv file is
+  returned if writeCsv is TRUE.
+}
+\description{
+  this function puts all good records together in one df
+  and, optionally, writes a csv
+}
+\seealso{
+  \code{\link{listBadFiles}} and \code{\link{readMassFile}}
+  and \code{\link{investigateMassFiles}} which are other
+  useful functions that deal with mass files
+}
+\keyword{file}
+\keyword{mass}
+
