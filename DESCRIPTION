@@ -8,3 +8,4 @@ Maintainer: Stuart Wagenius <swagenius@chicagobotanic.org>
 Description: functions to help manage and visualize 
              Echinacea Project datasets
 License: GPL (>= 2)
+LazyData: true
