@@ -2,9 +2,7 @@
 
 ## Installation
 
-You can download the [zip ball](https://github.com/stuartWagenius/echinaceaLab/zipball/master) or [tar ball](https://github.com/stuartWagenius/echinaceaLab/tarball/master), decompress and run `R CMD INSTALL` on it.
-
-Alternatively, you can install then use the **devtools** package to install the development version. Run this code:
+You can install then use the **devtools** package to install the development version. Run this code:
 
 ```r
 install.packages("devtools")
@@ -13,6 +11,11 @@ install_github("echinaceaLab", "stuartWagenius")
 library("echinaceaLab")
 ?echinaceaLab
 ```
+Alternatively, you can download the [zip ball](https://github.com/stuartWagenius/echinaceaLab/zipball/master) and run `utils:::menuInstallLocal()` then `library(echinaceaLab)`. This works on Windows machines.
+
+Mac users can download the [tar ball](https://github.com/stuartWagenius/echinaceaLab/tarball/master), decompress and run `R CMD INSTALL` on it.
+
+
 
 For more information, visit the Echinacea Project website: http://echinaceaProject.org/.
 
