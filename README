@@ -1,13 +1,22 @@
-Useful R functions for the Echinacea Project.
+## Useful R functions for Echinacea Project lab activities.
 
-To use this package, run the following code ...
-# install.packages("devtools") # run this line if you need to install devtools
+## Installation
+
+You can download the [zip ball](https://github.com/stuartWagenius/echinaceaLab/zipball/master) or [tar ball](https://github.com/stuartWagenius/echinaceaLab/tarball/master), decompress and run `R CMD INSTALL` on it.
+
+Alternatively, you can install then use the **devtools** package to install the development version. Run this code:
+
+```r
+install.packages("devtools")
 library("devtools")
 install_github("echinaceaLab", "stuartWagenius")
 library("echinaceaLab")
 ?echinaceaLab
+```
 
-NEWS
+For more information, visit the Echinacea Project website: http://echinaceaProject.org/.
+
+## NEWS
 
 2013-04-12
 This R package now has functions for managing scan files, including checking validity of filenames compared to the 2012 harvest list.
