@@ -28,18 +28,20 @@ loadScans <- function(path = "."){
 
 #' Compare letnos or nolets from scan files with harvest list.
 #' 
-#' This function compares the vector scans$letno with the vector
-#' hh.2012$letno. Make sure you set the working dircory to the directory
-#' that contains the datframes scans and hh.2012.
+#' This function compares the vector scans$letno with the vector hh.2012$letno. 
+#' Make sure you set the working dircory to the directory that contains the 
+#' dataframes scans and hh.2012.
 #' 
 #' @param batch character batch name
-#' @param scansdf dataframe in format of output from function loadScans
+#' @param scansdf dataframe in format of output from function loadScans. The
+#'   default name is scans.
+#'  
 #' @return names list of of interest
 #'   
 #' @keywords scan file batch letno
 #' @seealso \code{\link{loadScans}}
 #'   
-check.batch <- function(scansdf = "scans", batch = "301"){
+check.batch <- function(batch = "301", scansdf = scans){
   w <- setdiff(scansdf[scansdf$batch %in% batch, "letno"],
                hh.2012[hh.2012$batch %in% batch, "letno"])
   m <- setdiff(hh.2012[hh.2012$batch %in% batch, "letno"],
