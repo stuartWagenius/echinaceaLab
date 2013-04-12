@@ -1,5 +1,11 @@
 Useful R functions for the Echinacea Project.
 
+2013-04-12
+This R package now has functions for managing scan files, including checking validity of filenames compared to the 2012 harvest list.
+
+2013-04-12
+This R package now has a dataframe of the heads harvested from cg1 in 2012.
+
 2013-04-11
 This R package now has documentation for each function, at least a little bit.
 
