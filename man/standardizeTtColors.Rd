@@ -19,7 +19,7 @@ x <- c("Black", "blue", "Blue", "Yellow")
 standardizeTtColors(x)
 }
 \seealso{
-  \code{\link{all.standardTtColor}} which tests is
+  \code{\link{all.standardTtColor}} which tests if
   abbreviations are legitimate
 }
 \keyword{color}
