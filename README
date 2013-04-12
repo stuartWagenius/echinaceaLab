@@ -1,5 +1,14 @@
 Useful R functions for the Echinacea Project.
 
+To use this package, run the following code ...
+# install.packages("devtools") # run this line if you need to install devtools
+library("devtools")
+install_github("echinaceaLab", "stuartWagenius")
+library("echinaceaLab")
+?echinaceaLab
+
+NEWS
+
 2013-04-12
 This R package now has functions for managing scan files, including checking validity of filenames compared to the 2012 harvest list.
 
