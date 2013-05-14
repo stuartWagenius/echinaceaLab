@@ -19,6 +19,11 @@
   dircory to the directory that contains the dataframes
   scans and hh.2012.
 }
+\examples{
+\dontrun{
+scans <- loadScans("I:\\\\Departments\\\\Research\\\\EchinaceaCG2012\\\\scanExamples")
+check.batch("321")}
+}
 \seealso{
   \code{\link{loadScans}}
 }

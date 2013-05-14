@@ -8,6 +8,11 @@
 #'   of interest
 #'   
 #' @keywords scan file batch letno
+#' @examples
+#'
+#'\dontrun{
+#'scans <- loadScans("I:\\Departments\\Research\\EchinaceaCG2012\\scanExamples")}
+#'
 #' @seealso \code{\link{check.batch}}
 #'   
 loadScans <- function(path = "."){
@@ -39,6 +44,12 @@ loadScans <- function(path = "."){
 #' @return names list of of interest
 #'   
 #' @keywords scan file batch letno
+#' @examples
+#'
+#'\dontrun{
+#'scans <- loadScans("I:\\Departments\\Research\\EchinaceaCG2012\\scanExamples")
+#'check.batch("321")}
+#'
 #' @seealso \code{\link{loadScans}}
 #'   
 check.batch <- function(batch = "301", scansdf = scans){

@@ -17,6 +17,10 @@
   selected folder and returns a dataframe with all file
   names, their associated batches and letnos.
 }
+\examples{
+\dontrun{
+scans <- loadScans("I:\\\\Departments\\\\Research\\\\EchinaceaCG2012\\\\scanExamples")}
+}
 \seealso{
   \code{\link{check.batch}}
 }
