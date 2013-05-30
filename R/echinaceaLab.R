@@ -1,42 +1,69 @@
 
 
-#' read a raw mass file and output useful objects
+#' Edit the raw mass data files into useful objects.
 #' 
-#' This function reads a csv file and outputs df & csv. The output is three
-#' dataframes--two useful for checking csv. dfs are returned invisibly. The
-#' writeCsv argument defaults to not writing csv file.
+#' This function reads the raw mass data files created during weighing and edits them into a useful dataframe,
+#' with the option of saving them as a csv. The function creates a list of three dataframes, which is returned 
+#' invisibly. One gives the cleaned-up, edited mass data (good). The other two give bad or strange data that may be useful
+#' for investigating mass files. You have the option of saving good records as a csv with the argument writeCsv. 
+#' The writeCsv argument defaults to not writing csv file. 
 #' 
+#' 
+#' 
+
 #' @param file character filename or filename with path of raw mass data file
-#' @param writeCsv logical indicating whether to print output to csv file
+#' @param writeCsv logical indicating whether to print output to csv file (saves automatically to working directory)
 #' @return list of bad lines, strange lines and good masses, returned invisibly.
 #'   A csv file is returned if writeCsv is TRUE.
 #' @keywords mass file
-#' @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
+#' 
+#' @examples
+#'
+#'\dontrun{
+#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
+#'yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
+#'yy$bad
+#'yy$strange
+#'str(yy$good)
+#'dim(yy$bad)}
+#'
+#'  @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
 #'   \code{\link{investigateMassFiles}} which are other useful functions that 
 #'   deal with mass files
+
 readMassFile <- function(file, writeCsv = FALSE){
-  mm <- read.csv(file)
-  rawNames <- names(mm)
-  mm$lineNo <- 1:dim(mm)[1]
-  mm$id <- as.character(mm[ , 1])
-  mm$id
+  xx <- read.csv(file)
+  rawNames <- names(xx)
+  mm <- data.frame(lineNo = 1:dim(xx)[1])
+  mm$id <- as.character(xx[ ,1])
+  mm$timeStamp <- as.character(xx[,2])
   for (i in 2:length(mm$id)) {
-    if(mm[i, "id"] == "") mm[i, "id"] <- mm[i-1, "id"]
+    if (mm[i, "id"] == "") 
+      mm[i, "id"] <- mm[i - 1, "id"]
   }
-  mm$timeStamp <- as.character(mm[ , 2])
-  mm$mass <- (mm[ , 3])
-  mm$note <- as.character(mm[ , 4])
-  mm$header <- names(mm)[4]
+  mm$mass <- (xx[, 3])
+  if (dim(xx)[2] >=4){
+    mm$note <- as.character(xx[, 4])
+  } else {
+    mm$note <- NA
+  }
+  if (dim(xx)[2] !=4){
+    names(mm)[c(4,5)] <- c("massWrong","noteWrong") 
+    warning("wrong number of columns!")
+  }
+  mm$header <- names(xx)[4]
   badLines <- mm[is.na(mm$mass) & mm$timeStamp == "", ]
-  strangeLines <- mm[xor(!is.na(mm$mass), mm$timeStamp != ""), ]
+  strangeLines <- mm[xor(!is.na(mm$mass), mm$timeStamp != ""), ] 
   mm <- mm[!is.na(mm$mass) & mm$timeStamp != "", ]
   mm$fileName <- file
-  goodMasses <- mm[ , 5:11]
-  newFileName <- paste(file, "-goodMass.csv", sep= "")
-  if(writeCsv) write.csv(goodMasses, file = newFileName, row.names = FALSE)
+  goodMasses <- mm
+  head(goodMasses)
+  newFileName <- paste(file, "-goodMass.csv", sep = "")
+  if (writeCsv) 
+    write.csv(goodMasses, file = newFileName, row.names = FALSE)
   ans = list(bad = badLines, strange = strangeLines, good = goodMasses)
   invisible(ans)
-} # end function readMassFile
+} #end readMassFile
 ##################################################
 
 # # examples
@@ -59,11 +86,18 @@ readMassFile <- function(file, writeCsv = FALSE){
 
 #' investigate all txt files in a directory
 #' 
-#' investigate all mass files in a directory to find potential errors
+#' Investigate the raw mass files in a directory to find potential errors.
 #' 
 #' @param path character designating directory containing files of interest
 #' @return data frame that summarizes characteristics of mass files
 #' @keywords mass file
+#' @examples
+#'
+#'\dontrun{
+#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
+#'investigateMassFiles()
+#'}
+#'
 #' @seealso \code{\link{combineMassFiles}} and \code{\link{readMassFile}} and
 #'   \code{\link{listBadFiles}} which are other useful functions that
 #'   deal with mass files
@@ -89,8 +123,8 @@ investigateMassFiles <- function(path = ".") {
 
 #' combine raw mas data txt file into useful output
 #' 
-#' this function puts all good records together in one df and, optionally,
-#' writes a csv
+#' This function combines all good mass records in a single dataframe and, optionally,
+#' writes a csv.
 #' 
 #' @param path character designating directory containing files of interest
 #' @param writeCsv logical indicating whether to print output to csv file
@@ -98,6 +132,12 @@ investigateMassFiles <- function(path = ".") {
 #' @return dataframe of mass data from all raw mass files in directory of 
 #'   interest, returned invisibly. A csv file is returned if writeCsv is TRUE.
 #' @keywords mass file
+#' @examples
+#'
+#'\dontrun{
+#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_goodFiles")
+#'tt <- combineMassFiles()
+#'}
 #' @seealso \code{\link{listBadFiles}} and \code{\link{readMassFile}} and 
 #'   \code{\link{investigateMassFiles}} which are other useful functions that 
 #'   deal with mass files
@@ -128,14 +168,21 @@ combineMassFiles <- function(path = ".", writeCsv = FALSE, fileName = "allMassFi
 
 
 
-#' find mass files that don't make proper csvs
+#' Find mass files that don't make proper csvs,
 #' 
-#' find mass files that don't return a good csv files, probably resulting from 
-#' an extra comma in the first line
+#' Find mass files that don't return a good csv files. Bad files usually result from an extra
+#' comma in the first line.
+#' 
 #' 
 #' @param path character designating directory containing files of interest
 #' @return character vector of bad file names
 #' @keywords mass file
+#' @examples
+#'
+#'\dontrun{
+#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
+#' listBadFiles( )
+#' }
 #' @seealso \code{\link{combineMassFiles}} and \code{\link{readMassFile}} and
 #'   \code{\link{investigateMassFiles}} which are other useful functions that
 #'   deal with mass files
@@ -158,14 +205,20 @@ listBadFiles <- function(path = ".") {
 
 
 
-#' count values greater than a threshold value
+#' Count values greater than a threshold value
 #' 
-#' counts full achenes in a sample of weighed achenes
+#' Counts full achenes in a sample of weighed achenes. The default threshold is 0.002g.
 #' 
 #' @param x numeric vector
 #' @param cut.off numeric value threshold default is 0.002
 #' @return integer count of elements in x greater than the threshold cut.off
 #' @keywords full achene
+#' @examples
+#'
+#'\dontrun{
+#' dd <- read.csv("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_csv\\sample.csv")
+#' full(dd$mass)
+#' }
 #' @seealso \code{\link{empty}} which counts elements less than the threshold
 #'   value
 full <- function(x, cut.off = 0.002) sum(x > cut.off)
@@ -178,6 +231,12 @@ full <- function(x, cut.off = 0.002) sum(x > cut.off)
 #' @param cut.off numeric value threshold default is 0.002
 #' @return integer count of elements in x less than the threshold cut.off
 #' @keywords empty achene
+#' @examples
+#'
+#'\dontrun{
+#' dd <- read.csv("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_csv\\sample.csv")
+#' empty(dd$mass)
+#' }
 #' @seealso \code{\link{full}} which counts elements greater than the threshold
 #'   value
 empty <- function(x, cut.off = 0.002) sum(x <= cut.off)
