@@ -1,6 +1,6 @@
 \name{full}
 \alias{full}
-\title{count values greater than a threshold value}
+\title{Count values greater than a threshold value}
 \usage{
   full(x, cut.off = 0.002)
 }
@@ -14,7 +14,14 @@
   cut.off
 }
 \description{
-  counts full achenes in a sample of weighed achenes
+  Counts full achenes in a sample of weighed achenes. The
+  default threshold is 0.002g.
+}
+\examples{
+\dontrun{
+dd <- read.csv("I:\\\\Departments\\\\Research\\\\EchinaceaVolunteers\\\\Balance\\\\sampleForEchLab\\\\CG2009_csv\\\\sample.csv")
+full(dd$mass)
+}
 }
 \seealso{
   \code{\link{empty}} which counts elements less than the

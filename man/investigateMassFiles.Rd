@@ -12,8 +12,14 @@
   data frame that summarizes characteristics of mass files
 }
 \description{
-  investigate all mass files in a directory to find
-  potential errors
+  Investigate the raw mass files in a directory to find
+  potential errors.
+}
+\examples{
+\dontrun{
+setwd("I:\\\\Departments\\\\Research\\\\EchinaceaVolunteers\\\\Balance\\\\sampleForEchLab\\\\CG2009_rawFiles")
+investigateMassFiles()
+}
 }
 \seealso{
   \code{\link{combineMassFiles}} and

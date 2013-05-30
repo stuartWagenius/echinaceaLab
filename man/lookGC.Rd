@@ -1,6 +1,6 @@
 \name{lookGC}
 \alias{lookGC}
-\title{Check the Conviron Growth Chambers 88 and 89 for a single date.}
+\title{Visualize conditions in the Conviron Growth Chambers 88 and 89 for a single date.}
 \usage{
   lookGC(date = "", chamber = "", printPDF = FALSE)
 }
