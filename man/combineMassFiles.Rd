@@ -20,8 +20,14 @@
   returned if writeCsv is TRUE.
 }
 \description{
-  this function puts all good records together in one df
-  and, optionally, writes a csv
+  This function combines all good mass records in a single
+  dataframe and, optionally, writes a csv.
+}
+\examples{
+\dontrun{
+setwd("I:\\\\Departments\\\\Research\\\\EchinaceaVolunteers\\\\Balance\\\\sampleForEchLab\\\\CG2009_goodFiles")
+tt <- combineMassFiles()
+}
 }
 \seealso{
   \code{\link{listBadFiles}} and \code{\link{readMassFile}}

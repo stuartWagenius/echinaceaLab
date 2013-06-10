@@ -1,4 +1,4 @@
-#'Check the Conviron Growth Chambers 88 and 89 for a single date.
+#'Visualize conditions in the Conviron Growth Chambers 88 and 89 for a single date.
 #'@description Reads data files located in  the folders 
 #'  \url{I:/Departments/Research/GrowthChamber/chamber88} and 
 #'  \url{I:/Departments/Research/GrowthChamber/chamber89} and generates graphs 

@@ -1,6 +1,6 @@
 \name{readMassFile}
 \alias{readMassFile}
-\title{read a raw mass file and output useful objects}
+\title{Edit the raw mass data files into useful objects.}
 \usage{
   readMassFile(file, writeCsv = FALSE)
 }
@@ -9,7 +9,8 @@
   raw mass data file}
 
   \item{writeCsv}{logical indicating whether to print
-  output to csv file}
+  output to csv file (saves automatically to working
+  directory)}
 }
 \value{
   list of bad lines, strange lines and good masses,
@@ -17,10 +18,25 @@
   is TRUE.
 }
 \description{
-  This function reads a csv file and outputs df & csv. The
-  output is three dataframes--two useful for checking csv.
-  dfs are returned invisibly. The writeCsv argument
-  defaults to not writing csv file.
+  This function reads the raw mass data files created
+  during weighing and edits them into a useful dataframe,
+  with the option of saving them as a csv. The function
+  creates a list of three dataframes, which is returned
+  invisibly. One gives the cleaned-up, edited mass data
+  (good). The other two give bad or strange data that may
+  be useful for investigating mass files. You have the
+  option of saving good records as a csv with the argument
+  writeCsv. The writeCsv argument defaults to not writing
+  csv file.
+}
+\examples{
+\dontrun{
+setwd("I:\\\\Departments\\\\Research\\\\EchinaceaVolunteers\\\\Balance\\\\sampleForEchLab\\\\CG2009_rawFiles")
+yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
+yy$bad
+yy$strange
+str(yy$good)
+dim(yy$bad)}
 }
 \seealso{
   \code{\link{combineMassFiles}} and
