@@ -1,6 +1,6 @@
 \name{listBadFiles}
 \alias{listBadFiles}
-\title{find mass files that don't make proper csvs}
+\title{Find mass files that don't make proper csvs,}
 \usage{
   listBadFiles(path = ".")
 }
@@ -12,8 +12,15 @@
   character vector of bad file names
 }
 \description{
-  find mass files that don't return a good csv files,
-  probably resulting from an extra comma in the first line
+  Find mass files that don't return a good csv files. Bad
+  files usually result from an extra comma in the first
+  line.
+}
+\examples{
+\dontrun{
+setwd("I:\\\\Departments\\\\Research\\\\EchinaceaVolunteers\\\\Balance\\\\sampleForEchLab\\\\CG2009_rawFiles")
+listBadFiles( )
+}
 }
 \seealso{
   \code{\link{combineMassFiles}} and
