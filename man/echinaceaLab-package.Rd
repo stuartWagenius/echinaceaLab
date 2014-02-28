@@ -12,8 +12,8 @@ Functions to help manage and visualize Echinacea Project datasets.
 \tabular{ll}{
 Package: \tab echinaceaLab\cr
 Type: \tab Package\cr
-Version: \tab 0.002\cr
-Date: \tab 2012-11-20\cr
+Version: \tab 0.003\cr
+Date: \tab 2014-02-28\cr
 License: \tab What license is it under?\cr
 }
 ~~ An overview of how to use the package, including the most important functions ~~
