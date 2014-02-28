@@ -37,9 +37,10 @@ loadScans <- function(path = "."){
 #' Make sure you set the working dircory to the directory that contains the 
 #' dataframes scans and hh.2012.
 #' 
-#' @param batch character batch name
+#' @param batch character the hh.2013 dataframe has the batch field populated with experiment name. In 2012 and before batch was an integer identifier for a garden in cg1. batch defaults to SPP.
 #' @param scansdf dataframe in format of output from function loadScans. The
 #'   default name is scans.
+#' @param harvestFile dataframe such as hh.2012 or hh.2013
 #'  
 #' @return names list of of interest
 #'   
