@@ -52,12 +52,12 @@ loadScans <- function(path = "."){
 #'
 #' @seealso \code{\link{loadScans}}
 #'   
-check.batch <- function(batch = "301", scansdf = scans){
+check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2013){
   w <- setdiff(scansdf[scansdf$batch %in% batch, "letno"],
-               hh.2012[hh.2012$batch %in% batch, "letno"])
-  m <- setdiff(hh.2012[hh.2012$batch %in% batch, "letno"],
+               harvestFile[harvestFile$batch %in% batch, "letno"])
+  m <- setdiff(harvestFile[harvestFile$batch %in% batch, "letno"],
                scansdf[scansdf$batch %in% batch, "letno"])
-  b  <- length(hh.2012[hh.2012$batch %in% batch, "letno"])
+  b  <- length(harvestFile[harvestFile$batch %in% batch, "letno"])
   s  <- length(scansdf[scansdf$batch %in% batch, "letno"])
   list(batchCount = b, scanCount = s, missingCount = length(m), 
        missing = m, wrong = w)
