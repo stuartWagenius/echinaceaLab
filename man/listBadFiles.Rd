@@ -2,19 +2,18 @@
 \alias{listBadFiles}
 \title{Find mass files that don't make proper csvs,}
 \usage{
-  listBadFiles(path = ".")
+listBadFiles(path = ".")
 }
 \arguments{
   \item{path}{character designating directory containing
   files of interest}
 }
 \value{
-  character vector of bad file names
+character vector of bad file names
 }
 \description{
-  Find mass files that don't return a good csv files. Bad
-  files usually result from an extra comma in the first
-  line.
+Find mass files that don't return a good csv files. Bad
+files usually result from an extra comma in the first line.
 }
 \examples{
 \dontrun{
@@ -23,10 +22,10 @@ listBadFiles( )
 }
 }
 \seealso{
-  \code{\link{combineMassFiles}} and
-  \code{\link{readMassFile}} and
-  \code{\link{investigateMassFiles}} which are other useful
-  functions that deal with mass files
+\code{\link{combineMassFiles}} and
+\code{\link{readMassFile}} and
+\code{\link{investigateMassFiles}} which are other useful
+functions that deal with mass files
 }
 \keyword{file}
 \keyword{mass}

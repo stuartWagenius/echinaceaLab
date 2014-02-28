@@ -2,22 +2,27 @@
 \alias{check.batch}
 \title{Compare letnos or nolets from scan files with harvest list.}
 \usage{
-  check.batch(batch = "301", scansdf = scans)
+check.batch(batch = "SPP", scansdf = scans, harvestFile = hh.2013)
 }
 \arguments{
-  \item{batch}{character batch name}
+  \item{batch}{character the hh.2013 dataframe has the
+  batch field populated with experiment name. In 2012 and
+  before batch was an integer identifier for a garden in
+  cg1. batch defaults to SPP.}
 
   \item{scansdf}{dataframe in format of output from
   function loadScans. The default name is scans.}
+
+  \item{harvestFile}{dataframe such as hh.2012 or hh.2013}
 }
 \value{
-  names list of of interest
+names list of of interest
 }
 \description{
-  This function compares the vector scans$letno with the
-  vector hh.2012$letno. Make sure you set the working
-  dircory to the directory that contains the dataframes
-  scans and hh.2012.
+This function compares the vector scans$letno with the
+vector hh.2012$letno. Make sure you set the working dircory
+to the directory that contains the dataframes scans and
+hh.2012.
 }
 \examples{
 \dontrun{
@@ -25,7 +30,7 @@ scans <- loadScans("I:\\\\Departments\\\\Research\\\\EchinaceaCG2012\\\\scanExam
 check.batch("321")}
 }
 \seealso{
-  \code{\link{loadScans}}
+\code{\link{loadScans}}
 }
 \keyword{batch}
 \keyword{file}

@@ -2,7 +2,7 @@
 \alias{readMassFile}
 \title{Edit the raw mass data files into useful objects.}
 \usage{
-  readMassFile(file, writeCsv = FALSE)
+readMassFile(file, writeCsv = FALSE)
 }
 \arguments{
   \item{file}{character filename or filename with path of
@@ -13,21 +13,19 @@
   directory)}
 }
 \value{
-  list of bad lines, strange lines and good masses,
-  returned invisibly.  A csv file is returned if writeCsv
-  is TRUE.
+list of bad lines, strange lines and good masses, returned
+invisibly.  A csv file is returned if writeCsv is TRUE.
 }
 \description{
-  This function reads the raw mass data files created
-  during weighing and edits them into a useful dataframe,
-  with the option of saving them as a csv. The function
-  creates a list of three dataframes, which is returned
-  invisibly. One gives the cleaned-up, edited mass data
-  (good). The other two give bad or strange data that may
-  be useful for investigating mass files. You have the
-  option of saving good records as a csv with the argument
-  writeCsv. The writeCsv argument defaults to not writing
-  csv file.
+This function reads the raw mass data files created during
+weighing and edits them into a useful dataframe, with the
+option of saving them as a csv. The function creates a list
+of three dataframes, which is returned invisibly. One gives
+the cleaned-up, edited mass data (good). The other two give
+bad or strange data that may be useful for investigating
+mass files. You have the option of saving good records as a
+csv with the argument writeCsv. The writeCsv argument
+defaults to not writing csv file.
 }
 \examples{
 \dontrun{
@@ -39,10 +37,10 @@ str(yy$good)
 dim(yy$bad)}
 }
 \seealso{
-  \code{\link{combineMassFiles}} and
-  \code{\link{listBadFiles}} and
-  \code{\link{investigateMassFiles}} which are other useful
-  functions that deal with mass files
+\code{\link{combineMassFiles}} and
+\code{\link{listBadFiles}} and
+\code{\link{investigateMassFiles}} which are other useful
+functions that deal with mass files
 }
 \keyword{file}
 \keyword{mass}

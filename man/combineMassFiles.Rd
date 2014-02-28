@@ -2,8 +2,8 @@
 \alias{combineMassFiles}
 \title{combine raw mas data txt file into useful output}
 \usage{
-  combineMassFiles(path = ".", writeCsv = FALSE,
-    fileName = "allMassFiles.csv")
+combineMassFiles(path = ".", writeCsv = FALSE,
+  fileName = "allMassFiles.csv")
 }
 \arguments{
   \item{path}{character designating directory containing
@@ -15,13 +15,13 @@
   \item{fileName}{character for name of output file}
 }
 \value{
-  dataframe of mass data from all raw mass files in
-  directory of interest, returned invisibly. A csv file is
-  returned if writeCsv is TRUE.
+dataframe of mass data from all raw mass files in directory
+of interest, returned invisibly. A csv file is returned if
+writeCsv is TRUE.
 }
 \description{
-  This function combines all good mass records in a single
-  dataframe and, optionally, writes a csv.
+This function combines all good mass records in a single
+dataframe and, optionally, writes a csv.
 }
 \examples{
 \dontrun{
@@ -30,9 +30,9 @@ tt <- combineMassFiles()
 }
 }
 \seealso{
-  \code{\link{listBadFiles}} and \code{\link{readMassFile}}
-  and \code{\link{investigateMassFiles}} which are other
-  useful functions that deal with mass files
+\code{\link{listBadFiles}} and \code{\link{readMassFile}}
+and \code{\link{investigateMassFiles}} which are other
+useful functions that deal with mass files
 }
 \keyword{file}
 \keyword{mass}
