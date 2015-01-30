@@ -27,6 +27,7 @@ loadScans <- function(path = "."){
   lets <- substr(nolets, nchar(nolets) - 1, nchar(nolets)) 
   nos <- substr(nolets, 1, nchar(nolets) - 2)
   scans$letno <- paste(toupper(lets), nos, sep = "-")
+  scans <<- scans
   scans
 }
 
