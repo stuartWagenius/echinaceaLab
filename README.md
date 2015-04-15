@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2015-04-15
+This R package now has a dataframe of the heads harvested from p1 and p2 in 2014. Function check.batch can now check batches from 2012, 2013 and 2014.
+
 2014-02-28
 This R package now has a dataframe of the heads harvested from cg1 in 2013. Function check.batch can now check batches from 2012 and 2013.
 
