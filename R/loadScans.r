@@ -38,7 +38,7 @@ loadScans <- function(path = "."){
 #' Make sure you set the working dircory to the directory that contains the 
 #' dataframes scans and hh.2012.
 #' 
-#' @param batch character the hh.2013 dataframe has the batch field populated with experiment name. In 2012 and before batch was an integer identifier for a garden in cg1. batch defaults to SPP.
+#' @param batch character the hh.2013 nad hh.2014 dataframes has the batch field populated with experiment name. In 2012 and before batch was an integer identifier for a garden in cg1. batch defaults to SPP.
 #' @param scansdf dataframe in format of output from function loadScans. The
 #'   default name is scans.
 #' @param harvestFile dataframe such as hh.2012 or hh.2013
@@ -54,7 +54,7 @@ loadScans <- function(path = "."){
 #'
 #' @seealso \code{\link{loadScans}}
 #'   
-check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2013){
+check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2014){
   w <- setdiff(scansdf[scansdf$batch %in% batch, "letno"],
                harvestFile[harvestFile$batch %in% batch, "letno"])
   m <- setdiff(harvestFile[harvestFile$batch %in% batch, "letno"],
