@@ -64,3 +64,54 @@ check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2014){
   list(batchCount = b, scanCount = s, missingCount = length(m), 
        missing = m, wrong = w)
 }
+
+
+#' Transfer files from one folder to another
+#' 
+#' This function will compare the contents of two folders and transfer
+#' any files that are not in the second folder but are in the first folder
+#' from the first to the second. It will also inform you how many files are
+#' in the second folder but not the first
+#' 
+#' @param from path to a folder that you want all files from
+#' @param to path to a folder which you want files transferred to
+#' @param showNotInFrom logical: should files not in the from folder but in
+#'  the to folder be printed
+#' @keywords scans
+#' 
+#' @examples
+#' \dontrun{
+#' path <- "C:\\Users\\dhanson\\Documents\\scanTest"
+#' pathos <- "E:\\cg2014scans\\exPt2"
+#' transferFiles(pathos, path, showNotInFrom = TRUE)}
+#'
+transferFiles <- function(from, to, showNotInFrom = FALSE) {
+  xFrom <- list.files(from, full.names = FALSE, recursive = TRUE, 
+                      include.dirs = FALSE)
+  filenamesFrom <- basename(xFrom)
+  pathsFrom <- dirname(xFrom)
+  xTo <- list.files(to, full.names = FALSE, recursive = TRUE, 
+                    include.dirs = FALSE)
+  filenamesTo <- basename(xTo)
+  pathsTo <- dirname(xTo)
+  
+  
+  notInTo <- setdiff(filenamesFrom, filenamesTo)
+  
+  for (fn in notInTo) {
+    print(paste("copying", fn))
+    fromFn <- paste(from, fn, sep="\\")
+    toFn <- paste(to, fn, sep="\\")
+    file.copy(fromFn, to)
+  }
+  message(paste("Copied", length(notInTo), "file(s) from", from, "to", to))
+  message()
+  
+  notInFrom <- setdiff(filenamesTo, filenamesFrom)
+  message(paste(length(notInFrom), "files are in", to, "but not in", from))
+  if (showNotInFrom) {
+    message()
+    message(paste("Files not in", from, ":"))
+    message(cat(notInFrom))
+  }
+}
