@@ -115,3 +115,34 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
     message(cat(notInFrom))
   }
 }
+
+#' Transfer files from all subfolders to analogous subfolders
+#' 
+#' This function will user the transferFiles function to go through all
+#' subfolders of the selected folder and transfer files not in one folder
+#' to the other
+#' 
+#' @param from path to a folder whose subfolders you want checked
+#' @param to the drive on which the wanted folder is found (e.g. "F:\\" or "D:\\")
+#' @param askBeforeContinue logical: should a message be printed before continuing
+#'  to check other subfolders
+#' @keywords scans
+#' 
+#' @examples
+#' \dontrun{
+#' path1 <- "C:\\cg2014scans"
+#' pathos <- "E:\\cg2014scans"
+#' transferAllFiles(pathos, path)}
+#'
+transferAllFiles <- function(from, to, askBeforeContinue = TRUE) {
+  pathsFrom <- list.dirs(from)[-1]
+  pathsTo <- gsub("C:\\\\", paste(to, "\\"), pathsFrom)
+  
+  for (i in 1:length(pathsFrom)) {
+    transferFiles(pathsFrom[i], pathsTo[i])
+    if (askBeforeContinue & (i != length(pathsFrom))) {
+      message("press enter to do next folder:")
+      readline()
+    }
+  }
+}
