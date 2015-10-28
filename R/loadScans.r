@@ -100,8 +100,8 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
   
   for (fn in notInTo) {
     print(paste("copying", fn))
-    fromFn <- paste(from, fn, sep="\\")
-    toFn <- paste(to, fn, sep="\\")
+    fromFn <- paste(from, fn, sep="/")
+    toFn <- paste(to, fn, sep="/")
     file.copy(fromFn, to)
   }
   message(paste("Copied", length(notInTo), "file(s) from", from, "to", to))
@@ -123,20 +123,20 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
 #' to the other
 #' 
 #' @param from path to a folder whose subfolders you want checked
-#' @param to the drive on which the wanted folder is found (e.g. "F:\\" or "D:\\")
+#' @param to the drive on which the wanted folder is found (e.g. "F:/" or "D:/")
 #' @param askBeforeContinue logical: should a message be printed before continuing
 #'  to check other subfolders
 #' @keywords scans
 #' 
 #' @examples
 #' \dontrun{
-#' path1 <- "C:\\cg2014scans"
-#' pathos <- "E:\\cg2014scans"
+#' path1 <- "C:/cg2014scans"
+#' pathos <- "E:/"
 #' transferAllFiles(pathos, path)}
 #'
 transferAllFiles <- function(from, to, askBeforeContinue = TRUE) {
   pathsFrom <- list.dirs(from)[-1]
-  pathsTo <- gsub("C:\\\\", paste(to, "\\"), pathsFrom)
+  pathsTo <- gsub("C:/", to, pathsFrom)
   
   for (i in 1:length(pathsFrom)) {
     transferFiles(pathsFrom[i], pathsTo[i])
