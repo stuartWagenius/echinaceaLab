@@ -17,7 +17,8 @@ the to folder be printed}
 \description{
 This function will compare the contents of two folders and transfer
 any files that are not in the second folder but are in the first folder
-from the first to the second. It will also inform you how many files are
+from the first to the second. If the second folder doesn't exist, it will
+create one. It will also inform you how many files are
 in the second folder but not the first
 }
 \examples{
