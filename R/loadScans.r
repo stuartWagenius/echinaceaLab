@@ -70,7 +70,8 @@ check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2014){
 #' 
 #' This function will compare the contents of two folders and transfer
 #' any files that are not in the second folder but are in the first folder
-#' from the first to the second. It will also inform you how many files are
+#' from the first to the second. If the second folder doesn't exist, it will
+#' create one. It will also inform you how many files are
 #' in the second folder but not the first
 #' 
 #' @param from path to a folder that you want all files from
@@ -90,6 +91,7 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
                       include.dirs = FALSE)
   filenamesFrom <- basename(xFrom)
   pathsFrom <- dirname(xFrom)
+  if (!dir.exists(to)) dir.create(to)
   xTo <- list.files(to, full.names = FALSE, recursive = TRUE, 
                     include.dirs = FALSE)
   filenamesTo <- basename(xTo)
@@ -104,7 +106,7 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
     toFn <- paste(to, fn, sep="/")
     file.copy(fromFn, to)
   }
-  message(paste("Copied", length(notInTo), "file(s) from", from, "to", to))
+  cat("Copied", length(notInTo), "file(s) from", from, "to", to)
   message()
   
   notInFrom <- setdiff(filenamesTo, filenamesFrom)
