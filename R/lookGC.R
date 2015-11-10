@@ -7,7 +7,7 @@
 #'  values specified on the Conviron System (red dots). Graphs also give range 
 #'  and mean of environmental values throughout 24 hours. The user may visualize
 #'  graphs in R or save them as a PDF.
-#'@param date character a date in the format %Y-%m-%d  (e.g. "2012-01-09")
+#'@param date character a date in the format \%Y-\%m-\%d  (e.g. "2012-01-09")
 #'@param chamber character growth chamber88 or 89 (in quotes)
 #'@param printPDF logical indicating whether to print output to pdf file
 #'@return multipanel figure. If printPDF = FALSE (the default), the function 

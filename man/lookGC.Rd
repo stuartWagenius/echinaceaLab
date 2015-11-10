@@ -7,7 +7,7 @@
 lookGC(date = "", chamber = "", printPDF = FALSE)
 }
 \arguments{
-\item{date}{character a date in the format %Y-%m-%d  (e.g. "2012-01-09")}
+\item{date}{character a date in the format \%Y-\%m-\%d  (e.g. "2012-01-09")}
 
 \item{chamber}{character growth chamber88 or 89 (in quotes)}
 
