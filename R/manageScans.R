@@ -16,13 +16,13 @@
 #' @seealso \code{\link{check.batch}}
 #'   
 loadScans <- function(path = "."){
-    x <- list.files(path, full.names = FALSE, 
-                    recursive = TRUE, include.dirs = FALSE)
-    filename <- basename(x)
-    paths <- dirname(x) 
+  x <- list.files(path, full.names = FALSE, 
+                  recursive = TRUE, include.dirs = FALSE)
+  filename <- basename(x)
+  paths <- dirname(x) 
   scans <- data.frame(batch = paths, filename = filename)
   x <- as.character(scans$filename)
- #remove scan prefix and .jpg--this should work for 3 or 4-digit batch numbers
+  #remove scan prefix and .jpg--this should work for 3 or 4-digit batch numbers
   nolets <- substr(x, nchar(x) - (nchar(x) - 2), nchar(x) - 4)
   lets <- substr(nolets, nchar(nolets) - 1, nchar(nolets)) 
   nos <- substr(nolets, 1, nchar(nolets) - 2)
@@ -32,13 +32,14 @@ loadScans <- function(path = "."){
 }
 
 
-#' Compare letnos or nolets from scan files with harvest list.
+#' Compare letnos or nolets from scan files with harvest list for an 
+#' experiment.
 #' 
 #' This function compares the vector scans$letno with the vector hh.2012$letno. 
-#' Make sure you set the working dircory to the directory that contains the 
+#' Make sure you set the working directory to the directory that contains the 
 #' dataframes scans and hh.2012.
 #' 
-#' @param batch character the hh.2013 nad hh.2014 dataframes has the batch field populated with experiment name. In 2012 and before batch was an integer identifier for a garden in cg1. batch defaults to SPP.
+#' @param batch character the hh.2013 and hh.2014 dataframes has the batch field populated with experiment name. In 2012 and before batch was an integer identifier for a garden in cg1. batch defaults to SPP.
 #' @param scansdf dataframe in format of output from function loadScans. The
 #'   default name is scans.
 #' @param harvestFile dataframe such as hh.2012 or hh.2013
@@ -53,6 +54,7 @@ loadScans <- function(path = "."){
 #'check.batch("321")}
 #'
 #' @seealso \code{\link{loadScans}}
+#' @seealso \code{\link{check.year}}
 #'   
 check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2014){
   w <- setdiff(scansdf[scansdf$batch %in% batch, "letno"],
@@ -63,6 +65,41 @@ check.batch <- function(batch = "SPP", scansdf = scans, harvestFile = hh.2014){
   s  <- length(scansdf[scansdf$batch %in% batch, "letno"])
   list(batchCount = b, scanCount = s, missingCount = length(m), 
        missing = m, wrong = w)
+}
+
+#' Compare letnos or nolets from scan files with harvest list for a given 
+#' year.
+#' 
+#' This function runs check.batch over all experiments and then creates a
+#' summary for what is missing.
+#' 
+#' @param scanFolder the location of the scan files
+#' @param harvestFile one of the hh.year files that comes with this package
+#' @param writeTo the file to which the summary will be written
+#' @return none, write to a csv
+#' 
+check.year <- function(scanFolder, harvestFile, writeTo = "./scanSummary.csv") {
+  loadScans(scanFolder)
+  # remove "extra" files, if present
+  scans <- scans[!(scans$filename %in% c("Thumbs.db", "itfiles.ini")),]
+  # folders that should be there but aren't
+  stillNeed <- setdiff(levels(hh.2013$batch), levels(scans$batch))
+  # folders that are there but shouldn't be
+  ignore <- setdiff(levels(scans$batch), levels(hh.2013$batch))
+  
+  # check batch for all batches separately
+  batchecks <- aaply(levels(scans$batch), .margins = 1, .fun = check.batch, harvestFile=hh.2013)
+  batchecks <- cbind(batchecks, levels(scans$batch))
+  colnames(batchecks)[6] <- "batchName"
+  batchecks <- batchecks[,c(6,1,2,3,4,5)]
+  
+  # rename writeTo to have date
+  write.csv(batchecks, file = writeTo, row.names = F)
+  write.table(c("need experiments:", stillNeed, "\n"), file = writeTo, append = T,
+              row.names = F, col.names = F)
+  write.table(c("ignore:", ignore, "\n"), file = writeTo, append = T,
+              row.names = F, col.names = F)
+  message("File can be found here:", writeTo) 
 }
 
 

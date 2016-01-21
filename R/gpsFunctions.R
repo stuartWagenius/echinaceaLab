@@ -15,7 +15,7 @@ convertXMLtoRdata <- function(fn,
                               writePath = folderRD
 ) {
   fileName <- paste(folderXML, fn, sep="")
-  library(XML)
+  # library(XML)
   
   # get data into a more readable format
   dd.txt <- readLines(fileName)
@@ -27,7 +27,7 @@ convertXMLtoRdata <- function(fn,
   dd.txt <- gsub("<Name>survNote</Name><Type>", "<Name>survNote</Name><Value> </Value><Type>", dd.txt)
   
   # convert text to xml ##
-  dd <- xmlTreeParse(dd.txt, useInternal=TRUE)
+  dd <- xmlTreeParse(dd.txt, useInternalNodes=TRUE)
   node <- xpathApply(dd, "//Point")  
   ff <- lapply(node, saveXML)
   # remove unwanted data
@@ -151,6 +151,7 @@ makeGPSFileName <- function(fileName) {
 #'  Adding ".RData" is not necessary. 
 #' @param folder the folder where the RData file can be found
 #' @keywords gps
+#' @return none, but display informative messages about where any errors or notes occur
 #'
 errorCheckRData <- function(dataFileName, folder = folderRD) {
   load(paste(folder, dataFileName, ".RData", sep=""))
@@ -180,8 +181,7 @@ errorCheckRData <- function(dataFileName, folder = folderRD) {
 }
 
 
-# appends to our big csv file of everything ####
-#' Add files for surv.csv
+#' Add files to surv.csv
 #' 
 #' Add all points from the RData file into surv.csv. If surv.csv doesn't exist,
 #' it will be created. Currently it gets saved in the working directory but

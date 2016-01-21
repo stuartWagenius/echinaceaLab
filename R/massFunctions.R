@@ -19,17 +19,18 @@
 #' 
 #' @examples
 #'
-#'\dontrun{
-#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
-#'yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
-#'yy$bad
-#'yy$strange
-#'str(yy$good)
-#'dim(yy$bad)}
+#' \dontrun{
+#' setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
+#' yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
+#' yy$bad
+#' yy$strange
+#' str(yy$good)
+#' dim(yy$bad)
+#' }
 #'
-#'  @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
-#'   \code{\link{investigateMassFiles}} which are other useful functions that 
-#'   deal with mass files
+#' @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
+#' \code{\link{investigateMassFiles}} which are other useful functions that 
+#' deal with mass files
 
 readMassFile <- function(file, writeCsv = FALSE){
   xx <- read.csv(file)
