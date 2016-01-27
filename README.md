@@ -7,7 +7,7 @@ You can install then use the **devtools** package to install the development ver
 ```r
 install.packages("devtools")
 library("devtools")
-install_github("echinaceaLab", "stuartWagenius")
+install_github("stuartWagenius/echinaceaLab")
 library("echinaceaLab")
 ?echinaceaLab
 ```

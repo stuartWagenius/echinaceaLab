@@ -19,17 +19,18 @@
 #' 
 #' @examples
 #'
-#'\dontrun{
-#'setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
-#'yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
-#'yy$bad
-#'yy$strange
-#'str(yy$good)
-#'dim(yy$bad)}
+#' \dontrun{
+#' setwd("I:\\Departments\\Research\\EchinaceaVolunteers\\Balance\\sampleForEchLab\\CG2009_rawFiles")
+#' yy <- readMassFile("sm 21 oct 1899 batch 9.txt", writeCsv = FALSE)
+#' yy$bad
+#' yy$strange
+#' str(yy$good)
+#' dim(yy$bad)
+#' }
 #'
-#'  @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
-#'   \code{\link{investigateMassFiles}} which are other useful functions that 
-#'   deal with mass files
+#' @seealso \code{\link{combineMassFiles}} and \code{\link{listBadFiles}} and 
+#' \code{\link{investigateMassFiles}} which are other useful functions that 
+#' deal with mass files
 
 readMassFile <- function(file, writeCsv = FALSE){
   xx <- read.csv(file)
@@ -240,60 +241,3 @@ full <- function(x, cut.off = 0.002) sum(x > cut.off)
 #' @seealso \code{\link{full}} which counts elements greater than the threshold
 #'   value
 empty <- function(x, cut.off = 0.002) sum(x <= cut.off)
-
-
-#' Standardize twist-tie colors
-#' 
-#' @param x input character vector
-#' @return  character vector the same length as input vector with each element
-#'   a legitimate abbreviation of the color
-#' @keywords twist-tie color
-#' @seealso \code{\link{all.standardTtColor}} which tests if abbreviations are 
-#'   legitimate
-#' @export
-#' @examples
-#' x <- c("Black", "blue", "Blue", "Yellow")
-#' standardizeTtColors(x)
-standardizeTtColors <- function(x){
-  x <- gsub("Yellow", "yel", x)
-  x <- gsub("yellow", "yel", x)
-  x <- gsub("ylw", "yel", x)
-  x <- gsub("Green", "grn", x)
-  x <- gsub("green", "grn", x)
-  x <- gsub("Black", "bac", x)
-  x <- gsub("black", "bac", x)
-  x <- gsub("Blk", "bac", x)
-  x <- gsub("blk", "bac", x)
-  x <- gsub("White", "wht", x)
-  x <- gsub("white", "wht", x)
-  x <- gsub("Red", "red", x)
-  x <- gsub("Clear", "clr", x)
-  x <- gsub("clear", "clr", x)
-  x <- gsub("Blue", "blu", x)
-  x <- gsub("blue", "blu", x)
-  x
-}
-
-# another function for twist-tie colors# ####
-# this needs the entire list of legit colors and color combinations
-# we could use a function is.standardTtColor that retuns a logical vector
-
-#' Check if twist-ties abbreviation are legitimate.
-#' 
-#' @param x character vector
-#' @return logical value returning TRUE if all elements in the string are
-#'   legitimate tt color abreviations
-#' @keywords twist-tie
-#' @seealso \code{\link{standardizeTtColors}} which abbreviates colors
-#'
-#' @examples
-#' all.standardTtColor(c("blue", "Blue", "blu"))
-#' x <- c("bac", "blu", "clr", "yel", "wht")
-#' all.standardTtColor(x)
-
-all.standardTtColor <- function(x) {
-  standard <- c("bac", "bacred", "bacwht", "blu", "bluclr", "bluyel", "clr", 
-                "grn", "grnbac", "grnred", "grnwht", "org", "red", "redwht",
-                "wht", "yel", "yelbac", "yelgrn", "nott")
-  all(x %in% standard)
-}
