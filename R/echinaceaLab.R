@@ -1,0 +1,133 @@
+#' @name echinaceaLab-package
+#' @aliases echinaceaLab-package echinaceaLab
+#' @docType package
+#' @title  echinaceaLab
+#' @description Functions to help manage and visualize Echinacea Project datasets.
+#' @details This package contains useful functions for the lab and in the field
+#' see examples for how to use the functions
+#' @author Stuart Wagenius
+#' @examples
+#' #####################################################################
+#' ################# check scans and create upload csv #################
+#' #####################################################################
+#' \dontrun{
+#' library(echinaceaLab)
+#' library(plyr)
+#' 
+#' # check for missing scans ####
+#' # create data frame with all scans found in "F:/cg2013scans" (on cgStorageA1)
+#' loadScans("F:/cg2013scans")
+#' # remove "extra" files, if present
+#' scans <- scans[!(scans$filename %in% c("Thumbs.db", "itfiles.ini")),]
+#' # folders that should be there but aren't
+#' stillNeed <- setdiff(levels(hh.2013$batch), levels(scans$batch))
+#' # folders that are there but shouldn't be
+#' ignore <- setdiff(levels(scans$batch), levels(hh.2013$batch))
+
+#' # check batch for all batches separately
+#' batchecks <- aaply(levels(scans$batch), .margin = 1, .fun = check.batch, harvestFile=hh.2013)
+#' batchecks <- cbind(batchecks, levels(scans$batch))
+#' colnames(batchecks)[6] <- "batchName"
+#' batchecks <- batchecks[,c(6,1,2,3,4,5)]
+#' 
+#' # rename writeTo to have date
+#' writeTo <- "C:/Users/dhanson/Dropbox/CGData/155_scan/2013scanSummary.csv"
+#' write.csv(batchecks, file = writeTo, row.names = F)
+#' write.table(c("need experiments:", stillNeed, "\n"), file = writeTo, append = T,
+#'             row.names = F, col.names = F);
+#' write.table(c("ignore:", ignore, "\n"), file = writeTo, append = T,
+#'             row.names = F, col.names = F);
+#' write.table(c("file name:", writeTo, "\n"), file = writeTo, append = T,
+#'             row.names = F, col.names = F)
+#' # now look at your file and file and find everything that's missing 
+#' 
+#' 
+#' # creating an assignment file for scans ####
+#' # choose which experiments you'll be uploading and what their priorities will be
+#' exps13 <- c("96_x", "inb1_b", "inb2_x", "M03", "qGen_b", "qGen_c", "qGen_x",
+#'             "qGen2", "99s")
+#' priority13 <- c(80, 79, 80, 90, 80, 85, 90, 60)
+#' 
+#' # do a quick double check to make sure everything is there 
+#' loadScans(path = "F:/cg2013scans") 
+#' scans <- scans[!(scans$filename %in% c("Thumbs.db", "itfiles.ini")),]
+#' check.batch(batch = exps13, scansdf = scans, harvestFile = hh.2013)
+#' 
+#' # if there are no missing scans, create assignment csv and write to file
+#' createCSV(scansdf = scans, harvYear = 2013, priority = 50)
+#' # only take ones in the experiments we want to upload
+#' out <- out[out$experiment %in% exps13,]
+#' # change priorities to what you want
+#' for (i in 1:length(exps13)) {
+#'   out[out$experiment %in% exps13[i], "priority"] <- priority13[i]
+#' }
+#' out13 <- out # in case you're doing multiple years at once
+#' 
+#' # use this if you only want one person to count certain experiments
+#' oneCt13 <- c("99s", "qGen2")
+#' # get only one record per head for these experiments
+#' out13[out13$experiment %in% oneCt13, "round"] <- 1
+#' out13 <- out13[!duplicated(out13),]
+#' # change this to decide who counts
+#' out13[out13$user %in% "99s", "round"] <- "acouglin"
+#' out13[out13$user %in% "qGen2", "round"] <- "lobenauf"
+#' 
+#' # write the file to a csv
+#' write.csv(out13, 
+#'           "C:/Users/dhanson/Dropbox/CGData/165_count/count2015/scanAssignments2013.csv",
+#'           row.names = FALSE)
+#' }
+#' 
+#' 
+#' ####################################################################
+#' ######################### check count data #########################
+#' ####################################################################
+#' \dontrun{
+#' library(echinaceaLab)
+#' # check count data
+#' polaph3 <- read.csv("C:/Users/dhanson/Dropbox/CGData/165_count/count2015/checkCounts/polLon_aphids_2014.csv")
+#' source("C:/Users/dhanson/Dropbox/CGData/165_count/count2014/manageCountData.R")
+#' 
+#' # checking for large numbers
+#' big <- polaph3[polaph3$letno %in% polaph3[polaph3$count > 300, "letno"],]
+#' big <- big[order(big$letno),c("letno", "count", "notes")]
+#' 
+#' qman <- manageCountData(polaph3)
+#' library(plyr)
+#' sortqman <- function(probs) {
+#'   probs[order(probs$letno),]
+#' }
+#' qman2 <- llply(qman, .fun = sortqman)
+#' 
+#' probnos <- qman$checkNotes$letno
+#' probnos <- probnos[!duplicated(probnos)]
+#' probnos <- sort(probnos)
+#' checkem <- polaph3[polaph3$letno %in% probnos,]
+#' checkem <- checkem[order(checkem$letno, checkem$notes), ]
+#' }
+#' 
+#' 
+#' ####################################################################
+#' ########################### add gps data ###########################
+#' ####################################################################
+#' 
+#' \dontrun{
+#' library(echinaceaLab)
+#' # use the gps protocol to copy files from the gps to
+#' # the geospatialDataBackup folder for the summer and then convert those files
+#' # from .tsj to .xml files on HAL using topcon link
+#' # if done on a computer besides Hal, you'll likely have to change "Echinacea" to something else
+#' folderXML <- "C:/Users/Echinacea/Dropbox/geospatialDataBackup2015/convertedXML2015/"
+#' folderRD <- "C:/Users/Echinacea/Dropbox/geospatialDataBackup2015/convertedRDataFiles2015/"
+#' (fileNames <- dir(folderXML)) # make sure your files are there
+#' 
+#' # copy and paste this for every new job
+#' # use the name format of the original job (from the GPS unit) for convertXMLtoRdata
+#' convertXMLtoRdata("JOB_YYYYMMDD_MACHINE.xml")
+#' (fileNames <- dir(folderRD))
+#' (rdataNames <- makeGPSFileName(newFiles))
+#' # use the name format from make GPS file name for the next two functions
+#' errorCheckRData(folderRD, "aYYYYMMDD_job_MACHINE")
+#' addToSurv.csv("aYYYYMMDD_job_MACHINE")
+#' }
+NULL
