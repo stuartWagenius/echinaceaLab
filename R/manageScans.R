@@ -128,7 +128,8 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
                       include.dirs = FALSE)
   filenamesFrom <- basename(xFrom)
   pathsFrom <- dirname(xFrom)
-  if (!dir.exists(to)) dir.create(to)
+  if (!file.exists(to))
+    dir.create(to)
   xTo <- list.files(to, full.names = FALSE, recursive = TRUE, 
                     include.dirs = FALSE)
   filenamesTo <- basename(xTo)
