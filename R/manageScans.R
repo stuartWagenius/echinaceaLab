@@ -139,16 +139,16 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
   notInTo <- setdiff(filenamesFrom, filenamesTo)
   
   for (fn in notInTo) {
-    print(paste("copying", fn))
+    cat(paste("copying", fn))
     fromFn <- paste(from, fn, sep="/")
     toFn <- paste(to, fn, sep="/")
     file.copy(fromFn, to)
   }
-  cat("Copied", length(notInTo), "file(s) from", from, "to", to)
+  cat("Copied", length(notInTo), "file(s) from", from, "to", to, "\n")
   message()
   
   notInFrom <- setdiff(filenamesTo, filenamesFrom)
-  message(paste(length(notInFrom), "files are in", to, "but not in", from))
+  message(paste(length(notInFrom), "files are in", to, "but not in", from, "\n"))
   if (showNotInFrom) {
     message()
     message(paste("Files not in", from, ":"))
@@ -167,16 +167,20 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
 #' @param askBeforeContinue logical: should a message be printed before continuing
 #'  to check other subfolders
 #' @keywords scans
+#' @details Works from any from and any to as long as the name of the from folder
+#' ends with "cgXXXXscans" where XXXX is a number
 #' 
 #' @examples
 #' \dontrun{
 #' path1 <- "C:/cg2014scans"
 #' pathos <- "E:/"
-#' transferAllFiles(pathos, path)}
+#' transferScanFiles(pathos, path)}
 #'
-transferAllFiles <- function(from, to, askBeforeContinue = TRUE) {
+transferScanFiles <- function(from, to, askBeforeContinue = TRUE) {
   pathsFrom <- list.dirs(from)[-1]
-  pathsTo <- gsub("C:/", to, pathsFrom)
+  whereToBoss <- regexpr("cg[0-9]+scans", from)
+  fromDrive <- substr(from, 1, whereToBoss-1)
+  pathsTo <- gsub(fromDrive, to, pathsFrom)
   
   for (i in 1:length(pathsFrom)) {
     transferFiles(pathsFrom[i], pathsTo[i])
