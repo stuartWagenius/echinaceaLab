@@ -10,6 +10,7 @@ Description: Functions to help manage and visualize
 License: GPL (>= 2)
 LazyData: true
 Imports:
+  imager,
   plyr,
   XML
 RoxygenNote: 5.0.1
