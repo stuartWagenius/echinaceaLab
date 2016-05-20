@@ -137,18 +137,21 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
   
   
   notInTo <- setdiff(filenamesFrom, filenamesTo)
-  
+  dope <- txtProgressBar(1, length(notInTo), 1, "~", style = 3)
+  i <- 1
   for (fn in notInTo) {
-    cat(paste("copying", fn))
+    setTxtProgressBar(dope, i)
+    # cat(paste("copying", fn))
     fromFn <- paste(from, fn, sep="/")
     toFn <- paste(to, fn, sep="/")
     file.copy(fromFn, to)
+    i <- i+1
   }
-  cat("Copied", length(notInTo), "file(s) from", from, "to", to, "\n")
+  cat("Copied", length(notInTo), "file(s) from\n", from, "to\n", to, "\n")
   message()
   
   notInFrom <- setdiff(filenamesTo, filenamesFrom)
-  message(paste(length(notInFrom), "files are in", to, "but not in", from, "\n"))
+  message(paste(length(notInFrom), "files are in\n", to, "but not in\n", from, "\n"))
   if (showNotInFrom) {
     message()
     message(paste("Files not in", from, ":"))
@@ -162,8 +165,10 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
 #' subfolders of the selected folder and transfer files not in one folder
 #' to the other
 #' 
-#' @param from path to a folder whose subfolders you want checked
-#' @param to the drive on which the wanted folder is found (e.g. "F:/" or "D:/")
+#' @param from path to a folder whose subfolders you want checked,
+#' (e.g. "C:/cg2015scans" or "I:/Departments/Research/EchinaceaCG2015/cg2015scans")
+#' @param to the drive on which the wanted folder is found (e.g. "F:/", "D:/", or
+#' "I:/Departments/Research/EchinaceaCG2015/")
 #' @param askBeforeContinue logical: should a message be printed before continuing
 #'  to check other subfolders
 #' @keywords scans

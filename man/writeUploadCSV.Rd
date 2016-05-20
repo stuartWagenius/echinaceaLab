@@ -2,9 +2,9 @@
 % Please edit documentation in R/manageCountData.R
 \name{writeUploadCSV}
 \alias{writeUploadCSV}
-\title{Create and write an upload csv}
+\title{Check scans then create and write an upload csv}
 \usage{
-writeUploadCSV(scansFolder, writeTo, year, exprio, oneCt = NULL)
+writeUploadCSV(scansFolder, writeTo, year, exprio, type, oneCt = NULL)
 }
 \arguments{
 \item{scansFolder}{the folder in which the scans can be found}
@@ -17,12 +17,14 @@ writeUploadCSV(scansFolder, writeTo, year, exprio, oneCt = NULL)
 to upload and (2) the priorities for the experiments. The first column
 should have the experiments and the second column should have priorities}
 
+\item{type}{the type of upload csv to make see \code{\link{createCSV}}}
+
 \item{oneCt}{a data frame whose first column is experiments that should
 only be counted once and whose second column is the username of the person
 to count that experiment}
 }
 \value{
-none, write to a csv
+the results of check.batch
 }
 \description{
 This will create and write a csv with the counting assignments as it

@@ -7,9 +7,11 @@
 transferScanFiles(from, to, askBeforeContinue = TRUE)
 }
 \arguments{
-\item{from}{path to a folder whose subfolders you want checked}
+\item{from}{path to a folder whose subfolders you want checked,
+(e.g. "C:/cg2015scans" or "I:/Departments/Research/EchinaceaCG2015/cg2015scans")}
 
-\item{to}{the drive on which the wanted folder is found (e.g. "F:/" or "D:/")}
+\item{to}{the drive on which the wanted folder is found (e.g. "F:/", "D:/", or
+"I:/Departments/Research/EchinaceaCG2015/")}
 
 \item{askBeforeContinue}{logical: should a message be printed before continuing
 to check other subfolders}

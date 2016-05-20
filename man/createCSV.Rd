@@ -4,7 +4,8 @@
 \alias{createCSV}
 \title{create assignment csv to upload}
 \usage{
-createCSV(scansdf = scans, harvYear, priority = 50)
+createCSV(scansdf = scans, harvYear, priority = 50, type = c("imageTool",
+  "online", "xray"))
 }
 \arguments{
 \item{scansdf}{is a data frame of scan filenames and letnos, scans (from function loadScans) by default}
@@ -12,6 +13,10 @@ createCSV(scansdf = scans, harvYear, priority = 50)
 \item{harvYear}{is the year heads were harvested, this needs to be entered}
 
 \item{priority}{is the counting priority of the scans, 50 by default}
+
+\item{type}{the type of upload csv to make, imageTool has filepaths starting
+with "C:/", online has file paths starting with the online achene counter, and xray
+has file paths with the online x-ray counter}
 }
 \value{
 returns out, an upload-ready data.frame

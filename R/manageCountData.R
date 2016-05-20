@@ -66,13 +66,27 @@ batchSummary <- function(hh) {
 #' 
 #' @param harvYear is the year heads were harvested, this needs to be entered
 #' @param priority is the counting priority of the scans, 50 by default
+#' @param type the type of upload csv to make, imageTool has filepaths starting
+#' with "C:/", online has file paths starting with the online achene counter, and xray
+#' has file paths with the online x-ray counter
 #' @return returns out, an upload-ready data.frame
 #' @return simply type in write.csv(out, "C:/assignmentYear.csv", row.names = FALSE to save)
-createCSV = function(scansdf = scans, harvYear, priority = 50) {
-  
-  filePath = paste("C:/cg", harvYear, "Scans/", sep = "")
-  batchName = gsub("[A-z][A-z]-", "", scansdf$letno)
-  batchName = gsub("[0-9][0-9][0-9]$", "000", batchName)
+createCSV = function(scansdf = scans, harvYear, priority = 50, 
+                     type = c("imageTool", "online", "xray")) {
+  type <- match.arg(type)
+  if (type == "imageTool") {
+    filePath = paste("C:/cg", harvYear, "scans/", sep = "")
+  } else if (type == "online") {
+    capp <- "http://echinaceaproject.org/count/acheneCounter/"
+    qstr <- "?img=http://echinaceaproject.org/count/scanImages/"
+    filePath = paste(capp, qstr, "/cg", harvYear, "scans/", sep = "")
+  } else if (type == "xray") {
+    capp <- "http://echinaceaproject.org/count/xrayCounter/"
+    qstr <- "?img=http://echinaceaproject.org/count/xrayImages/"
+    filePath = paste(capp, qstr, "cg", harvYear, "scans/", sep = "")
+  }
+  batchName <- gsub("[A-z][A-z]-", "", scansdf$letno)
+  batchName <- gsub("[0-9][0-9][0-9]$", "000", batchName)
   
   out <- data.frame(image_type = "achene",
                     image_file_link = rep(paste(filePath, scansdf$batch, "/", 
@@ -89,7 +103,7 @@ createCSV = function(scansdf = scans, harvYear, priority = 50) {
   return(paste("out, an upload-ready data frame is in your workspace. Save using write.csv()"))
 }
 
-#' Create and write an upload csv
+#' Check scans then create and write an upload csv
 #' 
 #' This will create and write a csv with the counting assignments as it
 #' should be ready to upload
@@ -103,14 +117,21 @@ createCSV = function(scansdf = scans, harvYear, priority = 50) {
 #' @param oneCt a data frame whose first column is experiments that should
 #' only be counted once and whose second column is the username of the person
 #' to count that experiment
-#' @return none, write to a csv
-writeUploadCSV <- function(scansFolder, writeTo, year, exprio, oneCt = NULL) {
+#' @param type the type of upload csv to make see \code{\link{createCSV}}
+#' @return the results of check.batch
+writeUploadCSV <- function(scansFolder, writeTo, year, exprio, type, oneCt = NULL) {
 # load in files and remove unecessary ones
   loadScans(path = scansFolder)
   scans <- scans[!(scans$filename %in% c("Thumbs.db", "itfiles.ini")),]
   
+  hh <- get(paste0("hh.", year))
+  checked <- check.batch(batch = exprio[,1], scansdf = scans, harvestFile = hh)
+  if (checked$missingCount > 0) {
+    warning("Missing", checked$missingCount, "scans. See returned value for details.")
+  }
+  
   # if there are no missing scans, create assignment csv and write to file
-  createCSV(scansdf = scans, harvYear = year, priority = 50)
+  createCSV(scansdf = scans, harvYear = year, priority = 50, type = type)
   # only take ones in the experiments we want to upload
   out <- out[out$experiment %in% exprio[,1],]
   # change priorities to what you want
@@ -130,4 +151,6 @@ writeUploadCSV <- function(scansFolder, writeTo, year, exprio, oneCt = NULL) {
 
   # write the file to a csv
   write.csv(out, writeTo, row.names = FALSE)
+  
+  return(checked)
 }
