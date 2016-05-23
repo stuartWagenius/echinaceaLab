@@ -148,7 +148,8 @@ writeUploadCSV <- function(scansFolder, writeTo, year, exprio, type, oneCt = NUL
       out[out$experiment %in% oneCt[i,1], "user"] <- oneCt[i,2]
     }
   }
-
+  out <<- out
+  
   # write the file to a csv
   write.csv(out, writeTo, row.names = FALSE)
   

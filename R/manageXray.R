@@ -27,7 +27,7 @@
 ##' the original image and is more than 1/4 the height of the original image
 ##' @keywords x-ray xray
 ##' 
-splitXrayImage <- function(imgFile, outFolder, hh = hh.2015, plotAndAsk = F,
+splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
                            xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1),
                            yScale = c(0, 0.2583333, 0.5, 0.7416667, 1), fudge = 0.03) {
   if (!dir.exists(outFolder))
@@ -91,7 +91,7 @@ splitXrayImage <- function(imgFile, outFolder, hh = hh.2015, plotAndAsk = F,
       } else {
         nolet <- as.character(startNum)
       }
-      fn <- paste(outFolder, "/", nolet, ".jpg", sep = "")
+      fn <- paste(outFolder, "/x", prefixLet, nolet, ".jpg", sep = "")
       imager::save.image(imgCells[[i]][[j]], fn)
       startNum <- startNum + 1
     }
