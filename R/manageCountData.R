@@ -79,7 +79,7 @@ createCSV = function(scansdf = scans, harvYear, priority = 50,
   } else if (type == "online") {
     capp <- "http://echinaceaproject.org/count/acheneCounter/"
     qstr <- "?img=http://echinaceaproject.org/count/scanImages/"
-    filePath = paste(capp, qstr, "/cg", harvYear, "scans/", sep = "")
+    filePath = paste(capp, qstr, "cg", harvYear, "scans/", sep = "")
   } else if (type == "xray") {
     capp <- "http://echinaceaproject.org/count/xrayCounter/"
     qstr <- "?img=http://echinaceaproject.org/count/xrayImages/"
