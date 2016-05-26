@@ -137,17 +137,22 @@ transferFiles <- function(from, to, showNotInFrom = FALSE) {
   
   
   notInTo <- setdiff(filenamesFrom, filenamesTo)
-  dope <- txtProgressBar(1, length(notInTo), 1, "~", style = 3)
-  i <- 1
-  for (fn in notInTo) {
+  notInTo <- notInTo[!notInTo %in% c("Thumbs.db", "itfiles.ini")]
+  
+  if (length(notInTo) > 0) {
+    dope <- txtProgressBar(0, length(notInTo), 0, "~", style = 3)
+    i <- 1
     setTxtProgressBar(dope, i)
-    # cat(paste("copying", fn))
-    fromFn <- paste(from, fn, sep="/")
-    toFn <- paste(to, fn, sep="/")
-    file.copy(fromFn, to)
-    i <- i+1
+    for (fn in notInTo) {
+      # cat(paste("copying", fn))
+      fromFn <- paste(from, fn, sep="/")
+      toFn <- paste(to, fn, sep="/")
+      file.copy(fromFn, to)
+      i <- i+1
+      setTxtProgressBar(dope, i)
+    }
   }
-  cat("Copied", length(notInTo), "file(s) from\n", from, "to\n", to, "\n")
+  cat("\nCopied", length(notInTo), "file(s) from\n", from, "to\n", to, "\n")
   message()
   
   notInFrom <- setdiff(filenamesTo, filenamesFrom)
