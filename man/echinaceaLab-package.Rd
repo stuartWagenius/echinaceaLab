@@ -20,6 +20,17 @@ see examples for how to use the functions
 library(echinaceaLab)
 library(plyr)
 
+# this is the simple way of doing it ####
+exps15 <- c("96_a", "99m", "99s", "inb1_a", "inb2_a", "2001", "inb2_b")
+priority15 <- c(20, 30, 40, 50, 55, 60, 93)
+expr <- data.frame(exps15, priority15)
+
+writeUploadCSV("I:/Departments/Research/EchinaceaCG2015/cg2015scans",
+               paste0("C:/Users/dhanson/Dropbox/CGData/165_count/count2015/",
+                      "summer2016_prep/cg15ForSummer16.csv"), 2015, expr, "online")
+
+
+# this is the longer, manual way of doing it ####
 # check for missing scans ####
 # create data frame with all scans found in "F:/cg2013scans" (on cgStorageA1)
 loadScans("F:/cg2013scans")
