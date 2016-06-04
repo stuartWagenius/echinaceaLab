@@ -4,7 +4,7 @@
 \alias{splitXrayImage}
 \title{Split x-ray image}
 \usage{
-splitXrayImage(imgFile, outFolder, hh = hh.2015, plotAndAsk = F,
+splitXrayImage(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
   xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1), yScale = c(0, 0.2583333, 0.5,
   0.7416667, 1), fudge = 0.03)
 }
@@ -15,6 +15,9 @@ splitXrayImage(imgFile, outFolder, hh = hh.2015, plotAndAsk = F,
 
 \item{hh}{the hh.year file from which the full letnos will be found.
 Default is hh.2015}
+
+\item{prefixLet}{the letter(s) to put in front of the name of the output
+file e.g. for b1434sd.jpg prefixLet = 'b'}
 
 \item{plotAndAsk}{logical. If TRUE, it will plot the individual packet
 images to make sure that you're content with the results. Otherwise, it

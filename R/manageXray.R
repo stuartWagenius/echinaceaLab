@@ -6,6 +6,8 @@
 ##' @param outFolder where to save all the individual images
 ##' @param hh the hh.year file from which the full letnos will be found.
 ##' Default is hh.2015
+##' @param prefixLet the letter(s) to put in front of the name of the output
+##' file e.g. for b1434sd.jpg prefixLet = 'b'
 ##' @param plotAndAsk logical. If TRUE, it will plot the individual packet
 ##' images to make sure that you're content with the results. Otherwise, it
 ##' automatically saves without plotting or asking.
