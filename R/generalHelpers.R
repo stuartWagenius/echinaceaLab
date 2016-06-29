@@ -140,3 +140,22 @@ all.standardTtColor <- function(x) {
                 "wht", "yel", "yelbac", "yelgrn", "nott")
   all(x %in% standard)
 }
+
+#' Get one piece of the headID
+#' 
+#' @param headIDs character vector of head ids in the form TAG-TT-YEAR
+#' @param piece character. One of "tag" if you want the tag, "tt" if you want
+#' the twist tie, or "year" if you want the year
+#' @return a character vector with the piece that you want
+getHeadIDPiece <- function(headIDs, piece = c("tag", "tt", "year")) {
+  piece <- match.arg(piece)
+  if (piece == "tag") {
+    grabPart <- "\\1"
+  } else if (piece == "tt") {
+    grabPart <- "\\2"
+  } else if (piece == "year") {
+    grabPart <- "\\3"
+  }
+  
+  gsub("([0-9]+)-([A-Za-z]+)-([0-9]+)", grabPart, headIDs)
+}

@@ -14,91 +14,90 @@ convertXMLtoRdata <- function(fn,
                               readPath = folderXML,  
                               writePath = folderRD
 ) {
-  fileName <- paste(folderXML, fn, sep="")
-  # library(XML)
-  
-  # get data into a more readable format
+  fileName <- paste(folderXML, fn, sep = "")
   dd.txt <- readLines(fileName)
-  
-  # replace blank site and textLocId fields ##
-  dd.txt <- gsub("<Name>site</Name><Type>", "<Name>site</Name><Value> </Value><Type>", dd.txt)
-  dd.txt <- gsub("<Name>textLocId</Name><Type>", "<Name>textLocId</Name><Value> </Value><Type>", dd.txt)
-  dd.txt <- gsub("<Name>alias</Name><Type>", "<Name>alias</Name><Value> </Value><Type>", dd.txt)
-  dd.txt <- gsub("<Name>survNote</Name><Type>", "<Name>survNote</Name><Value> </Value><Type>", dd.txt)
-  
-  # convert text to xml ##
-  dd <- xmlTreeParse(dd.txt, useInternalNodes=TRUE)
-  node <- xpathApply(dd, "//Point")  
+  dd.txt <- gsub("<Name>site</Name><Type>", "<Name>site</Name><Value> </Value><Type>", 
+                 dd.txt)
+  dd.txt <- gsub("<Name>textLocId</Name><Type>", "<Name>textLocId</Name><Value> </Value><Type>", 
+                 dd.txt)
+  dd.txt <- gsub("<Name>alias</Name><Type>", "<Name>alias</Name><Value> </Value><Type>", 
+                 dd.txt)
+  dd.txt <- gsub("<Name>survNote</Name><Type>", "<Name>survNote</Name><Value> </Value><Type>", 
+                 dd.txt)
+  dd <- xmlTreeParse(dd.txt, useInternalNodes = TRUE)
+  node <- xpathApply(dd, "//Point")
   ff <- lapply(node, saveXML)
-  # remove unwanted data
-  vrsPoint <-  grep("VRS_", ff)
-  ff <- ff[-c(vrsPoint)]   ##### ignore VRS point
+  vrsPoint <- grep("VRS_", ff)
+  ff <- ff[-c(vrsPoint)]
   demoPoints <- grep("demography", ff)
-  ff <- ff[demoPoints]  ## keep only shot point
-  
+  ff <- ff[demoPoints]
   if (length(ff) < 1) {
     message("No points shot")
     return()
   }
-  
-  # parse xml using XPath (tutorial at http://www.w3schools.com/xpath/)
-  # populate df in order that we want columns
-  
-  PointNumber <-  unlist(xpathApply(dd, "//Vector//RoverPnt//PointNumber", xmlValue))  
+  PointNumber <- unlist(xpathApply(dd, "//PointNumber", 
+                                   xmlValue))
+  PointNumber <- PointNumber[!grepl("VRS", PointNumber)]
   df <- data.frame(PointNumber = PointNumber)
-  
-  df$siteName <- unlist(xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'site']/Value", xmlValue))
-  
-  df$textLocId <- unlist(xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'textLocId']/Value", xmlValue))  
-  
-  tmp <- xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'alias']/Value", xmlValue)
-  if(length(tmp)==0) df$alias <- "" else df$alias <- unlist(tmp)  
-  
-  tmp <- xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'survNote']/Value", xmlValue)
-  if(length(tmp)==0) df$survNote <- "" else df$survNote <- unlist(tmp)  
-  
-  tmp <- xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'demo_on_visor']/Value", xmlValue)
-  
-  tmp <- xpathApply(dd, "//Vector//RoverPnt//Feature//Attribute[Name = 'actually_echinacea']/Value", xmlValue)
-  
-  df$StdDev.Northing <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Northing", xmlValue)))
-  df$StdDev.Easting <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Easting", xmlValue)))
-  df$StdDev.Up <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Up", xmlValue)))
-  
-  df$Latitude <- unlist(xpathApply(dd, "//RoverPnt//Latitude", xmlValue))
-  df$Northing <- as.numeric(unlist(xpathApply(dd, "//RoverPnt//Northing", xmlValue)))
-  df$Longitude <- unlist(xpathApply(dd, "//RoverPnt//Longitude", xmlValue))
-  df$Easting <- as.numeric(unlist(xpathApply(dd, "//RoverPnt//Easting", xmlValue)))
-  df$EllHeight <- as.numeric(unlist(xpathApply(dd, "//RoverPnt//EllHeight", xmlValue)))
-  
-  
-  ###  spread textLocId to tag, plaStatus
-  ## df$textLocId
+  df$siteName <- unlist(xpathApply(dd, "//Feature//Attribute[Name = 'site']/Value", 
+                                   xmlValue))
+  df$textLocId <- unlist(xpathApply(dd, "//Feature//Attribute[Name = 'textLocId']/Value", 
+                                    xmlValue))
+  tmp <- xpathApply(dd, "//Feature//Attribute[Name = 'alias']/Value", 
+                    xmlValue)
+  if (length(tmp) == 0) {
+    df$alias <- ""
+  } else {
+    df$alias <- unlist(tmp)
+  }
+  tmp <- xpathApply(dd, "//Feature//Attribute[Name = 'survNote']/Value", 
+                    xmlValue)
+  if (length(tmp) == 0) {
+    df$survNote <- ""
+  } else {
+    df$survNote <- unlist(tmp)
+  }
+  tmp <- xpathApply(dd, "//Feature//Attribute[Name = 'demo_on_visor']/Value", 
+                    xmlValue)
+  tmp <- xpathApply(dd, "//Feature//Attribute[Name = 'actually_echinacea']/Value", 
+                    xmlValue)
+  df$StdDev.Northing <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Northing", 
+                                                     xmlValue)))
+  df$StdDev.Easting <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Easting", 
+                                                    xmlValue)))
+  df$StdDev.Up <- as.numeric(unlist(xpathApply(dd, "//Point//StdDev//Up", 
+                                               xmlValue)))
+  df$Latitude <- unlist(xpathApply(dd, "//Point[StdDev]//Latitude", 
+                                   xmlValue))
+  northing <- as.numeric(unlist(xpathApply(dd, "//Point[StdDev]//Northing", 
+                                           xmlValue)))
+  df$Northing <- northing[northing > 10]
+  df$Longitude <- unlist(xpathApply(dd, "//Point[StdDev]//Longitude", 
+                                    xmlValue))
+  easting <- as.numeric(unlist(xpathApply(dd, "//Point[StdDev]//Easting", 
+                                          xmlValue)))
+  df$Easting <- easting[easting > 10]
+  df$EllHeight <- as.numeric(unlist(xpathApply(dd, "//Point[StdDev]//EllHeight", 
+                                               xmlValue)))
   tt <- strsplit(df$textLocId, ".", fixed = TRUE)
   df$tt1 <- unlist(lapply(1:length(tt), function(i) tt[[i]][1]))
   df$tag <- suppressWarnings(as.numeric(df$tt1))
   df$plaStatus <- unlist(lapply(1:length(tt), function(i) tt[[i]][2]))
   tt3 <- unlist(lapply(1:length(tt), function(i) tt[[i]][3]))
-  if(sum(!is.na(tt3))) warning("Deal with tt3!")
-  
-  
-  tmp <- !(df$tag  == suppressWarnings(as.numeric(df$tt1)))  #check tag
-  df <- df[,-c(grep("tt1", names(df)))]                      # delete column
-  
-  
-  # make base map
-  plot(df$Easting, df$Northing, asp = 1, pch =".")
-  with(df, text(Easting, Northing, df$textLocId, cex = .5, pos = 4))
-  
-  
+  if (sum(!is.na(tt3))) 
+    warning("Deal with tt3!")
+  tmp <- !(df$tag == suppressWarnings(as.numeric(df$tt1)))
+  df <- df[, -c(grep("tt1", names(df)))]
+  plot(df$Easting, df$Northing, asp = 1, pch = ".")
+  with(df, text(Easting, Northing, df$textLocId, cex = 0.5, 
+                pos = 4))
   df$echinacea <- TRUE
-  
   name <- makeGPSFileName(fn)
-  
   assign(name, df)
-  fn <- paste(writePath, name, ".RData", sep="")
-  if(file.exists(fn)) stop("This RData file already exists\nDelete it if you want save new version.")
-  save(list= name, file= fn)
+  fn <- paste(writePath, name, ".RData", sep = "")
+  if (file.exists(fn)) 
+    stop("This RData file already exists\nDelete it if you want save new version.")
+  save(list = name, file = fn)
   return(name)
 }
 
