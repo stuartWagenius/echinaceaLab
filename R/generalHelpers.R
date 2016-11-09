@@ -76,8 +76,17 @@ abbrevSiteName <- function(x){
   x[x %in% c("Yellow Orchid Hill East", "Yellow Orchid Hill West")] <- "yoh"
   x[x %in% c("Roland Lake Road", "1292")] <- "rlr"
   x[x %in% c("tp", "tplot", "transplant plot")] <- "tplot"
+  x[x %in% c("near th")] <- "nth"
+  x[x %in% c("Hegg Lake")] <- "hegg"
+  x[x %in% c("recruit el")] <- "rel"
+  x[x %in% c("recruit kw")] <- "rkw"
+  x[x %in% c("recruit ke")] <- "rke"
+  x[x %in% c("recruit hw")] <- "rhw"
+  x[x %in% c("recruit hp")] <- "rhp"
+  x[x %in% c("recruit hx")] <- "rhx"
+  x[x %in% c("recruit hs")] <- "rhs"
+  x[x %in% c("recruit he")] <- "rhe"
   x[x %in% c("backhill", 
-             "near th", 
              "New Site", 
              "other",
              "Other",
