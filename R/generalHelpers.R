@@ -95,6 +95,7 @@ abbrevSiteName <- function(x){
   x
 }
 
+
 #' Standardize twist-tie colors
 #' 
 #' @param x input character vector
