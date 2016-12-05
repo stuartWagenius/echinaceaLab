@@ -94,7 +94,9 @@ splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
         nolet <- as.character(startNum)
       }
       fn <- paste(outFolder, "/x", prefixLet, nolet, ".jpg", sep = "")
-      imager::save.image(imgCells[[i]][[j]], fn)
+      toSave = imgCells[[i]][[j]]
+      dim(toSave) = c(dim(toSave)[1:2],1,1)
+      imager::save.image(toSave, fn)
       startNum <- startNum + 1
     }
   }
