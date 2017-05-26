@@ -32,7 +32,8 @@
   
   table(hh.2016$batch)
   
-  plot(pos ~ row, hh.2016[hh.2016$pos > 800,]) # plot of heads harvested in p1 & 99s
+  plot(pos ~ row, hh.2016[hh.2016$pos > 800,], asp = 1) # plot of heads harvested in p1 & 99s
+  plot(pos ~ row, hh.2016[hh.2016$pos < 800,], asp = 1) # plot of heads harvested in p2
 }
 
 \keyword{datasets}
