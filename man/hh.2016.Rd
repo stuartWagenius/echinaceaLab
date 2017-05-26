@@ -20,7 +20,7 @@
     \item tt, twist-tie color 
     \item cgHdId, unique identifier for head 
     \item batch, experiment name for head
-    \item block, ?
+    \item block, we used to use this to prioritize cleaning within experiments
     \item lineNo, line of paper harvest datasheet for head
     \item No, the four digit unique identifier
     \item pos, position in row of common garden of head
