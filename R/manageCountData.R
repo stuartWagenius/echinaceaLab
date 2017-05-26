@@ -88,7 +88,7 @@ createCSV = function(scansdf = scans, harvYear, priority = 50,
   batchName <- gsub("[A-z][A-z]-", "", scansdf$letno)
   batchName <- gsub("[0-9][0-9][0-9]$", "000", batchName)
   
-  out <- data.frame(image_type = "achene",
+  out <- data.frame(image_type = ifelse(type == "xray", "xray", "achene"),
                     image_file_link = rep(paste(filePath, scansdf$batch, "/", 
                                                 scansdf$filename, sep = ""), 3),
                     letno = rep(scansdf$letno, 3), 
