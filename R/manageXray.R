@@ -236,3 +236,57 @@ makeXrayDataSheet = function(xrdf) {
   return(outdf)
   
 }
+
+##' Convert dicom files into jpeg files
+##' 
+##' This uses calls to the command line to convert dicom files into jpegs.
+##' It takes in a directory and converts all dicom files in that directory (minus any
+##' files specified in the argument 'ignore'), converts them to jpegs using imageMagick
+##' and stores the resulting jpegs in the specified directory 'out.dir'.
+##' 
+##' @param dcm.dir a directory housing dicom images. The default is the location
+##' on the I drive where volunteers are instructed to save CG scans. Don't incldue
+##' spaces in the directory
+##' @param out.dir a destination directory for the jpeg images
+##' @param ignore files to ignore when converting. Specify by file name.
+##' @param moreMagickArgs additional ImageMagick convert arguments to use in
+##' processing
+##' @details The line sent to the command line is "convert -define dcm:display-range=reset
+##'  <dicom file> -normalize -transpose -quality 60% <jpg file>".
+##' Because this file calls the command line directly through the command "shell()",
+##' it is finicky and won't take paths or file names that have spaces in them. 
+##' Make sure you are only entering paths or file names with no spaces! Otherwise it throws an error.
+##' Use the argument "moreMagickArgs" to use additional commands associated with imagemagick convert.
+##' Note that this function relies on the dicom images being saved with a certain format -- "<year>_<number>.dcm"
+##' e.g., 2015_4001.dcm. Using a different format will scew up the conversion or processing.
+##' @return none
+##' @keywords x-ray xray dicom dcm jpg jpeg convert ImageMagick imageMagick imagemagick
+##' @examples
+##' convertDicom(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
+##'             out.dir = "C:/users/snordstrom/dropbox/remData/160_xray/xray2016/xtremeRem",
+##'             ignore = "Thumbs.db", moreMagickArgs = "-brightness-contrast 0x50")
+convertDicom = function(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray", 
+                        out.dir, ignore = NULL, moreMagickArgs = NULL) {
+  
+  if (grepl("\\s", dcm.dir) | grepl("\\s", out.dir)) stop("Enter directories without spaces")
+  
+  if (!grepl("\\\\$|/$", dcm.dir)) dcm.dir = paste0(dcm.dir, "\\")
+  if (!grepl("\\\\$|/$", out.dir)) out.dir = paste0(out.dir, "\\")
+  
+  to.convert = dir(dcm.dir)
+  to.convert = to.convert[grepl("\\.dcm|\\.dicom", to.convert) & !to.convert %in% ignore]
+  
+  for (f in to.convert) {
+    yrnm = gsub("\\.dcm|\\.dicom", "", f)
+    yr = unlist(strsplit(yrnm,'_'))[[1]]
+    nm = unlist(strsplit(yrnm,'_'))[[2]]
+    
+    # runs ImageMagick through cmd to create jpeg
+    dcm.fp = paste0(dcm.dir, f)
+    jpg.fp = paste0(out.dir, nm, ".jpg")
+    to.run = paste0("convert -define  dcm:display-range=reset ", dcm.fp,
+                    " -normalize -transpose -quality 60% ", moreMagickArgs, " ", jpg.fp) 
+    print(to.run)
+    shell(to.run, wait = TRUE, translate = TRUE)
+  }
+}
