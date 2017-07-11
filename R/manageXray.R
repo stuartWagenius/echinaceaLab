@@ -18,6 +18,8 @@
 ##' @param fudge numeric. A fudge factor between 0 and 1 representing the
 ##' proportion of the height or width to add to each packet image when cutting
 ##' the original image into chunks
+##' @param onlyInhh logical, if TRUE it will automatically delete images corresponding
+##' to letnos that are not in hh. Default is FALSE.
 ##' @return invisibly returns the list of individuals images as cimg objects
 ##' @details The imgFile name should be the letno of the first packet on the
 ##' x-ray image. All letnos on the image should go in order and if letnos are
@@ -29,7 +31,7 @@
 ##' the original image and is more than 1/4 the height of the original image
 ##' @keywords x-ray xray
 ##' 
-splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
+splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F, onlyInhh = F,
                            xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1),
                            yScale = c(0, 0.2583333, 0.5, 0.7416667, 1), fudge = 0.03) {
   if (!dir.exists(outFolder))
@@ -102,6 +104,12 @@ splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
     }
   }
   cat("Saved to", outFolder, "\n")
+  
+  if (onlyInhh) {
+    for (f in dir(outFolder)) {
+      if (!as.numeric(gsub("[A-z]|\\.", "", f)) %in% hh$No) file.remove(paste0(outFolder, "/", f))
+    }
+  }
   
   invisible(imgCells)
 }
