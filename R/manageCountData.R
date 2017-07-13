@@ -7,11 +7,18 @@
 #' @return checkNotes, records where counter made a note. Check through notes!
 #' @return missingCounts, letNos that were not counted 3 times
 #' @return checkZeros, 
-manageCountData <- function(df){
+manageCountData <- function(df, viewAllMismatches = FALSE){
   
   mismatches <- df[!df$letno_matches_yn %in% "y", 
-                   c("seed_count_assignment_id", "image_file_link", "letno", "experiment","batch", "assigned.user")]
-  
+                   c("seed_count_assignment_id", "image_file_link", "letno", "experiment","batch", "assigned.user", "corrected_letno")]
+
+  if (!viewAllMismatches) {
+    cln <- toupper(mismatches$corrected_letno)
+    cln <- gsub("\\s|\\-", "", cln)
+    ln <- gsub("\\-", "", mismatches$letno)
+    mismatches <- mismatches[cln != ln,]
+  }
+    
   cantCount <- df[!df$can_count_yn %in% "y", 
                   c("seed_count_assignment_id", "image_file_link", "letno", "batch", "assigned.user")]
   
