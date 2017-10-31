@@ -7,11 +7,18 @@
 #' @return checkNotes, records where counter made a note. Check through notes!
 #' @return missingCounts, letNos that were not counted 3 times
 #' @return checkZeros, 
-manageCountData <- function(df){
+manageCountData <- function(df, viewAllMismatches = FALSE){
   
   mismatches <- df[!df$letno_matches_yn %in% "y", 
-                   c("seed_count_assignment_id", "image_file_link", "letno", "experiment","batch", "assigned.user")]
-  
+                   c("seed_count_assignment_id", "image_file_link", "letno", "experiment","batch", "assigned.user", "corrected_letno")]
+
+  if (!viewAllMismatches) {
+    cln <- toupper(mismatches$corrected_letno)
+    cln <- gsub("\\s|\\-", "", cln)
+    ln <- gsub("\\-", "", mismatches$letno)
+    mismatches <- mismatches[cln != ln,]
+  }
+    
   cantCount <- df[!df$can_count_yn %in% "y", 
                   c("seed_count_assignment_id", "image_file_link", "letno", "batch", "assigned.user")]
   
@@ -57,7 +64,7 @@ batchSummary <- function(hh) {
 #' create assignment csv to upload
 #' 
 #' createCSV automates the creation of an upload-ready csv for the Echinacea Project's online counting database.
-#' This function works for only achene count assignments, not X-rays.
+#' This function now works for achene counts and x-rays.
 #' The function is set up to create 3 records for each letno
 #' (3 rounds of counting). The function randomizes the order of records,
 #' no need for pre-upload randomization
