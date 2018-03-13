@@ -104,7 +104,6 @@ abbrevSiteName <- function(x){
 #' @keywords twist-tie color
 #' @seealso \code{\link{all.standardTtColor}} which tests if abbreviations are 
 #'   legitimate
-#' @export
 #' @examples
 #' x <- c("Black", "blue", "Blue", "Yellow")
 #' standardizeTtColors(x)
