@@ -41,6 +41,7 @@ Variables:
 \item batch, batch
 }
 }
+
 \examples{
 dim(hh.2012) 
 str(hh.2012) # we should include useful example code
@@ -49,4 +50,3 @@ str(hh.2012) # we should include useful example code
 we need some more info
 }
 \keyword{datasets}
-

@@ -4,7 +4,7 @@
 \alias{manageCountData}
 \title{This function can be used to check count data for errors}
 \usage{
-manageCountData(df)
+manageCountData(df, viewAllMismatches = FALSE)
 }
 \arguments{
 \item{df}{is dataframe of count data. This dataframe will be the csv file downloaded from the Ech. Project website}
@@ -25,4 +25,3 @@ checkZeros,
 \description{
 This function can be used to check count data for errors
 }
-

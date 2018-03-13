@@ -25,9 +25,8 @@ simply type in write.csv(out, "C:/assignmentYear.csv", row.names = FALSE to save
 }
 \description{
 createCSV automates the creation of an upload-ready csv for the Echinacea Project's online counting database.
-This function works for only achene count assignments, not X-rays.
+This function now works for achene counts and x-rays.
 The function is set up to create 3 records for each letno
 (3 rounds of counting). The function randomizes the order of records,
 no need for pre-upload randomization
 }
-

@@ -5,8 +5,8 @@
 \title{Split x-ray image}
 \usage{
 splitXrayImage(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
-  xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1), yScale = c(0, 0.2583333, 0.5,
-  0.7416667, 1), fudge = 0.03)
+  onlyInhh = F, xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1), yScale = c(0,
+  0.2583333, 0.5, 0.7416667, 1), fudge = 0.03)
 }
 \arguments{
 \item{imgFile}{the x-ray (current jpg) image file to split}
@@ -22,6 +22,9 @@ file e.g. for b1434sd.jpg prefixLet = 'b'}
 \item{plotAndAsk}{logical. If TRUE, it will plot the individual packet
 images to make sure that you're content with the results. Otherwise, it
 automatically saves without plotting or asking.}
+
+\item{onlyInhh}{logical, if TRUE it will automatically delete images corresponding
+to letnos that are not in hh. Default is FALSE.}
 
 \item{xScale}{a vector describing the locations at which the image should
 be cut as a proportion of the total image width}
@@ -51,4 +54,3 @@ the original image and is more than 1/4 the height of the original image
 }
 \keyword{x-ray}
 \keyword{xray}
-

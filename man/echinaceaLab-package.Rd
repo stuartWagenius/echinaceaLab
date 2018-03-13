@@ -2,8 +2,8 @@
 % Please edit documentation in R/echinaceaLab.R
 \docType{package}
 \name{echinaceaLab-package}
-\alias{echinaceaLab}
 \alias{echinaceaLab-package}
+\alias{echinaceaLab}
 \title{echinaceaLab}
 \description{
 Functions to help manage and visualize Echinacea Project datasets.
@@ -150,4 +150,3 @@ addToSurv.csv("aYYYYMMDD_job_MACHINE")
 \author{
 Stuart Wagenius
 }
-
