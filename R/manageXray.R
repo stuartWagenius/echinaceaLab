@@ -248,6 +248,8 @@ makeXrayDataSheet = function(xrdf) {
 ##' on the I drive where volunteers are instructed to save CG scans. Don't incldue
 ##' spaces in the directory
 ##' @param out.dir a destination directory for the jpeg images
+##' @param quality quality of converted image in format '80%'
+##' @param convert notation for converting dicoms to jepgs, 'convert' or 'magick.exe' or 'magick convert'
 ##' @param ignore files to ignore when converting. Specify by file name.
 ##' @param moreMagickArgs additional ImageMagick convert arguments to use in
 ##' processing
@@ -265,7 +267,8 @@ makeXrayDataSheet = function(xrdf) {
 ##' convertDicom(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
 ##'             out.dir = "C:/users/snordstrom/dropbox/remData/160_xray/xray2016/xtremeRem",
 ##'             ignore = "Thumbs.db", moreMagickArgs = "-brightness-contrast 0x50")
-convertDicom = function(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray", 
+convertDicom = function(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
+                        quality = '80%', convert = 'magick.exe',
                         out.dir, ignore = NULL, moreMagickArgs = NULL) {
   
   if (grepl("\\s", dcm.dir) | grepl("\\s", out.dir)) stop("Enter directories without spaces")
@@ -284,8 +287,8 @@ convertDicom = function(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xra
     # runs ImageMagick through cmd to create jpeg
     dcm.fp = paste0(dcm.dir, f)
     jpg.fp = paste0(out.dir, nm, ".jpg")
-    to.run = paste0("convert -define  dcm:display-range=reset ", dcm.fp,
-                    " -normalize -transpose -quality 60% ", moreMagickArgs, " ", jpg.fp) 
+    to.run = paste0(convert, " -define  dcm:display-range=reset ", dcm.fp,
+                    " -normalize -transpose -quality ", quality, moreMagickArgs, " ", jpg.fp) 
     print(to.run)
     shell(to.run, wait = TRUE, translate = TRUE)
   }
