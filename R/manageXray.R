@@ -248,8 +248,8 @@ makeXrayDataSheet = function(xrdf) {
 ##' on the I drive where volunteers are instructed to save CG scans. Don't incldue
 ##' spaces in the directory
 ##' @param out.dir a destination directory for the jpeg images
-##' @param quality quality of converted image in format '80%'
-##' @param convert notation for converting dicoms to jepgs, 'convert' or 'magick.exe' or 'magick convert'
+##' @param quality quality of converted image, a percent
+##' @param convert notation for converting dicoms to jpegs, 'convert' or 'magick.exe' or 'magick convert'
 ##' @param ignore files to ignore when converting. Specify by file name.
 ##' @param moreMagickArgs additional ImageMagick convert arguments to use in
 ##' processing

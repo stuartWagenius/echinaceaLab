@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2018-03-13
+This R package now has a dataframe of the heads harvested from p1 and p2 in 2017. Function check.batch can now check batches from 2012 - 2017. Function convertDicom was updated so that the image magick convert notation and quality can be adjusted.
+
 2017-05-26
 This R package now has a dataframe of the heads harvested from p1 and p2 in 2016. Function check.batch can now check batches from 2012 - 2016. Hmm, many improvements and additions in 2016 were not listed here as news.
 
