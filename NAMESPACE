@@ -1,6 +1,6 @@
 exportPattern("^[[:alpha:]]+")
 import("plyr", "XML")
-importFrom("grDevices", "dev.off", "pdf", "windows")
+importFrom("grDevices", "dev.off", "pdf")
 importFrom("graphics", "hist", "legend", "par", "plot", "points")
 importFrom("utils", "head", "read.csv", "setTxtProgressBar",
            "txtProgressBar", "write.csv", "write.table")

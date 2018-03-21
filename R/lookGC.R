@@ -47,9 +47,9 @@ lookGC <- function(date = "", chamber= "", printPDF = FALSE){
     nn$CO2Obs <- as.numeric(as.character(nn$AI_CO2))
     nn$CO2Exp <- as.numeric(as.character(nn$SP_CO2))
   }
-  if(!printPDF){
-    windows()
-  }
+#  if(!printPDF){
+#    windows()
+#  }
   if(printPDF){
     setwd("I:\\Departments\\Research\\GrowthChamber\\logPlots")
     pdf(file=paste("gc",chamber,"_",date,".pdf",sep=""),paper="USr",width=10,height=8)
