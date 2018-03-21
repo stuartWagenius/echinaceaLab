@@ -15,4 +15,3 @@ a vector with all site names abbreviated
 \description{
 Create standard abbreviations for remnant populations
 }
-

@@ -13,9 +13,9 @@ convertDicom(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
 on the I drive where volunteers are instructed to save CG scans. Don't incldue
 spaces in the directory}
 
-\item{quality}{quality of converted image in format '80%'}
+\item{quality}{character string indicating quality of converted image, a percent, such as "80\%"}
 
-\item{convert}{notation for converting dicoms to jepgs, 'convert' or 'magick.exe' or 'magick convert'}
+\item{convert}{notation for converting dicoms to jpegs, "convert" or "magick.exe" or "magick convert"}
 
 \item{out.dir}{a destination directory for the jpeg images}
 
@@ -44,9 +44,10 @@ Note that this function relies on the dicom images being saved with a certain fo
 e.g., 2015_4001.dcm. Using a different format will scew up the conversion or processing.
 }
 \examples{
+\dontrun{
 convertDicom(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
             out.dir = "C:/users/snordstrom/dropbox/remData/160_xray/xray2016/xtremeRem",
-            ignore = "Thumbs.db", moreMagickArgs = "-brightness-contrast 0x50")
+            ignore = "Thumbs.db", moreMagickArgs = "-brightness-contrast 0x50")}
 }
 \keyword{ImageMagick}
 \keyword{convert}
