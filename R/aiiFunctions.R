@@ -17,15 +17,15 @@
 #' the number of partial achenes in the top, middle, and bottom of the head. If
 #' \code{partial} is FALSE, this can be ignored
 #' 
-#' @return a data frame containing the id and seed set data for two methods
-#' of calculating it. Columns "pointEstFull" and "acheneCt" correspond to the
-#' point estimate method and columns "sampleFull" and "sampleCount" correspond
-#' to the resampling method.
+#' @return a data frame containing the id and estimates of seed set based on two methods
+#' of calculation. Columns "pointEstFull" and "acheneCt" result from the
+#' point estimate method and columns "sampleFull" and "sampleCount" result from 
+#' the resampling method.
 #' 
 estimateSeedSet <- function(df, partials = TRUE, idCol = "headID",
-                            totalCols = c("topCount", "middleCount", "bottomCount"),
+                            totalCols = c("topCount", "middleTotalCount", "bottomCount"),
                             fullCols = c("topFull", "middleFull", "bottomFull"),
-                            sampCols = c("topCount", "informativeCount", "bottomCount"),
+                            sampCols = c("topSampleCount", "middleSampleCount", "bottomSampleCount"),
                             partialCols = c("topPartial", "middlePartial", "bottomPartial")) {
   newdf <- df[idCol]
   # make columns for fertilized
@@ -55,37 +55,19 @@ estimateSeedSet <- function(df, partials = TRUE, idCol = "headID",
   
   # do the sample based method of getting the whole head seet set
   newdf$sampleFull <- NA
-  newdf$sampleCount <- 30
+  newdf$sampleCount <- 99
   
   for(i in 1:nrow(newdf)) {
-    top <- newdf$top[i]
-    bot <- newdf$bot[i]
-    mid <- newdf$mid[i]
-    total <- top + mid + bot
-    
-    topFert <- newdf$topFert[i]
-    botFert <- newdf$botFert[i]
-    midFert <- newdf$midFert[i]
-    
-    acheneCt <- newdf$acheneCt[i]
-    
-    ptop <- top/acheneCt
-    pbot <- bot/acheneCt
-    pmid <- mid/acheneCt
-    
-    differ <- data.frame(pos = c(rep("top", top), rep("bot", bot), rep("mid", mid)),
-                         fert = c(rep(1, topFert), rep(0, top - topFert), rep(1, botFert), 
-                                  rep(0, bot - botFert), rep(1, midFert),
-                                  rep(0, mid - midFert)),
-                         weight = c(rep(ptop/top, top), rep(pbot/bot, bot),
-                                    rep(pmid/mid, mid)))
-    
-    newdf$sampleFull[i] <- ifelse(total < 30,
-                                  sum(differ$fert),
-                                  sum(sample(differ$fert, size = 30, replace = FALSE,
-                                             prob = differ$weight)))
+    midSample <- newdf$midFert[i] + newdf$midEmpty[i]
+    total <- newdf$top[i] + newdf$bot[i] + midSample
+    x <- ifelse(midSample != 0, newdf$mid[i]/midSample, 0)
+    fakeHd <- c(rep(1, newdf$topFert[i]), rep(0, newdf$topEmpty[i]),
+                rep(1, newdf$botFert[i]), rep(0, newdf$botEmpty[i]),
+                rep(1, x * newdf$midFert[i]), rep(0, x * newdf$midEmpty[i]))
+    newdf$sampleFull[i] <- sum(sample(fakeHd, 30, replace = FALSE))
     newdf$sampleCount[i] <- ifelse(total < 30, total, 30)
   }
-  
   return(newdf[, c(idCol, "pointEstFull", "acheneCt", "sampleFull", "sampleCount")])
+  # list(df = newdf, fakeHd = fakeHd, x = x, ms = midSample, z = table(fakeHd))
 }
+
