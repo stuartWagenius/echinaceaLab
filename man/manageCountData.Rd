@@ -7,7 +7,9 @@
 manageCountData(df, viewAllMismatches = FALSE)
 }
 \arguments{
-\item{df}{is dataframe of count data. This dataframe will be the csv file downloaded from the Ech. Project website}
+\item{df}{data.frame of count data. This dataframe will be the csv file downloaded from the Ech. Project website}
+
+\item{viewAllMismatches}{logical default is FALSE}
 }
 \value{
 output, a list containing 5 objects: mismatches, cantCount, checkNotes, missingCounts, and checkZeros

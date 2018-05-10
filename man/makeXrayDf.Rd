@@ -7,6 +7,8 @@
 makeXrayDf(hh, batchSize = 200, sheetSize = 20)
 }
 \arguments{
+\item{hh}{harvest dataframe}
+
 \item{batchSize}{the number of heads to fit in each subbatch. Default is 200.}
 
 \item{sheetSize}{the number of heads to fit on each x-ray grid sheet}
