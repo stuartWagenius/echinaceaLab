@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2018-05-10
+Function estimateSeedSet now produces correct estimates of seed set based on the sample method. The argument names are somewhat easier to understand.
+
 2018-03-13
 This R package now has a dataframe of the heads harvested from p1 and p2 in 2017. Function check.batch can now check batches from 2012 - 2017. Function convertDicom was updated so that the image magick convert notation and quality can be adjusted.
 
