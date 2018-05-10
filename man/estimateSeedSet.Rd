@@ -5,9 +5,9 @@
 \title{Estimate seed set in a head}
 \usage{
 estimateSeedSet(df, partials = TRUE, idCol = "headID",
-  totalCols = c("topCount", "middleCount", "bottomCount"),
+  totalCols = c("topCount", "middleTotalCount", "bottomCount"),
   fullCols = c("topFull", "middleFull", "bottomFull"),
-  sampCols = c("topCount", "informativeCount", "bottomCount"),
+  sampCols = c("topSampleCount", "middleSampleCount", "bottomSampleCount"),
   partialCols = c("topPartial", "middlePartial", "bottomPartial"))
 }
 \arguments{
@@ -32,13 +32,12 @@ the number of partial achenes in the top, middle, and bottom of the head. If
 \code{partial} is FALSE, this can be ignored}
 }
 \value{
-a data frame containing the id and seed set data for two methods
-of calculating it. Columns "pointEstFull" and "acheneCt" correspond to the
-point estimate method and columns "sampleFull" and "sampleCount" correspond
-to the resampling method.
+a data frame containing the id and estimates of seed set based on two methods
+of calculation. Columns "pointEstFull" and "acheneCt" result from the
+point estimate method and columns "sampleFull" and "sampleCount" result from 
+the resampling method.
 }
 \description{
 Estimate seed set in a head that was split into top, middle, and bottom
 using two different methods: one resampling based, the other a point estimate
 }
-
