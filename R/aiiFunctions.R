@@ -64,10 +64,14 @@ estimateSeedSet <- function(df, partials = TRUE, idCol = "headID",
     fakeHd <- c(rep(1, newdf$topFert[i]), rep(0, newdf$topEmpty[i]),
                 rep(1, newdf$botFert[i]), rep(0, newdf$botEmpty[i]),
                 rep(1, x * newdf$midFert[i]), rep(0, x * newdf$midEmpty[i]))
-    newdf$sampleFull[i] <- sum(sample(fakeHd, 30, replace = FALSE))
+    newdf$sampleFull[i] <- ifelse(length(fakeHd) < 30, 
+                                  sum(fakeHd),
+                                  sum(sample(fakeHd, 30, replace = FALSE)))
     newdf$sampleCount[i] <- ifelse(total < 30, total, 30)
   }
   return(newdf[, c(idCol, "pointEstFull", "acheneCt", "sampleFull", "sampleCount")])
-  # list(df = newdf, fakeHd = fakeHd, x = x, ms = midSample, z = table(fakeHd))
+  # out <- newdf[, c(idCol, "pointEstFull", "acheneCt", "sampleFull", "sampleCount")]
+  # list(df = newdf, fakeHd = fakeHd, x = x, ms = midSample, z = table(fakeHd), out = out)
 }
+
 
