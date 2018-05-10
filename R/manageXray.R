@@ -120,6 +120,7 @@ splitXrayImage <- function(imgFile, outFolder, hh, prefixLet, plotAndAsk = F, on
 ##' a sheet number and subbatch to each head. Subbatches are smaller subunits
 ##' of large batches (experiments) for ease of processing.
 ##' 
+##' @param hh harvest dataframe 
 ##' @param batchSize the number of heads to fit in each subbatch. Default is 200.
 ##' @param sheetSize the number of heads to fit on each x-ray grid sheet
 ##' @return a data frame with five columns: letno, batch (i.e., experiment), 

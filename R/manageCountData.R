@@ -1,6 +1,7 @@
 #' This function can be used to check count data for errors
 #' 
-#' @param df is dataframe of count data. This dataframe will be the csv file downloaded from the Ech. Project website
+#' @param df data.frame of count data. This dataframe will be the csv file downloaded from the Ech. Project website
+#' @param viewAllMismatches logical default is FALSE
 #' @return output, a list containing 5 objects: mismatches, cantCount, checkNotes, missingCounts, and checkZeros
 #' @return mismatches, counter noted that the envelope letNo in the scan did not match the computer letNo
 #' @return cantCount, counter noted that the scan could not be counted
