@@ -163,3 +163,38 @@ writeUploadCSV <- function(scansFolder, writeTo, year, exprio, type, oneCt = NUL
   
   return(checked)
 }
+
+translateCountCode <- function(codeNumbers){
+  missingHeads <- NULL
+  countedHeads <- NULL
+  acheneCount <- NULL
+  for(i in 1:length(codeNumbers)){
+  chr <- as.character(codeNumbers[i])
+  if (grepl("^-[[:digit:]][[:digit:]][[:digit:]][[:digit:]][[:digit:]][[:digit:]]$",chr) == F) chr <- NA
+  missingHeads[i] <- gsub("[[:digit:]][[:digit:]][[:digit:]][[:digit:]][[:digit:]]$", "", chr)
+  missingHeads[i] <- gsub("^-","",missingHeads[i])
+  countedHeads[i] <- gsub("[[:digit:]][[:digit:]][[:digit:]][[:digit:]]$", "", chr)
+  countedHeads[i] <- gsub("^-[[:digit:]]","",countedHeads[i])
+  acheneCount[i] <- gsub("^-[[:digit:]][[:digit:]]","",chr)
+  }
+  parsedCode <<- cbind.data.frame(as.integer(missingHeads), 
+                                  as.integer(countedHeads),
+                                  as.integer(acheneCount))
+  colnames(parsedCode) <<- c("missingHeads", "countedHeads", "acheneCount")
+  print(parsedCode)
+}
+
+# convertSomeCountCodes <- function(codeNumbers){
+#   chr <- as.character(codeNumbers)
+#   num <- NULL
+#   for(i in 1:length(chr)){
+#     if(grepl("^-[[:digit:]][[:digit:]][[:digit:]][[:digit:]]", chr[i])){
+#       num[i] <- as.integer(chr[i])
+#       num[i] <- num[i]+9999
+#       
+#     }
+#   }
+#}
+
+#convertAllCountCodes
+
