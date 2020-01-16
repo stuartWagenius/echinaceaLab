@@ -21,4 +21,3 @@ none, write to a csv
 This function runs check.batch over all experiments and then creates a
 summary for what is missing.
 }
-

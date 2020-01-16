@@ -26,4 +26,3 @@ standardizeTtColors(x)
 }
 \keyword{color}
 \keyword{twist-tie}
-

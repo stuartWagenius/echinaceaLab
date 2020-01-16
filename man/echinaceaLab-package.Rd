@@ -49,11 +49,11 @@ batchecks <- batchecks[,c(6,1,2,3,4,5)]
 # rename writeTo to have date
 writeTo <- "C:/Users/dhanson/Dropbox/CGData/155_scan/2013scanSummary.csv"
 write.csv(batchecks, file = writeTo, row.names = F)
-write.table(c("need experiments:", stillNeed, "\\n"), file = writeTo, append = T,
+write.table(c("need experiments:", stillNeed, "\n"), file = writeTo, append = T,
             row.names = F, col.names = F);
-write.table(c("ignore:", ignore, "\\n"), file = writeTo, append = T,
+write.table(c("ignore:", ignore, "\n"), file = writeTo, append = T,
             row.names = F, col.names = F);
-write.table(c("file name:", writeTo, "\\n"), file = writeTo, append = T,
+write.table(c("file name:", writeTo, "\n"), file = writeTo, append = T,
             row.names = F, col.names = F)
 # now look at your file and file and find everything that's missing 
 

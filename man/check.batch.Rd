@@ -39,4 +39,3 @@ check.batch("321")}
 \keyword{file}
 \keyword{letno}
 \keyword{scan}
-

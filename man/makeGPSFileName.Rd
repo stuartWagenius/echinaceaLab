@@ -16,4 +16,3 @@ The new file name
 Takes the file name and converts it to a standard format
 }
 \keyword{gps}
-

@@ -41,4 +41,3 @@ lookGC("2012-05-06",chamber= "88", printPDF=TRUE)}
 }
 \keyword{chamber}
 \keyword{growth}
-

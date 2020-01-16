@@ -29,4 +29,3 @@ transferFiles(pathos, path, showNotInFrom = TRUE)}
 
 }
 \keyword{scans}
-

@@ -30,4 +30,3 @@ scans <- loadScans("I:\\\\Departments\\\\Research\\\\EchinaceaCG2012\\\\scanExam
 \keyword{file}
 \keyword{letno}
 \keyword{scan}
-

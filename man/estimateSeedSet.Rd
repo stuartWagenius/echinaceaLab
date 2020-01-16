@@ -4,11 +4,15 @@
 \alias{estimateSeedSet}
 \title{Estimate seed set in a head}
 \usage{
-estimateSeedSet(df, partials = TRUE, idCol = "headID",
+estimateSeedSet(
+  df,
+  partials = TRUE,
+  idCol = "headID",
   totalCols = c("topCount", "middleTotalCount", "bottomCount"),
   fullCols = c("topFull", "middleFull", "bottomFull"),
   sampCols = c("topSampleCount", "middleSampleCount", "bottomSampleCount"),
-  partialCols = c("topPartial", "middlePartial", "bottomPartial"))
+  partialCols = c("topPartial", "middlePartial", "bottomPartial")
+)
 }
 \arguments{
 \item{df}{a data frame that contains seed set data}

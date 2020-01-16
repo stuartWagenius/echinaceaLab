@@ -20,4 +20,3 @@ Check for too high standard deviation in GPS points and print out
 problem points. Also print out any survNote's.
 }
 \keyword{gps}
-

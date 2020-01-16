@@ -4,9 +4,17 @@
 \alias{splitXrayImage}
 \title{Split x-ray image}
 \usage{
-splitXrayImage(imgFile, outFolder, hh, prefixLet, plotAndAsk = F,
-  onlyInhh = F, xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1), yScale = c(0,
-  0.2583333, 0.5, 0.7416667, 1), fudge = 0.03)
+splitXrayImage(
+  imgFile,
+  outFolder,
+  hh,
+  prefixLet,
+  plotAndAsk = F,
+  onlyInhh = F,
+  xScale = c(0, 0.21, 0.39, 0.57, 0.75, 1),
+  yScale = c(0, 0.2583333, 0.5, 0.7416667, 1),
+  fudge = 0.03
+)
 }
 \arguments{
 \item{imgFile}{the x-ray (current jpg) image file to split}
