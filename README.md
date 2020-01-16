@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2020-01-16
+This R package now has a dataframe of the heads harvested from p1, p2, p7, p8, and p9 in 2018 and 2019. We harvested 2011 heads in 2018 and 1186 heads in 2019. Function check.batch can now check batches from 2012 - 2019.
+
 2018-05-10
 Function estimateSeedSet now produces correct estimates of seed set based on the sample method. The argument names are somewhat easier to understand.
 
