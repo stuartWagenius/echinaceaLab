@@ -34,7 +34,9 @@
   table(hh.2019$batch)
   
   plot(pos ~ row, hh.2019[hh.2019$pos > 800,], asp = 1) # plot of heads harvested in p1 & 99s
-  plot(pos ~ row, hh.2019[hh.2019$pos < 800,], asp = 1) # plot of heads harvested in p2, p8, and p9
+  plot(pos ~ row, hh.2019[hh.2019$pos < 800 & hh.2019$pos > 600 , ], asp = 1) # plot of heads harvested in p8 
+  plot(pos ~ row, hh.2019[hh.2019$pos < 600, ], asp = 1) # plot of heads harvested in p2 and p9
+
 }
 
 \keyword{datasets}
