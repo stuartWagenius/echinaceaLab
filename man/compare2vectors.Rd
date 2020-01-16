@@ -25,4 +25,3 @@ This function takes two vectors and displays how many elements are
 in one, in the other, or in both as well as which ones are only
 in one of the two vectors.
 }
-

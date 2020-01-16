@@ -30,4 +30,3 @@ the results of check.batch
 This will create and write a csv with the counting assignments as it
 should be ready to upload
 }
-

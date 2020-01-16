@@ -18,4 +18,3 @@ it will be created. Currently it gets saved in the working directory but
 it could be changed to a standard dropbox location.
 }
 \keyword{gps}
-

@@ -4,9 +4,14 @@
 \alias{convertDicom}
 \title{Convert dicom files into jpeg files}
 \usage{
-convertDicom(dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
-  quality = "80\%", convert = "magick.exe", out.dir, ignore = NULL,
-  moreMagickArgs = NULL)
+convertDicom(
+  dcm.dir = "I:/departments/research/EchinaceaXray/ace_xray",
+  quality = "80\%",
+  convert = "magick.exe",
+  out.dir,
+  ignore = NULL,
+  moreMagickArgs = NULL
+)
 }
 \arguments{
 \item{dcm.dir}{a directory housing dicom images. The default is the location

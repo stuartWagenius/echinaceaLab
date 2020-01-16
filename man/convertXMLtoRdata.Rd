@@ -21,4 +21,3 @@ Converts an XML file into a data frame that is stored in an RData file.
 Only the information that we want is taken from the XML
 }
 \keyword{gps}
-

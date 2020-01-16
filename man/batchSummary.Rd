@@ -15,4 +15,3 @@ summary, a summary of each cg batch including letNo range and the number of head
 \description{
 The batch summary function summarizes information from harvest datasheet (hh.year)
 }
-

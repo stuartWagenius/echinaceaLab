@@ -4,8 +4,12 @@
 \alias{createCSV}
 \title{create assignment csv to upload}
 \usage{
-createCSV(scansdf = scans, harvYear, priority = 50, type = c("imageTool",
-  "online", "xray"))
+createCSV(
+  scansdf = scans,
+  harvYear,
+  priority = 50,
+  type = c("imageTool", "online", "xray")
+)
 }
 \arguments{
 \item{scansdf}{is a data frame of scan filenames and letnos, scans (from function loadScans) by default}

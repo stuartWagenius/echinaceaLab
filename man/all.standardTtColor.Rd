@@ -25,4 +25,3 @@ all.standardTtColor(x)
 \code{\link{standardizeTtColors}} which abbreviates colors
 }
 \keyword{twist-tie}
-

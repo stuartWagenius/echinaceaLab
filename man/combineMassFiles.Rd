@@ -4,8 +4,7 @@
 \alias{combineMassFiles}
 \title{combine raw mas data txt file into useful output}
 \usage{
-combineMassFiles(path = ".", writeCsv = FALSE,
-  fileName = "allMassFiles.csv")
+combineMassFiles(path = ".", writeCsv = FALSE, fileName = "allMassFiles.csv")
 }
 \arguments{
 \item{path}{character designating directory containing files of interest}
@@ -36,4 +35,3 @@ tt <- combineMassFiles()
 }
 \keyword{file}
 \keyword{mass}
-

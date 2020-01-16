@@ -30,4 +30,3 @@ investigateMassFiles()
 }
 \keyword{file}
 \keyword{mass}
-
