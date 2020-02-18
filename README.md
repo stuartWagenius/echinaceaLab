@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2020-02-18
+RT made 5 changes to hh.2019.Rda: RT changed tt for AD-4061 and pos for AQ-4022, AJ-4012, AX-4041, and AC-4032. Find changes in Dropbox/CGData/140_reconcile/reconcile2019/reconcile_work/make.hh.2019.R
+
 2020-01-16
 This R package now has a dataframe of the heads harvested from p1, p2, p7, p8, and p9 in 2018 and 2019. We harvested 2011 heads in 2018 and 1186 heads in 2019. Function check.batch can now check batches from 2012 - 2019.
 
