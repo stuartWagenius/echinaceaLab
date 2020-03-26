@@ -4,7 +4,9 @@
 \name{hh.2012}
 \alias{hh.2012}
 \title{Information about heads harvested from cg1 in 2012.}
-\format{A 424 x 21 data frame}
+\format{
+A 424 x 21 data frame
+}
 \usage{
 hh.2012
 }
