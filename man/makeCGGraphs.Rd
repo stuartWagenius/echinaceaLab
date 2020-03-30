@@ -2,9 +2,9 @@
 % Please edit documentation in R/cgFunctions.R
 \name{makeCGGraphs}
 \alias{makeCGGraphs}
-\title{Write plots of common characters for common garden experiments 1, 2, and 679}
+\title{Write plots of characters for common garden experiments 1, 2, and 679}
 \usage{
-makeCGGraphs(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE)
+makeCGGraphs(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.path = NA)
 }
 \arguments{
 \item{mf}{path to the measure form for a given common garden experiment, generally in cgdata repo
@@ -13,17 +13,18 @@ makeCGGraphs(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE)
 \item{hf}{path to the head form for the same common garden experiment, generally in cgdata repo
 (e.g. "summer2019/p1MeasureData/2019ExPt1HeadSubform_2019-09-27.txt")}
 
-\item{yr}{the year the data in the input file was recorded (e.g. 2019, as above)}
-
 \item{box.plot}{logical: if TRUE, makeCGGraphs will output boxplots of plant characters.
 if FALSE, makeCGGraphs will output histograms of plant characters.}
 
-\item{write.pdf}{logical: if TRUE, function will output a pdf that will save to the same folder 
-that the measuring form came from (good for printing!!!)
+\item{write.pdf}{logical: if TRUE, function will output a pdf that will save to write.path (good for printing!!!)
 if FALSE, function will output the plots into the R viewer.}
+
+\item{write.path}{path to the folder you want to output the write.pdfs to}
+
+\item{year}{the year the data in the input file was recorded (e.g. 2019, as above)}
 }
 \description{
-This function will take all data collected from a select common garden experimet
+This function will take all data collected from a select common garden experiment
 in a year and output summary plots - either boxplots or histograms - 
 of the plant characters in that garden. Use it to diagnose any blatant data issues and
 to print for folks to see the work they did!
@@ -32,7 +33,7 @@ to print for folks to see the work they did!
 function will not work if input fields are spelled or capitalized incorrectly. They must be:
 bslLongLfCm, caulLongLfCm, bslLfCt, bslRosetteCt, flRosetteCt, (in mf) and headHeight (in hf). If they
 are spellect incorrectly, read the .txt into R, rename files, and save it as a .csv.
-p679 are 3 differnt plots in real life, but are treated as one by this function. They should also share a
+p679 are 3 different plots in real life, but are treated as one by this function. They should also share a
 Pendragon measuring form.
 mf and hf are REQUIRED fields. If there are no head records for a plot (likely only in p679),
 make an empty hf and input that.
@@ -40,10 +41,12 @@ make an empty hf and input that.
 \examples{
 \dontrun{makeCGGraphs("summer2019/p679MeasureData/2019MeasureHybExPt_2019-08-07.txt",
 "summer2019/p679MeasureData/2019HybExPtHeadSubform_2019-08-07.txt",
-2019, box.plot = F, write.pdf = T)}
+2019, box.plot = F, write.pdf = T, write.path = "summer2018/recheckFunctionTests")}
 
 \dontrun{makeCGGraphs("summer2019/p1MeasureData/2019MeasureExPt1_2019-08-27.txt",
 "summer2019/p1MeasureData/2019ExPt1HeadSubform_2019-09-27.txt",
 2019, box.plot = T, write.pdf = F)}
+
+
 
 }
