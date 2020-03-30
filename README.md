@@ -21,6 +21,14 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2020-03-30
+This R package now has functions to make graphs of plant characters in common garden experiments, create field check data frames
+for common garden experiments, create recheck, staple, and skip data frames for common garden experiments, and create
+remeasure data tables for common garden experiments. 
+
+2020-03-25
+This R package now has a function to produce distributions of characters of Echinacea plants in common garden.
+
 2020-02-18
 RT made 5 changes to hh.2019.Rda: RT changed tt for AD-4061 and pos for AQ-4022, AJ-4012, AX-4041, and AC-4032. Find changes in Dropbox/CGData/140_reconcile/reconcile2019/reconcile_work/make.hh.2019.R
 
