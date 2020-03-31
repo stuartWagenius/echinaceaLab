@@ -57,34 +57,49 @@ makeCGGraphs <- function(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.
     
   }
   
+  bllMax <- max(m$bslLongLfCm, na.rm = T) + 1
+  cllMax <- max(m$caulLongLfCm, na.rm = T) + 1
+  lfcMax <- max(m$bslLfCt, na.rm = T) + 1
+  broMax <- max(m$bslRosetteCt, na.rm = T) + 1
+  froMax <- max(m$flRosetteCt, na.rm = T) + 1
+  hdMax <- max(h$headHeight, na.rm = T) + 1
+  
+  bllMin <- min(m$bslLongLfCm, na.rm = T)
+  cllMin <- min(m$caulLongLfCm, na.rm = T)
+  lfcMin <- min(m$bslLfCt, na.rm = T)
+  broMin <- min(m$bslRosetteCt, na.rm = T)
+  froMin <- min(m$flRosetteCt, na.rm = T)
+  hdMin <- min(h$headHeight, na.rm = T)
+  
   if(box.plot == FALSE){
     if(write.pdf == TRUE){
-      pdf(file = paste0(path, "/",year, plot, "Histogram.pdf"), width = 11, height = 8.5)
-      par(mfrow = c(2,3), mar = c(6, 5, 5, 1.5))
-      basHist <- hist(m$bslLongLfCm, breaks = 25, main = "Distribution of longest basal leaf", xlab = "Basal leaf length (cm)")
-      caulHist <- hist(m$caulLongLfCm, breaks = 25, main = "Distribution of longest cauline leaf", xlab = "Cauline leaf length (cm)")
-      lfHist <- hist(m$bslLfCt, breaks = 25, main = "Distribution of basal leaf number", xlab = "Basal leaf count")
-      bRosHist <- hist(m$bslRosetteCt, breaks = 15, main = "Distribution of basal rosette counts", xlab = "Basal rosette count")
-      fRosHist <- hist(m$flRosetteCt, breaks = 13, main = "Distribution of flowering rosette counts", xlab = "Flowering rosette count")
-      hdHis <- hist(h$headHeight, breaks = 25, main = "Distribution of head heights", xlab = "Head height (cm)")
+      pdf(file = paste0(path, "/",year, plot, "Histogram.pdf"), width = 8.5, height = 11)
+      par(mfrow = c(3,2), mar = c(5, 5, 4, 1))
+      basHist <- hist(m$bslLongLfCm, breaks = seq(bllMin, bllMax, by=1), main = "Distribution of longest basal leaf", xlab = "Basal leaf length (cm)")
+      caulHist <- hist(m$caulLongLfCm, breaks = seq(cllMin, cllMax, by=1), main = "Distribution of longest cauline leaf", xlab = "Cauline leaf length (cm)")
+      lfHist <- hist(m$bslLfCt, breaks = seq(lfcMin, lfcMax, by=1), main = "Distribution of basal leaf number", xlab = "Basal leaf count")
+      bRosHist <- hist(m$bslRosetteCt, breaks = seq(broMin, broMax, by=1), main = "Distribution of basal rosette counts", xlab = "Basal rosette count")
+      fRosHist <- hist(m$flRosetteCt, breaks = seq(froMin, froMax, by=1), main = "Distribution of flowering rosette counts", xlab = "Flowering rosette count")
+      hdHis <- hist(h$headHeight, breaks = seq(hdMin, hdMax, by=1), main = "Distribution of head heights", xlab = "Head height (cm)")
+      
       mtext(paste("Distributions of plant characters in", plot, year), side = 3, line = -1.5, outer = TRUE)
       dev.off()
     }
     else if(write.pdf == FALSE){
       par(mfrow = c(2,3))
-      basHist <- hist(m$bslLongLfCm, breaks = 25, main = "Distribution of longest basal leaf", xlab = "Basal leaf length (cm)")
-      caulHist <- hist(m$caulLongLfCm, breaks = 25, main = "Distribution of longest cauline leaf", xlab = "Cauline leaf length (cm)")
-      lfHist <- hist(m$bslLfCt, breaks = 25, main = "Distribution of basal leaf number", xlab = "Basal leaf count")
-      bRosHist <- hist(m$bslRosetteCt, breaks = 15, main = "Distribution of basal rosette counts", xlab = "Basal rosette count")
-      fRosHist <- hist(m$flRosetteCt, breaks = 13, main = "Distribution of flowering rosette counts", xlab = "Flowering rosette count")
-      hdHis <- hist(h$headHeight, breaks = 25, main = "Distribution of head heights", xlab = "Head height (cm)")
+      basHist <- hist(m$bslLongLfCm, breaks = seq(bllMin, bllMax, by=1), main = "Distribution of longest basal leaf", xlab = "Basal leaf length (cm)")
+      caulHist <- hist(m$caulLongLfCm, breaks = seq(cllMin, cllMax, by=1), main = "Distribution of longest cauline leaf", xlab = "Cauline leaf length (cm)")
+      lfHist <- hist(m$bslLfCt, breaks = seq(lfcMin, lfcMax, by=1), main = "Distribution of basal leaf number", xlab = "Basal leaf count")
+      bRosHist <- hist(m$bslRosetteCt, breaks = seq(broMin, broMax, by=1), main = "Distribution of basal rosette counts", xlab = "Basal rosette count")
+      fRosHist <- hist(m$flRosetteCt, breaks = seq(froMin, froMax, by=1), main = "Distribution of flowering rosette counts", xlab = "Flowering rosette count")
+      hdHis <- hist(h$headHeight, breaks = seq(hdMin, hdMax, by=1), main = "Distribution of head heights", xlab = "Head height (cm)")
       mtext(paste("Distributions of plant characters in", plot, year), side = 3, line = -1.5, outer = TRUE)
     }
   }
   else if(box.plot == TRUE){
     if(write.pdf == TRUE){
-      pdf(file = paste0(path, "/",year, plot, "Boxplot.pdf"), width = 11, height = 8.5)
-      par(mfrow = c(2,3), mar = c(3, 5, 7, 2))
+      pdf(file = paste0(path, "/",year, plot, "Boxplot.pdf"), width = 8.5, height = 11)
+      par(mfrow = c(3,2), mar = c(2, 5, 6, 2))
       basHist <- boxplot(m$bslLongLfCm, main = "Distribution of longest basal leaf", ylab = "Basal leaf length (cm)")
       caulHist <- boxplot(m$caulLongLfCm, main = "Distribution of longest cauline leaf", ylab = "Cauline leaf length (cm)")
       lfHist <- boxplot(m$bslLfCt, main = "Distribution of basal leaf number", ylab = "Basal leaf count")
@@ -125,24 +140,22 @@ makeCGGraphs <- function(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.
   
 }
 
-
 #' Create field check dataframes for common gardens 1, 2, and 679
 #' 
 #' This function will take common garden measuring forms from a given year and output
 #' a field check data frame. This data frame will contain all "mismatched" action-statuses
 #' and will have 5 neighbor statuses on each side of the focal position. This function also takes recheck
 #' data frames, and will output all "mismatched" action-statuses from rechecks in the same format as the 
-#' measuring form. The best way to search positions is by printing paper datsheets of the data frame
-#' this function outputs.
+#' measuring form. The best way to use this is to make paper data sheets from the csv this function outputs. 
 #' 
 #' 
 #'
 #' @param mf path to the measure form for a given common garden experiment, generally in cgdata repo
 #' (e.g. "summer2019/p1MeasureData/2019MeasureExPt1_2019-08-27.txt")
+#' @param yr the year the data in the input file was recorded (e.g. 2019, as above)
 #' @param rf path to the recheck form for the same common garden experiment, if rechecks are done.
 #' If rechecks are not completed, this field should be FALSE (which is the default)
 #' (e.g. "/summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt")
-#' @param yr the year the data in the input file was recorded (e.g. 2019, as above)
 #' @param write.it logical: if TRUE, function will output a csv that will save to the folder specified in write.path.
 #' The csv will contain row-positions of mismatched action-statuses to field check (and 5 neighbors on each side).
 #' if FALSE, function will output the plots into the R viewer.
@@ -156,26 +169,28 @@ makeCGGraphs <- function(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.
 #' 
 #' 
 #' @examples
-#' \dontrun{cgFieldCheck("summer2019/p2MeasureData/2019MeasureExPt2_2019-07-26.txt", yr = 2019,
+#' \dontrun{cgFieldCheck("summer2019/p2MeasureData/2019MeasureExPt2_2019-07-26.txt", 2019,
 #' write.it = T, write.path = "summer2019/recheckFunctionTests")}
 #' 
-#' \dontrun{cgFieldCheck("summer2019/p1MeasureData/2019MeasureExPt1_2019-09-30WithStaplesAndCorrections.csv",
-#' rf = "summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt", 
-#' 2019, write.it = T, write.path = "summer2019/recheckFunctionTests")}
+#' \dontrun{cgFieldCheck("summer2019/p1MeasureData/2019MeasureExPt1_2019-09-30WithStaplesAndCorrections.csv", 2019,
+#' "summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt", 
+#' write.it = T, write.path = "summer2019/recheckFunctionTests")}
 #' 
 #' 
 #'
-cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
+cgFieldCheck <- function(mf, yr, rf = FALSE, write.it = FALSE, write.path = NA){
   
   # read in data and decide which plot the data is from
   if (rf == FALSE){
     m <- read.csv(mf, stringsAsFactors = F)
     pp <- read.csv(mf, stringsAsFactors = F)
-  }
-  else if(rf != FALSE){
+  } else if(rf != FALSE){
     m <- read.csv(rf, stringsAsFactors = F)
     pp <- read.csv(mf, stringsAsFactors = F)
   }
+  
+  m$rp <- paste(m$row, m$position)
+  pp$rp <- paste(pp$row, pp$position)
   
   if (grepl("[P|p]t1", mf) | grepl("[P|p]1", mf)){
     plot <- "p1"
@@ -188,13 +203,10 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   
   # rechecks (and some measure files) have 'status' as 'statusThisYr... will rewrite for this.
   
-  if ('statusThisYr' %in% colnames(m)){
-    colnames(m)[colnames(m)=="statusThisYr"] <- "status"
-  }
   
-  if ('statusThisYr' %in% colnames(pp)){
-    colnames(pp)[colnames(pp)=="statusThisYr"] <- "status"
-  }
+  colnames(m)[colnames(m) %in% "statusThisYr"] <- "status"
+  
+  colnames(pp)[colnames(pp) %in% "statusThisYr"] <- "status"
   
   # eliminate original neighborStatus from rechecks
   
@@ -205,16 +217,15 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   # correct cgPlaid:
   
   if ('cgPlaId' %in% colnames(m)){
-    colnames(m)[colnames(m)=="cgPlaId"] <- "cgPlaid"
+    colnames(m)[colnames(m) %in% "cgPlaId"] <- "cgPlaid"
   }
   
   if ('cgPlaId' %in% colnames(pp)){
-    colnames(pp)[colnames(pp)=="cgPlaId"] <- "cgPlaid"
+    colnames(pp)[colnames(pp) %in% "cgPlaId"] <- "cgPlaid"
   }
   
   # create wrongStatus... a dataframe that will report which statuses and actions are mismatched
-  wrongStatus <<- data.frame(matrix(ncol = ncol(m), nrow = 0))
-  colnames(wrongStatus) <<- colnames(m)
+  wrongStatus <<- m[0,]
   
   # checks for mismatches in p1 action - statuses
   if(plot == "p1"){
@@ -224,86 +235,71 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
           m[i,'action'] == "" & m[i,'status'] == "Wooden Stake Only" | 
           m[i,'action'] == "" & m[i,'status'] == "")
       { wrongStatus <<- rbind(wrongStatus, m[i,])
-      }
-      else if(m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Basal" |
-              m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Dead Lvs (last year's)"|
-              m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Dead Lvs (this year's)" | 
-              m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "" |
-              m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Flowering"){
+      } else if(m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Basal" |
+                m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Dead Lvs (last year's)"|
+                m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Dead Lvs (this year's)" | 
+                m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "" |
+                m[i, 'action'] == "rebar or tin can only" & m[i, 'status'] == "Flowering"){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      }
-      else if(m[i, 'action'] == "Staple" & m[i, 'status'] == "Basal" |
-              m[i, 'action'] == "Staple" & m[i, 'status'] == "Dead Lvs (last year's)"|
-              m[i, 'action'] == "Staple" & m[i, 'status'] == "Dead Lvs (this year's)" |
-              m[i, 'action'] == "Staple" & m[i, 'status'] == "" |
-              m[i, 'action'] == "Staple" & m[i, 'status'] == "Flowering"){
+      } else if(m[i, 'action'] == "Staple" & m[i, 'status'] == "Basal" |
+                m[i, 'action'] == "Staple" & m[i, 'status'] == "Dead Lvs (last year's)"|
+                m[i, 'action'] == "Staple" & m[i, 'status'] == "Dead Lvs (this year's)" |
+                m[i, 'action'] == "Staple" & m[i, 'status'] == "" |
+                m[i, 'action'] == "Staple" & m[i, 'status'] == "Flowering"){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      }
-      else if(m[i, 'action'] == "Pull flag" & m[i, 'status'] != ""){
+      } else if(m[i, 'action'] == "Pull flag" & m[i, 'status'] != ""){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      }
-      else if(m[i, 'action'] == "search" & m[i,'status'] == "Rebar" |
-              m[i, 'action'] == "search" & m[i,'status'] == "Staple" | 
-              m[i, 'action'] == "search" & m[i,'status'] == "Wooden Stake Only" |
-              m[i, 'action'] == "search" & m[i,'status'] == ""){
+      } else if(m[i, 'action'] == "search" & m[i,'status'] == "Rebar" |
+                m[i, 'action'] == "search" & m[i,'status'] == "Staple" | 
+                m[i, 'action'] == "search" & m[i,'status'] == "Wooden Stake Only" |
+                m[i, 'action'] == "search" & m[i,'status'] == ""){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      }
-      else if(m[i, 'action'] == "staple?" & m[i, 'status'] != "Staple"){
+      } else if(m[i, 'action'] == "staple?" & m[i, 'status'] != "Staple"){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      } 
-      else if(m[i, 'action'] == "remeasure" & m[i, 'status'] == "Staple" |
-              m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Staple" |
-              m[i, 'action'] == "remeasure" & m[i, 'status'] == "Rebar" |
-              m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Rebar" |
-              m[i, 'action'] == "remeasure" & m[i, 'status'] == "Wooden Stake Only" |
-              m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Wooden Stake Only" |
-              m[i, 'action'] == "Remeasure" & m[i, 'status'] == "" |
-              m[i, 'action'] == "remeasure" & m[i, 'status'] == ""){
+      } else if(m[i, 'action'] == "remeasure" & m[i, 'status'] == "Staple" |
+                m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Staple" |
+                m[i, 'action'] == "remeasure" & m[i, 'status'] == "Rebar" |
+                m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Rebar" |
+                m[i, 'action'] == "remeasure" & m[i, 'status'] == "Wooden Stake Only" |
+                m[i, 'action'] == "Remeasure" & m[i, 'status'] == "Wooden Stake Only" |
+                m[i, 'action'] == "Remeasure" & m[i, 'status'] == "" |
+                m[i, 'action'] == "remeasure" & m[i, 'status'] == ""){
         wrongStatus <<- rbind(wrongStatus, m[i,])
-      } 
-      else if(m[i, 'action'] != "" & 
-              m[i, 'action'] != "rebar or tin can only" &
-              m[i, 'action'] != "Staple" &
-              m[i, 'action'] != "search" &
-              m[i, 'action'] != "staple?" &
-              m[i, 'action'] != "pull flag" &
-              m[i, 'action'] != "remeasure" &
-              m[i, 'action'] != "Remeasure" &
-              m[i, 'action'] != "Pull Flag"){
+      } else if(m[i, 'action'] != "" & 
+                m[i, 'action'] != "rebar or tin can only" &
+                m[i, 'action'] != "Staple" &
+                m[i, 'action'] != "search" &
+                m[i, 'action'] != "staple?" &
+                m[i, 'action'] != "pull flag" &
+                m[i, 'action'] != "remeasure" &
+                m[i, 'action'] != "Remeasure" &
+                m[i, 'action'] != "Pull Flag"){
         wrongStatus <<- rbind(wrongStatus, m[i,])
       }
     }
-  }
-  
-  # check for mismatchs if p2 or hybrid plot. It is much less involved
-  else if(plot == "p2" | plot == "hybrid"){
+  } else if(plot == "p2" | plot == "hybrid"){
     for (j in 1:nrow(m)){
       if(m[j, 'action'] == "Skip" & m[j, 'status'] != "" ){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] == "Pull flag" & m[j, 'status'] != ""){
+      } else if(m[j, 'action'] == "Pull flag" & m[j, 'status'] != ""){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] == "Pull flag (3 yrs cf)" & m[j, 'status'] != ""){
+      } else if(m[j, 'action'] == "Pull flag (3 yrs cf)" & m[j, 'status'] != ""){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] == "" & m[j, 'status'] == ""){
+      } else if(m[j, 'action'] == "" & m[j, 'status'] == ""){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] == "search" & m[j, 'status'] == ""){
+      } else if(m[j, 'action'] == "search" & m[j, 'status'] == ""){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] == "Remeasure" & m[j, 'status'] == "" |
-              m[j, 'action'] == "remeasure" & m[j, 'status'] == ""){
+      } else if(m[j, 'action'] == "Remeasure" & m[j, 'status'] == ""){
         wrongStatus <<- rbind(wrongStatus, m[j,])
-      }
-      else if(m[j, 'action'] != "" & 
-              m[j, 'action'] != "search" &
-              m[j, 'action'] != "Pull Flag" &
-              m[j, 'action'] != "pull flag" &
-              m[j, 'action'] != "remeasure" &
-              m[j, 'action'] != "Remeasure" &
-              m[j, 'action'] != "Skip"){
+      } else if(m[j, 'action'] == "remeasure" & m[j, 'status'] == ""){
+        wrongStatus <<- rbind(wrongStatus, m[j,])
+      } else if(m[j, 'action'] != "" & 
+                m[j, 'action'] != "search" &
+                m[j, 'action'] != "Pull Flag" &
+                m[j, 'action'] != "pull flag" &
+                m[j, 'action'] != "remeasure" &
+                m[j, 'action'] != "Remeasure" &
+                m[j, 'action'] != "Skip"){
         wrongStatus <<- rbind(wrongStatus, m[j,])
       }
     }
@@ -318,26 +314,19 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   for (o in 1:nrow(pp)){
     if(pp[o, 'status'] == "Can't Find"){
       pp[o, 'abbStat'] <- "cf"
-    } 
-    else if(pp[o, 'status'] == "Staple" | pp[o, 'status'] == "skip"){
+    } else if(pp[o, 'status'] == "Staple" | pp[o, 'status'] == "skip"){
       pp[o, 'abbStat'] <- "s"
-    }
-    else if(pp[o, 'status'] == "Basal"){
+    } else if(pp[o, 'status'] == "Basal"){
       pp[o, 'abbStat'] <- "b"
-    }
-    else if(pp[o, 'status'] == "Flowering"){
+    } else if(pp[o, 'status'] == "Flowering"){
       pp[o, 'abbStat'] <- "fl"
-    }
-    else if (pp[o, 'status'] == "Dead Lvs (last year's)" | pp[o, 'status'] == "Dead Lvs (this year's)"){
+    } else if (pp[o, 'status'] == "Dead Lvs (last year's)" | pp[o, 'status'] == "Dead Lvs (this year's)"){
       pp[o, 'abbStat'] <- "dead"
-    }
-    else if (pp[o, 'status'] == "Rebar"){
+    } else if (pp[o, 'status'] == "Rebar"){
       pp[o, 'abbStat'] <- "reb"
-    }
-    else if (pp[o, 'status'] == "Wooden Stake Only"){
+    } else if (pp[o, 'status'] == "Wooden Stake Only"){
       pp[o, 'abbStat'] <- "wood"
-    }
-    else if (pp[o, 'status'] == ""){
+    } else if (pp[o, 'status'] == ""){
       pp[o, 'abbStat'] <- "o"
     }
   }
@@ -347,7 +336,7 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   # create 5-deep neighbor statuses! woo!  
   pp$neighborStatus <- ""
   for (x in 1:nrow(pp)){
-    if (pp[x, 'cgPlaid'] %in% wrongStatus$cgPlaid){
+    if (pp[x, 'rp'] %in% wrongStatus$rp){
       ifelse(isTRUE(pp$row[x] == pp$row[x-5]), b5 <- pp[x - 5 ,"abbStat"], b5 <- "NA")
       ifelse(isTRUE(pp$row[x] == pp$row[x-4]), b4 <- pp[x - 4 ,"abbStat"], b4 <- "NA")
       ifelse(isTRUE(pp$row[x] == pp$row[x-3]), b3 <- pp[x - 3 ,"abbStat"], b3 <- "NA")
@@ -363,24 +352,24 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   }
   
   # need to now make a small dummy dataframe, with just cgPlaid and neighborStatus... to join with wrongStatus
-  cn <- data.frame("cgPlaid" = pp$cgPlaid, "neighborStatus" = pp$neighborStatus)
-  cn <- cn[cn$neighborStatus != "",]
+  cn <- data.frame("rp" = pp$cgPlaid, "neighborStatus" = pp$neighborStatus)
+  cn <- cn[!(cn$neighborStatus %in% ""),]
   
-  wrongStatus <<- merge(wrongStatus, cn)
+  wrongStatus <<- merge(wrongStatus, cn, by = "rp", all.x = T)
   wrongStatus <<- wrongStatus[order(wrongStatus$row, wrongStatus$position),]
-  wrongStatus <<- wrongStatus[!duplicated(wrongStatus$cgPlaid),]
+  wrongStatus <<- wrongStatus[!duplicated(wrongStatus$rp),]
+  
+  wrongStatus <- wrongStatus[, !(colnames(wrongStatus) %in% "rp")]
   
   # write file path!
   if (rf == FALSE){
     if (write.it == TRUE & plot == "p1"){
       mFile <- paste0("fieldCheckExPt1", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
-    }
-    else if (write.it == TRUE & plot == "p2"){
+    } else if (write.it == TRUE & plot == "p2"){
       mFile <- paste0("fieldCheckExPt2", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
-    }
-    else if (write.it == TRUE & plot == "hybrid"){
+    } else if (write.it == TRUE & plot == "hybrid"){
       mFile <- paste0("fieldCheckHybExPt", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
     }
@@ -390,12 +379,10 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
     if (write.it == TRUE & plot == "p1"){
       mFile <- paste0("fieldCheckRechecksExPt1", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
-    }
-    else if (write.it == TRUE & plot == "p2"){
+    } else if (write.it == TRUE & plot == "p2"){
       mFile <- paste0("fieldCheckRechecksExPt2", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
-    }
-    else if (write.it == TRUE & plot == "hybrid"){
+    } else if (write.it == TRUE & plot == "hybrid"){
       mFile <- paste0("fieldCheckRechecksHybExPt", yr, ".csv", sep = "")
       write.csv(wrongStatus, paste(write.path, mFile, sep = "/"), row.names=F)
     }
@@ -404,30 +391,25 @@ cgFieldCheck <- function(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA){
   
   if(plot == "p1"){
     longPlot <- "exPt1"
-  }
-  else if (plot == "p2"){
+  } else if (plot == "p2"){
     longPlot <- "exPt2"
-  }
-  else if (plot == "hybrid"){
+  } else if (plot == "hybrid"){
     longPlot <- "exPt679"
   }
   
   if (rf == FALSE){
     if (write.it == FALSE){
       cat(paste("data frame 'wrongStatus' contains field checks for", longPlot, yr))
-    }
-    else if (write.it == TRUE){
+    } else if (write.it == TRUE){
       cat(paste("data frame of", longPlot, yr, "field checks available at", paste("cgdata",write.path, mFile, sep = "/")))
       cat("\n")
       cat("\n")
       cat(paste("also, data frame object 'wrongStatus' contains field checks for", longPlot, yr))
     }
-  }
-  else if (rf != FALSE){
+  } else if (rf != FALSE){
     if (write.it == FALSE){
       cat(paste("data frame 'wrongStatus' contains field checks for rechecks in", longPlot, yr))
-    }
-    else if (write.it == TRUE){
+    } else if (write.it == TRUE){
       cat(paste("data frame of", longPlot, yr, "recheck field checks available at", paste("cgdata", write.path, mFile, sep = "/")))
       cat("\n")
       cat("\n")
@@ -1190,9 +1172,9 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
           df[1, "remeasureNote"] <- paste(df[1, "remeasureNote"], df[j, "remeasureNote"], sep = ";")
         }
       }
-      df <- df[1,]
-      nhr <- rbind(nhr, df[1,])
     }
+    df <- df[1,]
+    nhr <- rbind(nhr, df[1,])
   }
   
   # edit cols to prep for remeasure!! ####
@@ -1280,16 +1262,25 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
   cat("updatedMeasure: updated, cleaned measure form. It is an updated form that should be used as the main final measure form 
       from here on out. Main change is that Basal measures that were shifted over to the left or right are now centered 
       (i.e. measures in flRos, bslRos and bslLfCt moved to bslRos, bslLfCt, and bslLongLfCm). 
-      Records corrected in this way were not pulled out by the remeasure function unless that record has other issues.
-      If write.it == T, find 'm' at", paste(write.path, newMes, sep = "/"))
+      Records corrected in this way were not pulled out by the remeasure function unless that record has other issues.")
+  cat("\n")
+  if(write.it == T){
+    cat("Find 'updatedMeasure' at", paste(write.path, newMes, sep = "/"))
+  }
   cat("\n")
   cat("\n")
   cat("remeasures: has rows and positions to remeasure and newly assigned visors. Eliminate any remeasures you deem unnecessary
-      then use it to remeasure! If write.it == T, find 'remeasures' at", paste(write.path, mFile, sep = "/"))
+      then use it to remeasure!") 
+  cat("\n")
+  if(write.it == T){
+    cat("Find 'remeasures' at", paste(write.path, mFile, sep = "/"))
+  }
   cat("\n")
   cat("\n")
   cat("headRemeasures: heads that need to be remeasured. This is a reference form.
-      All heads that need to be remeasured will have records in the regular remeasure form.
-      if write.it == T find it at", paste(write.path, hFile, sep = "/"))
-  
+      All heads that need to be remeasured will have records in the regular remeasure form.")
+  cat("\n")
+  if(write.it == T){
+    cat("Find 'headRemeasures' at", paste(write.path, hFile, sep = "/"))
+  }
 }
