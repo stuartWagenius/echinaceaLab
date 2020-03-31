@@ -4,17 +4,17 @@
 \alias{cgFieldCheck}
 \title{Create field check dataframes for common gardens 1, 2, and 679}
 \usage{
-cgFieldCheck(mf, rf = FALSE, yr, write.it = FALSE, write.path = NA)
+cgFieldCheck(mf, yr, rf = FALSE, write.it = FALSE, write.path = NA)
 }
 \arguments{
 \item{mf}{path to the measure form for a given common garden experiment, generally in cgdata repo
 (e.g. "summer2019/p1MeasureData/2019MeasureExPt1_2019-08-27.txt")}
 
+\item{yr}{the year the data in the input file was recorded (e.g. 2019, as above)}
+
 \item{rf}{path to the recheck form for the same common garden experiment, if rechecks are done.
 If rechecks are not completed, this field should be FALSE (which is the default)
 (e.g. "/summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt")}
-
-\item{yr}{the year the data in the input file was recorded (e.g. 2019, as above)}
 
 \item{write.it}{logical: if TRUE, function will output a csv that will save to the folder specified in write.path.
 The csv will contain row-positions of mismatched action-statuses to field check (and 5 neighbors on each side).
@@ -27,8 +27,7 @@ This function will take common garden measuring forms from a given year and outp
 a field check data frame. This data frame will contain all "mismatched" action-statuses
 and will have 5 neighbor statuses on each side of the focal position. This function also takes recheck
 data frames, and will output all "mismatched" action-statuses from rechecks in the same format as the 
-measuring form. The best way to search positions is by printing paper datsheets of the data frame
-this function outputs.
+measuring form. The best way to use this is to make paper data sheets from the csv this function outputs.
 }
 \details{
 use this function after measuring is finished for each common garden (1, 2, or all of 679).
@@ -39,12 +38,12 @@ Also run this function and go into the plots when you finish stapling (p1 only) 
 Once again, this will improve data reliability and will make your job easier in the future.
 }
 \examples{
-\dontrun{cgFieldCheck("summer2019/p2MeasureData/2019MeasureExPt2_2019-07-26.txt", yr = 2019,
+\dontrun{cgFieldCheck("summer2019/p2MeasureData/2019MeasureExPt2_2019-07-26.txt", 2019,
 write.it = T, write.path = "summer2019/recheckFunctionTests")}
 
-\dontrun{cgFieldCheck("summer2019/p1MeasureData/2019MeasureExPt1_2019-09-30WithStaplesAndCorrections.csv",
-rf = "summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt", 
-2019, write.it = T, write.path = "summer2019/recheckFunctionTests")}
+\dontrun{cgFieldCheck("summer2019/p1MeasureData/2019MeasureExPt1_2019-09-30WithStaplesAndCorrections.csv", 2019,
+"summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt", 
+write.it = T, write.path = "summer2019/recheckFunctionTests")}
 
 
 
