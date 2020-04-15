@@ -1012,8 +1012,8 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
   mr <- rbind(mr, fbl)
   
   # longLfCm can be NA... if bslRosette is 0!
-  okna <- m[m$status %in% "Flowering" & !(m$bslRosetteCt %in% 0) & is.na(m$bslLongLfCm),]
-  if(nrow(okna) > 0){okna$remeasureNote <- "fl, bslRosette is not 0, but no bslLongLf"}
+  okna <- m[m$status %in% "Flowering" & is.na(m$bslLongLfCm),]
+  if(nrow(okna) > 0){okna$remeasureNote <- "fl but no bslLongLf"}
   mr <- rbind(mr, okna)
   
   # 6. make sure no other statuses have full measures ####
