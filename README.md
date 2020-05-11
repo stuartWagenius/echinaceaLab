@@ -21,10 +21,11 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2020-05-11
+This R package now has a dataframe linking cgPlaId to common garden and experiment name, called cgIds. It has three columns: cgPlaId, cgCd, and expNm.
+
 2020-03-30
-This R package now has functions to make graphs of plant characters in common garden experiments, create field check data frames
-for common garden experiments, create recheck, staple, and skip data frames for common garden experiments, and create
-remeasure data tables for common garden experiments. 
+This R package now has functions to make graphs of plant characters in common garden experiments, create field check data frames for common garden experiments, create recheck, staple, and skip data frames for common garden experiments, and create remeasure data tables for common garden experiments. 
 
 2020-03-25
 This R package now has a function to produce distributions of characters of Echinacea plants in common garden.
