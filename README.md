@@ -21,8 +21,11 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2020-05-14
+This R package now has a function that will generate status and summary matrices for the coreExPt01 dataset. 
+
 2020-05-11
-This R package now has a dataframe linking cgPlaId to common garden and experiment name, called cgIds. It has three columns: cgPlaId, cgCd, and expNm.
+This R package now has a dataframe linking each cgPlaId to experimental plot (cgCd) and experiment name (expNm). It has three columns: cgPlaId, cgCd, and expNm.
 
 2020-03-30
 This R package now has functions to make graphs of plant characters in common garden experiments, create field check data frames for common garden experiments, create recheck, staple, and skip data frames for common garden experiments, and create remeasure data tables for common garden experiments. 
