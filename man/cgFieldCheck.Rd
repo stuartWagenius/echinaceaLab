@@ -18,7 +18,7 @@ If rechecks are not completed, this field should be FALSE (which is the default)
 
 \item{write.it}{logical: if TRUE, function will output a csv that will save to the folder specified in write.path.
 The csv will contain row-positions of mismatched action-statuses to field check (and 5 neighbors on each side).
-if FALSE, function will output the plots into the R viewer.}
+if FALSE, function will output R data frame objects.}
 
 \item{write.path}{path to the folder you want to output the write.it csv to}
 }

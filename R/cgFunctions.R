@@ -158,7 +158,7 @@ makeCGGraphs <- function(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.
 #' (e.g. "/summer2019/p1MeasureData/2019p1Recheck_2019-10-03.txt")
 #' @param write.it logical: if TRUE, function will output a csv that will save to the folder specified in write.path.
 #' The csv will contain row-positions of mismatched action-statuses to field check (and 5 neighbors on each side).
-#' if FALSE, function will output the plots into the R viewer.
+#' if FALSE, function will output R data frame objects.
 #' @param write.path path to the folder you want to output the write.it csv to
 #' @details use this function after measuring is finished for each common garden (1, 2, or all of 679).
 #' The function will pull out all mismatched action-statuses (e.g. action=Staple and status=Basal).
@@ -1284,3 +1284,589 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
     cat("Find 'headRemeasures' at", paste(write.path, hFile, sep = "/"))
   }
 }
+
+#' Generate summary and upload status of exPt01 core dataset
+#' 
+#' This function will read the cg1Core dataset from echinaceaproject.org and generate a matrix of how up-to-date
+#' the cg1Core dataset for each experiment. Additionally, this function will generate a matrix of summary data
+#' for the exPt01 core dataste, including ld, fl, hdCt, and achCt. Finally, this function will warn users of
+#' missing data and NA's in the core dataset. You may use a different core ExPt01 dataset, input a year you 
+#' would like a summary of exPt01 through, and input a vector of the specific experiments you would like to 
+#' learn about.
+#' 
+#' 
+#'
+#' @param df alternative exPt01 core dataframe in wide format. It must have columns in this format: 
+#' cgPlaId, yrPlanted, ld20xx, fl20xx, hdCt20xx, achCt20xx. All fields must be of "integer" or "numeric" class.
+#' Default is the core dataset online: "http://echinaceaproject.org/data/cg1CoreData.csv" 
+#' @param targetYear any year past 1996. Data summary will be displayed for each experiment through your target year,
+#' if the appropriate data exists. If not, summaries will default to most recent year with complete data for 
+#' each experiment. The status matrix is unaffected by this argumant, and will always display the most recent 
+#' available data for each experiment and field type. Default is most recent data.
+#' @param expNames vector of experiment names you want a status and a summary for. Possible experiments are:
+#' c("1996", "1997", "1998", "1999", "1999S", "2001", "INB2", "INB1", "M03", "qGen", "SPP"). Note that you may also
+#' use "Inbreeding" for "INB1" and "Monica 2003" for "M03". Matrices will still display "INB1" and "M03". Default
+#' is all exPt01 experiments.
+#' @details use this function to get a summary of the core exPt01 dataset, learn where data must still be updated,
+#' and learn of any discrepancies in the data. Function will output summary matrices p1Status and p1Summary. achCt for
+#' certain experiments may be behind others because for certain years, they may have hdCt > 0 for a cgPlaId, but an
+#' achCt of 0. This indicates missing data, and the function will not consider it to be "up-to-date" data. The reason 
+#' df = NULL and the other two parameters = NA is because sw and rt are different and sometimes different is fun...ction.
+#' 
+#' 
+#' @examples
+#' \dontrun{exPt01CoreDataSummary()}
+#' 
+#' \dontrun{exPt01CoreDataSummary(cc, 2002, c("M03", "INB2", "INB1", "1996"))}
+#' 
+#' \dontrun{exPt01CoreDataSummary(targetYear = 2001)}
+#' 
+#' 
+#'
+exPt01CoreDataSummary <- function(df = NULL, targetYear = NA, expNames = NA){
+  require(echinaceaLab)
+  
+  # read in data from website and add expNm to core ####
+  if(is.null(df)) df <- read.csv("http://echinaceaproject.org/data/cg1CoreData.csv")
+  aa <- df
+  
+  aa <- merge(aa, cgIds[,colnames(cgIds) %in% c("cgPlaId", "expNm")], by = "cgPlaId", all.x = T)
+  aa$expNm <- factor(aa$expNm)
+  
+  # for context, I believe the actual cgPlaId to expNm csv will have a few more records than core, because a few
+  # positions were simply planted with staples.
+  # rename
+  aa$expNm <- as.character(aa$expNm)
+  aa[aa$expNm %in% "Inbreeding", "expNm"] <- "INB1"
+  aa[aa$expNm %in% "Monica 2003", "expNm"] <- "M03"
+  aa$expNm <- as.factor(aa$expNm)
+  
+  # also rename if need be
+  expNames <- gsub("Inbreeding", "INB1", expNames)
+  expNames <- gsub("Monica 2003", "M03", expNames)
+  
+  if (!(expNames[1] %in% NA)){
+    for (i in expNames){
+      if (!(i %in% aa$expNm)){
+        stop(i, " is not an experiment in exPt01!")
+      }
+    }
+    aa <- aa[aa$expNm %in% expNames,]
+  }
+  aa$expNm <- factor(aa$expNm)
+  
+  # part 1: table 1: completed data thru... ####
+  # goal: make a table with cols as experimentNames and rows as the status of the ld, hdCt, fl, 
+  # and achCt for each experiment
+  # essentially, we just need a dataframe and can make adjustments from there!
+  # we will also use this table as a reference later! :)
+  
+  # generate dataFrame ####
+  # get a list of our cols and rows
+  co <- unique(as.character(aa$expNm))
+  ro <- c("year planted" ,"ld completed", "fl completed", "hdCt completed", "achCt completed")
+  cr <- list(ro, co)
+  
+  # make our matrix
+  ss <- matrix(nrow = length(ro), ncol = length(co), dimnames = cr)
+  
+  # assign yrPlanted ####
+  # as far as I know, no experiments were planted over two years.. The one that is clsest to be platned in two
+  # years is qGen2 and 3, and these two are considered different experiments.
+  # thus, this should be pretty easy!!!
+  
+  for (i in co){
+    ss["year planted", i] <- aa[aa$expNm %in% i,]$yrPlanted[1]
+  }
+  
+  
+  # assign ld, fl, and hdCt for each experiment ####
+  # These should all be uploaded together, and only uploaded when complete.
+  # additionally, there shouldn't be any differentiation in upload time from experiment to 
+  # experiment because they all are uploaded together!
+  # I truly don't think GK would accept/upload an incomplete measure form
+  # finally, the only NAs that should exist are from pre-planted years!
+  # get ld completed
+  for (i in co){
+    spex <- aa[aa$expNm %in%i,]
+    spex <- spex[,grepl("ld", colnames(spex))]
+    lyr <- colnames(spex)[ncol(spex)]
+    yr <- as.numeric(substr(lyr, 3,nchar(lyr)))
+    ss["ld completed", i] <- yr
+  }
+  
+  # fl completed
+  for (i in co){
+    spex <- aa[aa$expNm %in%i,]
+    spex <- spex[,grepl("fl", colnames(spex))]
+    fyr <- colnames(spex)[ncol(spex)]
+    yr <- as.numeric(substr(fyr, 3,nchar(fyr)))
+    ss["fl completed", i] <- yr
+  }
+  
+  # hdCt completed
+  for (i in co){
+    spex <- aa[aa$expNm %in% i,]
+    spex <- spex[,grepl("hdCt", colnames(spex))]
+    hyr <- colnames(spex)[ncol(spex)]
+    yr <- as.numeric(substr(hyr, 5,nchar(hyr)))
+    ss["hdCt completed", i] <- yr
+  }
+  
+  # pull out any missing cols (in the middle of cols - we use this for achCt)! ####
+  lc <- colnames(aa)[grepl("ld", colnames(aa))]
+  fc <- colnames(aa)[grepl("fl", colnames(aa))]
+  hc <- colnames(aa)[grepl("hdCt", colnames(aa))]
+  ac <- colnames(aa)[grepl("achCt", colnames(aa))]
+  
+  # ld
+  missLD <- NULL
+  for (i in 1:(length(lc) - 1)){
+    if (!(as.numeric(substr(lc[i+1], 3, 6)) - as.numeric(substr(lc[i], 3, 6))) %in% 1){
+      ne <- as.numeric(substr(lc[i+1], 3, 6)) - as.numeric(substr(lc[i], 3, 6))
+      for (j in 1:(ne - 1)){
+        add2 <- as.numeric(substr(lc[i], 3, 6)) + j
+        add3 <- paste0("ld", add2)
+        missLD <- c(missLD, add3)
+      }
+    }
+  }
+  
+  # fl
+  missFL <- NULL
+  for (i in 1:(length(fc) - 1)){
+    if (!(as.numeric(substr(fc[i+1], 3, 6)) - as.numeric(substr(fc[i], 3, 6))) %in% 1){
+      fe <- as.numeric(substr(fc[i+1], 3, 6)) - as.numeric(substr(fc[i], 3, 6))
+      for (j in 1:(fe - 1)){
+        add2 <- as.numeric(substr(fc[i], 3, 6)) + j
+        add3 <- paste0("fl", add2)
+        missFL <- c(missFL, add3)
+      }
+    }
+  }
+  
+  # hdCt
+  missHD <- NULL
+  for (i in 1:(length(hc) - 1)){
+    if (!(as.numeric(substr(hc[i+1], 5, 8)) - as.numeric(substr(hc[i], 5, 8))) %in% 1){
+      he <- as.numeric(substr(hc[i+1], 5, 8)) - as.numeric(substr(hc[i], 5, 8))
+      for (j in 1:(he - 1)){
+        add2 <- as.numeric(substr(hc[i], 5, 8)) + j
+        add3 <- paste0("hdCt", add2)
+        missHD <- c(missHD, add3)
+      }
+    }
+  }
+  
+  # achCt
+  missAC <- NULL
+  for (i in 1:(length(ac) - 1)){
+    if (!(as.numeric(substr(ac[i+1], 6, 9)) - as.numeric(substr(ac[i], 6, 9))) %in% 1){
+      ae <- as.numeric(substr(ac[i+1], 6, 9)) - as.numeric(substr(ac[i], 6, 9))
+      for (j in 1:(ae - 1)){
+        add2 <- as.numeric(substr(ac[i], 6, 9)) + j
+        add3 <- paste0("achCt", add2)
+        missAC <- c(missAC, add3)
+      }
+    }
+  }
+  
+  numMissAC <- as.numeric(substr(missAC, 6,9))
+  numMissHD <- as.numeric(substr(missHD, 5,8))
+  # get achCt completed thru ####
+  
+  # so this... is a considerable amount harder.
+  # plan: we start a loop through the bottom row. 
+  # If there are any plants with hdCts and 0 achenes, we will pull the previous year!
+  # otherwise, we will pull the last year
+  
+  # first, check if achCt 2001 is there - all others should be there and completed!!
+  
+  
+  for (i in co){
+    momo <- aa[aa$expNm %in% i,]
+    if (ss["year planted", i] <= 1999){
+      yr <- 1999
+    } else if (ss["year planted", i] > 1999){
+      yr <- as.numeric(ss["year planted", i])
+    }
+    while (is.na(ss["achCt completed", i])){
+      while (yr %in% numMissAC | yr %in% numMissHD){
+        yr <- yr + 1
+      }
+      hy <- paste0("hdCt", yr)
+      ay <- paste0("achCt", yr)
+      if (ay %in% colnames(momo)){
+        var <- momo[!(momo[,hy] %in% 0) & momo[,ay] %in% 0,]
+        if (isTRUE(nrow(var) > 0)){
+          ss["achCt completed", i] <- yr-1
+        } else{
+          yr <- yr+1
+        }
+      } else {
+        ss["achCt completed", i] <- yr-1
+      }
+    }
+  }
+  
+  # yay!
+  
+  # write that nice table - right now, print matrix and missing cols ####
+  # print our guy
+  print(ss)
+  cat("\n")
+  p1Status <<- ss
+  # print missing cols
+  if(!is.null(missLD))(missLD <- paste0(missLD, " "))
+  if(!is.null(missFL))(missFL <- paste0(missFL, " "))
+  if(!is.null(missHD))(missHD <- paste0(missHD, " "))
+  if(!is.null(missAC))(missAC <- paste0(missAC, " "))
+  
+  if (!is.null(missLD)){
+    message(missLD, "is missing from exPt01 core")
+    cat("\n")
+  }
+  if (!is.null(missFL)){
+    message(missFL, "is missing from exPt01 core")
+    cat("\n")
+  }
+  if (!is.null(missHD)){
+    message(missHD, "is missing from exPt01 core")
+    cat("\n")
+  }
+  if (!is.null(missAC)){
+    message(missAC, "is missing from exPt01 core")
+    cat("\n")
+  }
+  
+  # part 2: after seeing summary of status, what year do we want to focus on? ####
+  # ask the question ####
+  yy <- targetYear
+  
+  if (is.na(yy)){
+    cat("Summarizing most recently uploaded cg1Core data\n\n")
+    uu <- ss
+    
+  } else if (!(isTRUE(as.numeric(yy) >= 1996))){
+    stop("year out of cg1Core range")
+  } else {
+    cat(paste("Summarizing cg1Core data through", yy, "\n\n"))
+    yy <- as.numeric(yy)
+    
+    # need folks to know if they overstep the actual data collected year ####
+    
+    overshot <- NULL
+    for (i in 1:ncol(ss)){
+      for (j in 2:nrow(ss)){
+        if (yy > ss[j,i]){
+          cat("data for", paste(colnames(ss)[i], strsplit(rownames(ss), " ")[[j]][1]),
+              "only available through", paste(ss[j,i]), "- summarizing", 
+              paste(colnames(ss)[i], strsplit(rownames(ss), " ")[[j]][1]), "through", paste(ss[j,i]), "\n")
+        }
+      }
+    } 
+    cat("\n")
+    
+    # need folks to know if their entered year is earlier than a given experiment started ####
+    
+    for (i in 1:ncol(ss)){
+      if (yy < ss[1, i]){
+        cat(yy, "is earlier than year planted for", 
+            paste(colnames(ss)[i]), "- summary for", paste(colnames(ss)[i]),"excluded", "\n")
+      }
+    }
+    cat("\n")
+    
+    # if earlier than '99, we need to let them know they only getting ld ####
+    if (yy < 1999){
+      cat ("first plants flowered in 1999, before", paste(yy), "- table will only display LD statistics \n\n")
+    }
+    
+    # now, actually edit our matrix - reassign it to uu ####
+    # this is the only ifelse() we are changing uu in because the first just leaves it the same and the second stops the function
+    # we want ss to be whole for later
+    uu <- ss
+    # first, delete any columns whose start year is higher than summary year ####
+    delList <- NULL
+    for (i in 1:ncol(uu)){
+      if (yy < uu[1, i]){
+        delList <- c(delList, colnames(uu)[i])
+      }
+    }
+    if(length(delList) > 0){
+      uu <- uu[,!(colnames(uu) %in% delList)]
+    }
+    
+    if (ncol(uu) %in% 0){
+      stop("No data exists for or prior to your experiment-year combination")
+    }
+    
+    # now, update all years within the matrix ####
+    # so. if our year is greater than the year in the matrix, we need to keep the matrix year.
+    # if our year is less than what's in the matrix, we keep that!
+    for (i in 2:nrow(uu)){
+      for (j in 1:ncol(uu)){
+        if (yy >= uu[i,j]){
+          uu[i,j] <- uu[i,j]
+        } else if (yy < uu[i,j]){
+          uu[i,j] <- yy
+        }
+      }
+    }
+    
+  }
+  
+  # final check - report any NAs ####
+  
+  alle <- colnames(uu)
+  
+  for (i in alle){
+    naList <- NULL
+    blub <- aa[aa$expNm %in% i,]
+    w1 <- 1
+    colList <- NULL
+    while (is.null(colList)){
+      if (grepl(uu[1, i], colnames(blub)[w1])){
+        colList <- colnames(blub)[w1:ncol(blub)]
+      }
+      w1 <- w1 + 1
+    }
+    for (j in colList){
+      for (k in 1:nrow(blub)){
+        if (is.na(blub[k, j])){
+          a2 <- paste0(j, " ")
+          naList <- c(naList, a2)
+        }
+      }
+    }
+    naList <- unique(naList)
+    if (!is.null(naList)){
+      message(naList, "have NA values for ", i)
+      cat("\n")
+    }
+  }
+  
+  # need to default certain cols if they don't exist in core! (and give message that we changed this)
+  mess <- NULL
+  for (i in 1:ncol(uu)){
+    while (!(paste0("ld", uu[2, i]) %in% lc)){
+      uu[2, i] <- uu[2, i] - 1
+      mess <- c(mess, paste0("ld", uu[2, i] + 1, " doesn't exist - Defaulting to ld", uu[2, i], "\n"))
+    }
+  }
+  
+  for (i in 1:ncol(uu)){
+    while (!(paste0("fl", uu[3, i]) %in% fc)){
+      if (uu[3, i] < uu[1, i]){
+        uu[3, i] <- as.numeric(substr(fc[1], 3, 6))
+        mess <- NULL
+      } else {
+        uu[3, i] <- uu[3, i] - 1
+        mess <- c(mess, paste0("fl", uu[3, i] + 1, " doesn't exist - Defaulting to fl", uu[3, i], "\n"))
+      }
+    }
+  }
+  
+  for (i in 1:ncol(uu)){
+    while (!(paste0("hdCt", uu[4, i]) %in% hc)){
+      if (uu[4, i] < uu[1, i]){
+        uu[4, i] <- as.numeric(substr(hc[1], 5, 8))
+        mess <- NULL
+      } else{
+        uu[4, i] <- uu[4, i] - 1
+        mess <- c(mess, paste0("hdCt", uu[4, i] + 1, " doesn't exist - Defaulting to hdCt", uu[4, i], "\n"))
+      }
+    }
+  }
+  
+  for (i in 1:ncol(uu)){
+    while (!(paste0("achCt", uu[5, i]) %in% ac)){
+      if (uu[5, i] < uu[1, i]){
+        uu[5, i] <- as.numeric(substr(ac[1], 6, 9))
+        mess <- NULL
+      } else{
+        uu[5, i] <- uu[5, i] - 1
+        mess <- c(mess, paste0("achCt", uu[5, i] + 1, " doesn't exist - Defaulting to achCt", uu[5, i], "\n"))
+      }
+    }
+  }
+  
+  if (!is.null(mess)){
+    mess <- unique(mess)
+    message(mess)
+  }
+  
+  # part 3: table 2: summary of ld, flowering etc... ####
+  # so - plan... if yy is fake news, we will simply pull from our original table.
+  # Additionally, if folks give years after when certain things are ready through, 
+  # we will have to auto default back to most recent years
+  
+  # assign to a new matrix 
+  cnam <- colnames(uu)
+  rnam <- c("year planted", "n planted", "","ld year", "ld (target year)", "proportion survival (target year)", "",
+            "fl year", "sum all fl events (through target year)", "# plants that have flowered", "proportion of plants that have flowered","fl (target year)","",
+            "hdCt year", "sum hdCt (through target year)", "hdCt (target year)", "",
+            "achCt year", "sum achCt (through target yr)", "achCt (target year)")
+  nam <- list(rnam, cnam)
+  
+  vv <- matrix(nrow = 20, ncol = ncol(uu), dimnames = nam)
+  
+  # fill in years in the table! ####
+  # year planted
+  vv[1,] <- uu[1,]
+  
+  # ld year
+  vv[4,] <- uu[2,]
+  
+  # fl year
+  vv[8,] <- uu[3,]
+  
+  # hdCt year
+  vv[14,] <- uu[4,]
+  
+  # achCt year
+  vv[18,] <- uu[5,]
+  
+  # get n plantes planted in the table ####
+  for (i in colnames(vv)){
+    vv["n planted", i] <- nrow(aa[aa$expNm %in% i,])
+  }
+  
+  # get ld things filled in ####
+  for (i in colnames(vv)){
+    lyr <- paste0("ld", vv["ld year", i])
+    vv["ld (target year)", i] <- sum(aa[aa$expNm %in% i, lyr])
+  }
+  
+  for (i in colnames(vv)){
+    vv["proportion survival (target year)", i] <- as.numeric(format((vv["ld (target year)",i]/vv["n planted", i])*100, digits = 0))
+  }
+  
+  # if year before anything flowered - let em know they only get ld
+  
+  if (vv["ld year", 1] < 1999){
+    ww <- vv[1:6,]
+    ww[3,] <- ""
+    ww["proportion survival (target year)", ] <- as.numeric(ww["proportion survival (target year)", ])/100
+    print(ww, quote = F)
+    stop("No plants flowered in or before ", paste(vv["ld year",1]), " - only ld data displayed")
+  }
+  
+  # get fl summary ####
+  
+  # this yr
+  for (i in colnames(vv)){
+    if (vv["fl year", i] < vv["year planted", i]){
+      vv["fl (target year)", i] <- NA
+    } else{
+      fyr <- paste0("fl", vv["fl year", i])
+      vv["fl (target year)", i] <- sum(aa[aa$expNm %in% i, fyr])
+    }
+  }
+  
+  # all yrs! 
+  for (i in colnames(vv)){
+    if (vv["fl year", i] < vv["year planted", i]){
+      vv["proportion of plants that have flowered", i] <- NA
+      vv["# plants that have flowered", i] <- NA
+      vv["sum all fl events (through target year)", i] <- NA
+    } else{
+      correx <- aa[aa$expNm %in% i,]
+      xfl <- correx[, grepl("fl", colnames(correx))]
+      colnames(xfl) <- substr(colnames(xfl), 3, 6)
+      xfl <- xfl[,as.numeric(colnames(xfl)) >= vv["year planted", i] & as.numeric(colnames(xfl)) <= vv["fl year", i]]
+      if (!is.data.frame(xfl)){
+        xfl <- data.frame("honestlyWeJustNeedThisToBeADataFrameEvenIfIt'sOnlyOneColumn" = xfl)
+      }
+      totSum <- 0
+      for (j in 1:ncol(xfl)){
+        xfl[,j][is.na(xfl[,j])] <- 0
+        totSum <- sum(totSum, xfl[,j])
+      }
+      vv["sum all fl events (through target year)", i] <- totSum
+      
+      xfl$didFl <- 0
+      for (k in 1:(ncol(xfl)-1)){
+        xfl[xfl[,k] %in% 1, "didFl"] <- 1
+      }
+      vv["# plants that have flowered", i] <- sum(xfl$didFl)
+      vv["proportion of plants that have flowered", i] <- as.numeric(format((vv["# plants that have flowered",i]/vv["n planted", i])*100, digits = 0))
+    }
+  }
+  
+  # get hdCt summary ####
+  
+  # this yr
+  for (i in colnames(vv)){
+    if (vv["hdCt year", i] < vv["year planted", i]){
+      vv["hdCt (target year)", i] <- NA
+    } else{
+      hyr <- paste0("hdCt", vv["hdCt year", i])
+      vv["hdCt (target year)", i] <- sum(aa[aa$expNm %in% i, hyr])
+    }
+  }
+  
+  # all yrs
+  for (i in colnames(vv)){
+    if (vv["hdCt year", i] < vv["year planted", i]){
+      vv["sum hdCt (through target year)", i] <- NA
+    } else{
+      correh <- aa[aa$expNm %in% i,]
+      xhd <- correh[, grepl("hdCt", colnames(correh))]
+      colnames(xhd) <- substr(colnames(xhd), 5, 8)
+      xhd <- xhd[,as.numeric(colnames(xhd)) >= vv["year planted", i] & as.numeric(colnames(xhd)) <= vv["hdCt year", i]]
+      if (!is.data.frame(xhd)){
+        xhd <- data.frame("honestlyWeJustNeedThisToBeADataFrameEvenIfIt'sOnlyOneColumn" = xhd)
+      }
+      totSum <- 0
+      for (j in 1:ncol(xhd)){
+        xhd[,j][is.na(xhd[,j])] <- 0
+        totSum <- sum(totSum, xhd[,j])
+      }
+      vv["sum hdCt (through target year)", i] <- totSum
+    }
+  }
+  
+  # get achCt summary! ####
+  
+  # this yr
+  for (i in colnames(vv)){
+    if (vv["achCt year", i] < vv["year planted", i]){
+      vv["achCt (target year)", i] <- NA
+    } else{
+      ayr <- paste0("achCt", vv["achCt year", i])
+      vv["achCt (target year)", i] <- sum(aa[aa$expNm %in% i, ayr])
+    }
+  }
+  
+  # all years
+  for (i in colnames(vv)){
+    if (vv["achCt year", i] < vv["year planted", i]){
+      vv["sum achCt (through target yr)", i] <- NA
+    } else{
+      correa <- aa[aa$expNm %in% i,]
+      ahd <- correa[, grepl("achCt", colnames(correa))]
+      colnames(ahd) <- substr(colnames(ahd), 6, 9)
+      ahd <- ahd[,as.numeric(colnames(ahd)) >= vv["year planted", i] & as.numeric(colnames(ahd)) <= vv["achCt year", i]]
+      if (!is.data.frame(ahd)){
+        ahd <- data.frame("honestlyWeJustNeedThisToBeADataFrameEvenIfIt'sOnlyOneColumn" = ahd)
+      }
+      totSum <- 0
+      for (j in 1:ncol(ahd)){
+        ahd[,j][is.na(ahd[,j])] <- 0
+        totSum <- sum(totSum, ahd[,j])
+      }
+      vv["sum achCt (through target yr)", i] <- totSum
+    }
+  }
+  
+  # replace NA's in the vv matrix! ####
+  vv <- vv
+  vv[c(3,7,13,17),] <- ""
+  vv["proportion survival (target year)", ] <- as.numeric(vv["proportion survival (target year)", ])/100
+  vv["proportion of plants that have flowered", ] <- as.numeric(vv["proportion of plants that have flowered", ])/100
+  print(vv, quote = F)
+  
+  p1Summary <<- vv
+}
+
