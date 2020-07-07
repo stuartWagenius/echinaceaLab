@@ -47,7 +47,7 @@ but that form is simply a reference; all positions in that form will also be in 
 this function will make minor adjustments to the original measure csv (with field checks implemented). It will output
 a csv (updated20__MeasureExPt__Final.csv) that has neighborStatus and measurements moved to the correct columns
 in cases that the measures were in incorrect columns. This should be the new official final measure data frame
-UNTIL rechecks and remeasures are implemented (into that df, actually).
+UNTIL rechecks and remeasures are implemented (into that df, actually). Small bit of text to see if an update worked here.
 }
 \examples{
 \dontrun{remeasureCG("summer2019/p1MeasureData/2019MeasureExPt1_2019-09-30WithStaplesAndCorrections.csv",

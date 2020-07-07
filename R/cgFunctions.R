@@ -772,7 +772,7 @@ recheckCG <- function(mf, yr, userNum = 1, write.it = FALSE, write.path = NA){
 #' this function will make minor adjustments to the original measure csv (with field checks implemented). It will output
 #' a csv (updated20__MeasureExPt__Final.csv) that has neighborStatus and measurements moved to the correct columns
 #' in cases that the measures were in incorrect columns. This should be the new official final measure data frame
-#' UNTIL rechecks and remeasures are implemented (into that df, actually).
+#' UNTIL rechecks and remeasures are implemented (into that df, actually). Small bit of text to see if an update worked here.
 #' 
 #' 
 #' @examples
@@ -894,7 +894,7 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
       sm$remeasureNote <- "flRosetteCt and hdCt (headform) don't match"
       mr <- rbind(mr, sm)
     }
-    else if(!isTRUE(sm$flRosetteCt == (nrow(sh) - nrow(sh[!(sh$onSameStemAs %in% ""), ])))){
+    else if(!isTRUE(sm$flRosetteCt == (nrow(sh) - nrow(sh[!(sh$onSameStemAs %in% "" | is.na(sh$onSameStemAs)), ])))){
       sm$remeasureNote <- "flRosetteCt and hdCt (headform) don't match"
       sh$remeasureNote <- "flRosetteCt and hdCt (headform) don't match"
       mr <- rbind(mr, sm)
