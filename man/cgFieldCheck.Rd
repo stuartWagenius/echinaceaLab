@@ -35,7 +35,7 @@ The function will pull out all mismatched action-statuses (e.g. action=Staple an
 Check all positions the function outputs, and then integrate the changes into the dataset before
 running cgRecheck and cgRemeasure. This will save a TON of time and improve data reliability.
 Also run this function and go into the plots when you finish stapling (p1 only) and rechecking. 
-Once again, this will improve data reliability and will make your job easier in the future.
+Once again, this will improve data reliability and will make your job easier in the future :).
 }
 \examples{
 \dontrun{cgFieldCheck("summer2019/p2MeasureData/2019MeasureExPt2_2019-07-26.txt", 2019,

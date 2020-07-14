@@ -165,7 +165,7 @@ makeCGGraphs <- function(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.
 #' Check all positions the function outputs, and then integrate the changes into the dataset before
 #' running cgRecheck and cgRemeasure. This will save a TON of time and improve data reliability.
 #' Also run this function and go into the plots when you finish stapling (p1 only) and rechecking. 
-#' Once again, this will improve data reliability and will make your job easier in the future.
+#' Once again, this will improve data reliability and will make your job easier in the future :).
 #' 
 #' 
 #' @examples
@@ -352,7 +352,7 @@ cgFieldCheck <- function(mf, yr, rf = FALSE, write.it = FALSE, write.path = NA){
   }
   
   # need to now make a small dummy dataframe, with just cgPlaid and neighborStatus... to join with wrongStatus
-  cn <- data.frame("rp" = pp$cgPlaid, "neighborStatus" = pp$neighborStatus)
+  cn <- data.frame("rp" = pp$rp, "neighborStatus" = pp$neighborStatus)
   cn <- cn[!(cn$neighborStatus %in% ""),]
   
   wrongStatus <<- merge(wrongStatus, cn, by = "rp", all.x = T)
