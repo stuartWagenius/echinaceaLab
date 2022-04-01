@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2022-03-30
+This R package now has a dataframe of the heads harvested from p1, p2, p5, p7, p8, p9 in 2020. Function check.batch can now check batches from 2012 - 2020.
+
 2020-05-14
 This R package now has a function that will generate status and summary matrices for the coreExPt01 dataset. 
 
