@@ -11,7 +11,7 @@
 #' (e.g. "summer2019/p1MeasureData/2019MeasureExPt1_2019-08-27.txt")
 #' @param hf path to the head form for the same common garden experiment, generally in cgdata repo
 #' (e.g. "summer2019/p1MeasureData/2019ExPt1HeadSubform_2019-09-27.txt")
-#' @param year the year the data in the input file was recorded (e.g. 2019, as above)
+#' @param yr the year the data in the input file was recorded (e.g. 2019, as above)
 #' @param box.plot logical: if TRUE, makeCGGraphs will output boxplots of plant characters.
 #' if FALSE, makeCGGraphs will output histograms of plant characters.
 #' @param write.pdf logical: if TRUE, function will output a pdf that will save to write.path (good for printing!!!)

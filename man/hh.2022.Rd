@@ -3,7 +3,7 @@
 \docType{data}
 \title{Information about heads harvested from p1, p2, p6, p7, p8 and p9 in 2022}
 %%   ~~ data name/kind ... ~~
-}
+
 \description{  This data frame contains harvest information on all heads
   harvested from p1, p2, p6, p7, p8, and p9 in 2022. There are a total of 2117
   records. 
@@ -15,8 +15,7 @@
 }
 \usage{hh.2022}
 \format{A 2116 x 10 dataframe.} 
-  \describe{
-}
+
 
 \section{Variables}{
   Variables: \itemize{ 
@@ -32,15 +31,6 @@
     \item letno, unique identifier for heads}
 }
 
-\details{
-%%  ~~ If necessary, more details than the __description__ above ~~
-}
-\source{
-%%  ~~ reference to a publication or URL from which the data were obtained ~~
-}
-\references{
-%%  ~~ possibly secondary sources and usages ~~
-}
 \examples{
   dim(hh.2022)
   str(hh.2022)

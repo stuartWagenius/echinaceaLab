@@ -4,3 +4,6 @@ importFrom("grDevices", "dev.off", "pdf")
 importFrom("graphics", "hist", "legend", "par", "plot", "points")
 importFrom("utils", "head", "read.csv", "setTxtProgressBar",
            "txtProgressBar", "write.csv", "write.table")
+importFrom("grDevices", "png")
+importFrom("graphics", "barplot", "boxplot", "mtext", "text", "title")
+importFrom("stats", "aggregate", "reshape")

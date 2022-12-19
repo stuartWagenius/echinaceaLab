@@ -13,6 +13,8 @@ makeCGGraphs(mf, hf, yr, box.plot = FALSE, write.pdf = FALSE, write.path = NA)
 \item{hf}{path to the head form for the same common garden experiment, generally in cgdata repo
 (e.g. "summer2019/p1MeasureData/2019ExPt1HeadSubform_2019-09-27.txt")}
 
+\item{yr}{the year the data in the input file was recorded (e.g. 2019, as above)}
+
 \item{box.plot}{logical: if TRUE, makeCGGraphs will output boxplots of plant characters.
 if FALSE, makeCGGraphs will output histograms of plant characters.}
 
@@ -20,8 +22,6 @@ if FALSE, makeCGGraphs will output histograms of plant characters.}
 if FALSE, function will output the plots into the R viewer.}
 
 \item{write.path}{path to the folder you want to output the write.pdfs to}
-
-\item{year}{the year the data in the input file was recorded (e.g. 2019, as above)}
 }
 \description{
 This function will take all data collected from a select common garden experiment

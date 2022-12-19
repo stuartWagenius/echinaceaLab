@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2022-12-19
+New version 0.110. This package now depends on R (>=3.6.0) to support newer hh data, which are serialized objects in serialize/load version 3. Encoding is now UTF-8 for compatibility with Roxygen2. This R package now has dataframes of the heads harvested from experimental plots in 2021 & 2022. Other small fixes.
+
 2022-03-30
 This R package now has a dataframe of the heads harvested from p1, p2, p5, p7, p8, p9 in 2020. Function check.batch can now check batches from 2012 - 2020.
 
