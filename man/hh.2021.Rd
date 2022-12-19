@@ -50,7 +50,6 @@
   plot(pos ~ row, hh.2021[hh.2021$pos > 800,], asp = 1) # plot of heads harvested in p1 & 99s
   plot(pos ~ row, hh.2021[hh.2021$pos < 800 & hh.2021$pos > 600 , ], asp = 1) # plot of heads harvested in p8 
   plot(pos ~ row, hh.2021[hh.2021$pos < 600, ], asp = 1) # plot of heads harvested in p2 and p9
-  plot(pos ~ row, hh.2021[hh.2021$pos == NA, ], asp = 1) # plot of heads harvested in p5
 }
 }
 \keyword{datasets}
