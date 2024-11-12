@@ -21,6 +21,10 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+
+2024-11-12
+Remove function `lookGC` and documentation because the growth chambers no longer work.
+
 2022-12-19
 New version 0.110. This package now depends on R (>=3.6.0) to support newer hh data, which are serialized objects in serialize/load version 3. Encoding is now UTF-8 for compatibility with Roxygen2. This R package now has dataframes of the heads harvested from experimental plots in 2021 & 2022. Other small fixes.
 
