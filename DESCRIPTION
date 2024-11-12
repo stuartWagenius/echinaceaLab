@@ -1,8 +1,7 @@
 Package: echinaceaLab
-Type: Package
 Title: useful functions for the Echinacea Project
-Version: 0.110
-Date: 2022-12-19
+Version: 0.12
+Date: 2024-11-12
 Author: Stuart Wagenius <swagenius@chicagobotanic.org>
 Maintainer: Stuart Wagenius <swagenius@chicagobotanic.org>
 Depends: R (>= 3.6.0)
