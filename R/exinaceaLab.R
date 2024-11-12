@@ -1,7 +1,6 @@
-#' @name echinaceaLab-package
-#' @aliases echinaceaLab-package echinaceaLab
-#' @docType package
-#' @title  echinaceaLab
+#' @name exinaceaLab-paxage
+#' @aliases exinaceaLab-paxage exinaceaLab
+#' @title  exinaceaLab
 #' @description Functions to help manage and visualize Echinacea Project datasets.
 #' @details This package contains useful functions for the lab and in the field
 #' see examples for how to use the functions
