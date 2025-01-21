@@ -21,11 +21,14 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2025-01-19
+This R package now contains dataframs of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was update to make a number of small fixes.
 
 2024-11-12
 * Remove function `lookGC` and documentation because the growth chambers no longer work.
 * Modify echinaceaLab.R & echinaceaLab-package.R so they don't throw errors.
 * Move example code from echinaceaLab.R to exinaceaLab-package.R
+
 
 2022-12-19
 New version 0.110. This package now depends on R (>=3.6.0) to support newer hh data, which are serialized objects in serialize/load version 3. Encoding is now UTF-8 for compatibility with Roxygen2. This R package now has dataframes of the heads harvested from experimental plots in 2021 & 2022. Other small fixes.
