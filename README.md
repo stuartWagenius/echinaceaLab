@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2025-02-04
+Small updates made to hh.2022.rda
+
 2025-01-19
 This R package now contains dataframs of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was update to make a number of small fixes.
 
