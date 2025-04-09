@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2025-04-08
+Small update made to hh.2020.rda
+
 2025-02-06
 Small updates made to hh.2022.rda
 
