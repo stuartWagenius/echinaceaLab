@@ -21,6 +21,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2025-05-28
+Add R/geospatialFunctions.R with several useful geospatial functions.
+
 2025-04-08
 Small update made to hh.2020.rda
 
@@ -28,7 +31,7 @@ Small update made to hh.2020.rda
 Small updates made to hh.2022.rda
 
 2025-01-19
-This R package now contains dataframs of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was update to make a number of small fixes.
+This R package now contains dataframes of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was update to make a number of small fixes.
 
 2024-11-12
 * Remove function `lookGC` and documentation because the growth chambers no longer work.
