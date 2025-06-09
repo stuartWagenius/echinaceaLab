@@ -7,3 +7,5 @@ importFrom("utils", "head", "read.csv", "setTxtProgressBar",
 importFrom("grDevices", "png")
 importFrom("graphics", "barplot", "boxplot", "mtext", "text", "title")
 importFrom("stats", "aggregate", "reshape")
+importFrom("sf", "st_as_sf", "st_transform", "st_write")
+importFrom("dplyr")
