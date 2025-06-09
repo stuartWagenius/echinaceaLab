@@ -1324,7 +1324,7 @@ remeasureCG <- function(mf, hf, yr, userNum = 1, write.it = FALSE, write.path = 
 #' 
 #'
 exPt01CoreDataSummary <- function(df = NULL, targetYear = NA, expNames = NA){
-  require(echinaceaLab)
+  # require(echinaceaLab)
   
   # read in data from website and add expNm to core ####
   if(is.null(df)) df <- read.csv("http://echinaceaproject.org/data/cg1CoreData.csv")
