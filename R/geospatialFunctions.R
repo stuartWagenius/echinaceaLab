@@ -173,7 +173,7 @@ stakefile2avenza <- function(df, fpath) {
 ##'@author Jared Beck
 ##'@description Function to automatically assign standardized Echinacea sites based on spatial coordinates
 ##'@param df: data frame with Ax and Ly columns representing MN state plane coordinates
-##'@return vector of stardardized site names
+##'@return vector of standardized site names
 
 assignEchinaceaSite <- function(df) {
   
@@ -182,6 +182,10 @@ assignEchinaceaSite <- function(df) {
   }
   
   df$echinaceaSite <- NA
+  
+  # This is not a table because some boxes overlap and they need to be coded in order.
+  
+  # If you add or delete any sites, then update siteNames().
   
   ## aa
   df$echinaceaSite[df$Ax > 690290 & df$Ax < 690450 & df$Ly > 190190 & df$Ly < 190340] <- "aa"
@@ -407,3 +411,74 @@ assignEchinaceaSite <- function(df) {
   return(df$site)
 } ## end of assignEchinaceaSite function
 
+#### Function siteNames: return standard site names ####
+##'@author Stuart
+##'@description Function returns standard Echinacea sites
+##'@param none
+##'@return vector of standard site names
+
+siteNames <- function() {
+  # 2025-06-09
+  c("aa",
+    "alf",
+    "beng",
+    "btg",
+    "dog",
+    "eelr",
+    "eri",
+    "eth",
+    "fern",
+    "gc",
+    "hud",
+    "hulze",
+    "hulzw",
+    "hutche",
+    "hutchw",
+    "kj",
+    "koons",
+    "krus",
+    "lce",
+    "lcw",
+    "lfe",
+    "lfw",
+    "lih",
+    "loco",
+    "mapp",
+    "ness",
+    "ngc",
+    "nice",
+    "nnwlf",
+    "nrrx",
+    "nth",
+    "nwlf",
+    "onts",
+    "pal",
+    "rel",
+    "rhe",
+    "rhp",
+    "rhs",
+    "rhx",
+    "rih",
+    "riley",
+    "rke",
+    "rkw",
+    "rndt",
+    "rrxdc",
+    "rrxx",
+    "sap",
+    "sgc",
+    "sign",
+    "sppe",
+    "sppw",
+    "th",
+    "torgen",
+    "torges",
+    "torgew",
+    "tower",
+    "tplot",
+    "waa",
+    "wood",
+    "yohe",
+    "yohw"
+  )
+}
