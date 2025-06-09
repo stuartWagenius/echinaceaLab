@@ -1,7 +1,7 @@
 Package: echinaceaLab
 Title: useful functions for the Echinacea Project
-Version: 0.12
-Date: 2024-11-12
+Version: 0.13
+Date: 2025-06-09
 Author: Stuart Wagenius <swagenius@chicagobotanic.org>
 Maintainer: Stuart Wagenius <swagenius@chicagobotanic.org>
 Depends: R (>= 3.6.0)
@@ -13,5 +13,7 @@ Encoding: UTF-8
 Imports:
   imager,
   plyr,
-  XML
+  XML,
+  sf,
+  dplyr
 RoxygenNote: 7.3.2
