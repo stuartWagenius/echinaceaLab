@@ -215,6 +215,8 @@ assignEchinaceaSite <- function(df) {
   ## btg
   df$echinaceaSite[df$Ax > 684390 & df$Ax < 684420 & df$Ly > 192410 & df$Ly < 192480] <- "btg"
   
+  ## cay
+
   ## cg
   
   ## dog
@@ -228,6 +230,18 @@ assignEchinaceaSite <- function(df) {
   
   ## eri
   df$echinaceaSite[df$Ax > 683600 & df$Ax < 683680 & df$Ly > 188775 & df$Ly < 188800] <- "eri"
+  
+  ## exPt01
+  ## exPt02
+  ## exPt03
+  ## exPt04
+  ## exPt05
+  ## exPt06
+  ## exPt07
+  ## exPt08
+  ## exPt09
+  ## exPt10
+  ## exPt11
   
   ## exPlot
   
@@ -390,6 +404,8 @@ assignEchinaceaSite <- function(df) {
   
   ## waa
   df$echinaceaSite[df$Ax > 689410 & df$Ax < 689610 & df$Ly > 190245 & df$Ly < 190265] <- "waa"
+
+  ## woeth
   
   ## wood
   df$echinaceaSite[df$Ax > 684260 & df$Ax < 684330 & df$Ly > 188700 & df$Ly < 188800] <- "wood"
@@ -438,10 +454,24 @@ siteNames <- function() {
     "alf",
     "beng",
     "btg",
+    "cay",
+    "cg",
     "dog",
     "eelr",
     "eri",
     "eth",
+    "exPlot",
+    "exPt01",
+    "exPt02",
+    "exPt03",
+    "exPt04",
+    "exPt05",
+    "exPt06",
+    "exPt07",
+    "exPt08",
+    "exPt09",
+    "exPt10",
+    "exPt11",
     "fern",
     "gc",
     "hud",
@@ -463,22 +493,28 @@ siteNames <- function() {
     "ngc",
     "nice",
     "nnwlf",
+    "nrpal",
     "nrrx",
     "nth",
     "nwlf",
     "onts",
+    "other",
     "pal",
     "rel",
+    "rhc",
     "rhe",
     "rhp",
     "rhs",
+    "rhw",
     "rhx",
     "rih",
     "riley",
     "rke",
     "rkw",
+    "rlr",
     "rndt",
     "rrxdc",
+    "rrxgc",
     "rrxx",
     "sap",
     "sgc",
@@ -492,6 +528,7 @@ siteNames <- function() {
     "tower",
     "tplot",
     "waa",
+    "woeth",
     "wood",
     "yohe",
     "yohw"
