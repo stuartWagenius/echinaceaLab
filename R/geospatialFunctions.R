@@ -1,8 +1,10 @@
-
-#### Function is.stakefile: utility function for checking formatting of stakefiles ####
-##'@description Function to assess whether data frame conforms to stakefile formatting
-##'@param df: data frame with potential stakefile
-##'@return TRUE or FALSE
+#' Function is.stakefile: utility function for 
+#' 
+#' check formatting of stakefiles
+#' 
+#'@description Function to assess whether data frame conforms to stakefile formatting
+#'@param df data frame with potential stakefile
+#'@return TRUE or FALSE
 
 is.stakefile <- function(df){
   
@@ -56,13 +58,16 @@ is.stakefile <- function(df){
 }
 
 
-#### Function latlong2stplane: utility function to convert MN state plane coordinates to lat/long ####
-##'@author Jared Beck
-##'@description Function to convert latitude/longitude points to MN state plane coordinates
-##'@param df: data frame with columns for latitude longitude coordinates
-##'@return Data frame with original state plane coordinates as well as lat/long coordinates
+#' Function latlong2stplane: utility function to 
+#' 
+#' convert MN state plane coordinates to lat/long 
+#'@author Jared Beck
+#'@description Function to convert latitude/longitude points to MN state plane coordinates
+#'@param df data frame with columns for latitude longitude coordinates
+#'@return Data frame with original state plane coordinates as well as lat/long coordinates
+#'
 latlong2stplane <- function(df){
-  require(sf)
+  # require(sf)
   
   ## MN state plane coordinate system
   fromCRS = "+proj=longlat +datum=WGS84"
@@ -91,13 +96,16 @@ latlong2stplane <- function(df){
 } ## end latlong2stplane function
 
 
-#### Function stplane2latlong: utility function to convert MN state plane coordinates to lat/long ####
+#' Function stplane2latlong: utility function to 
+#' 
+#' convert MN state plane coordinates to lat/long
+#' 
 ##'@author Jared Beck
 ##'@description Function to convert MN state plane coordinates in data frame to latitude/longitude
-##'@param df: data frame with columns for MN state plane coordinates coded as Ax or x and Ly or y
+##'@param df data frame with columns for MN state plane coordinates coded as Ax or x and Ly or y
 ##'@return Data frame with original state plane coordinates as well as lat/long coordinates
 stplane2latlong <- function(df) {
-  require(sf)
+  # require(sf)
   
   ## MN state plane coordinate system
   fromCRS = "+proj=lcc +lat_0=45 +lon_0=-94.25 +lat_1=45.6166666666667 +lat_2=47.05 +x_0=800000 +y_0=100000 +ellps=GRS80 +units=m
@@ -125,16 +133,19 @@ stplane2latlong <- function(df) {
 } ## end stplane2latlong function
 
 
-
-#### Function stakefile2avenza: utility function to convert stakefile into kml file that can be imported into Avenza ####
-##'@author Jared Beck
-##'@description Function to convert stakefile into kml file for Avenza
-##'@param df: data frame representing stakefile with MN state plane coordinates
-##'@param fpath: file path for exporting kml file
-##'@return writes kml file to specified filepath
+#' Function stakefile2avenza: utility function
+#'
+#' convert stakefile into kml file that can be imported into Avenza
+#'
+#'
+#'@author Jared Beck
+#'@description Function to convert stakefile into kml file for Avenza
+#'@param df data frame representing stakefile with MN state plane coordinates
+#'@param fpath file path for exporting kml file
+#'@return writes kml file to specified filepath
 stakefile2avenza <- function(df, fpath) {
-  require(sf)
-  require(dplyr)
+  # require(sf)
+  # require(dplyr)
   
   ## check stakefile formatting
   if(is.stakefile(df) == FALSE){
@@ -169,10 +180,13 @@ stakefile2avenza <- function(df, fpath) {
 } ## end stakefile2avenza function
 
 
-#### Function assignEchinaceaSite: assign standardized site names based on spatial coordinates ####
+#' Function assignEchinaceaSite: 
+#' 
+#' assign standardized site names based on spatial coordinates
+#' 
 ##'@author Jared Beck
 ##'@description Function to automatically assign standardized Echinacea sites based on spatial coordinates
-##'@param df: data frame with Ax and Ly columns representing MN state plane coordinates
+##'@param df data frame with Ax and Ly columns representing MN state plane coordinates
 ##'@return vector of standardized site names
 
 assignEchinaceaSite <- function(df) {
@@ -411,11 +425,12 @@ assignEchinaceaSite <- function(df) {
   return(df$site)
 } ## end of assignEchinaceaSite function
 
-#### Function siteNames: return standard site names ####
-##'@author Stuart
-##'@description Function returns standard Echinacea sites
-##'@param none
-##'@return vector of standard site names
+#' list standard site names ####
+#' 
+#' return vector of standard Echinacea site names
+#'
+#'@author Stuart
+#'@return vector of standard site names
 
 siteNames <- function() {
   # 2025-06-09
