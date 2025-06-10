@@ -216,8 +216,11 @@ assignEchinaceaSite <- function(df) {
   df$echinaceaSite[df$Ax > 684390 & df$Ax < 684420 & df$Ly > 192410 & df$Ly < 192480] <- "btg"
   
   ## cay
-
+  df$echinaceaSite[df$Ax > 685550 & df$Ax < 685600 & df$Ly > 193465 & df$Ly < 193495] <- "cay"
+  
   ## cg
+  df$echinaceaSite[df$Ax > 685568 & df$Ax < 685580 & df$Ly > 194000 & df$Ly < 194090] <- "cg"
+  df$echinaceaSite[df$Ax > 685568 & df$Ax < 685625 & df$Ly > 194072 & df$Ly < 194090] <- "cg"
   
   ## dog
   df$echinaceaSite[df$Ax > 687840 & df$Ax < 687880 & df$Ly > 193490 & df$Ly < 193510] <- "dog"
@@ -406,6 +409,7 @@ assignEchinaceaSite <- function(df) {
   df$echinaceaSite[df$Ax > 689410 & df$Ax < 689610 & df$Ly > 190245 & df$Ly < 190265] <- "waa"
 
   ## woeth
+  df$echinaceaSite[df$Ax > 690360 & df$Ax < 690390 & df$Ly > 192680 & df$Ly < 192710] <- "woeth"
   
   ## wood
   df$echinaceaSite[df$Ax > 684260 & df$Ax < 684330 & df$Ly > 188700 & df$Ly < 188800] <- "wood"
