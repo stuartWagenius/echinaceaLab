@@ -301,9 +301,10 @@ assignEchinaceaSite <- function(df) {
   
   ## nrrx
   df$echinaceaSite[df$Ax > 682745 & df$Ax < 682775 & df$Ly > 191200 & df$Ly < 191390] <- "nrrx"
-  
+
   ## nrpal
-  
+  df$echinaceaSite[df$Ax > 689805 & df$Ax < 689950 & df$Ly > 188617 & df$Ly < 188630] <- "nrpal"
+
   ## nth
   df$echinaceaSite[df$Ax > 690200 & df$Ax < 690230 & df$Ly > 192640 & df$Ly < 192660] <- "nth"
   
@@ -326,7 +327,7 @@ assignEchinaceaSite <- function(df) {
   df$echinaceaSite[df$Ax > 684580 & df$Ax < 684650 & df$Ly > 193500 & df$Ly < 193580] <- "onts"
   
   ## pal
-  df$echinaceaSite[df$Ax > 689825 & df$Ax < 689905 & df$Ly > 188450 & df$Ly < 188630] <- "pal"
+  df$echinaceaSite[df$Ax > 689805 & df$Ax < 689905 & df$Ly > 188350 & df$Ly < 188617] <- "pal"
   
   ## rrxx
   df$echinaceaSite[df$Ax > 682740 & df$Ax < 682790 & df$Ly > 190970 & df$Ly < 191160] <- "rrxx"
@@ -340,14 +341,14 @@ assignEchinaceaSite <- function(df) {
   ## rhc
   
   ## rhx
-  df$echinaceaSite[df$Ax > 689930 & df$Ax < 689950 & df$Ly > 188460 & df$Ly < 188480] <- "rhx"
-  
+  df$echinaceaSite[df$Ax > 689920 & df$Ax < 689950 & df$Ly > 188430 & df$Ly < 188460] <- "rhx"
+    
   ## rhe
   df$echinaceaSite[df$Ax > 690620 & df$Ax < 690650 & df$Ly > 187930 & df$Ly < 187960] <- "rhe"
   
   ## rhp
   df$echinaceaSite[df$Ax > 689780 & df$Ax < 689800 & df$Ly > 188605 & df$Ly < 188615] <- "rhp"
-  
+
   ## rhs
   df$echinaceaSite[df$Ax > 690500 & df$Ax < 690520 & df$Ly > 187845 & df$Ly < 187865] <- "rhs"
   
