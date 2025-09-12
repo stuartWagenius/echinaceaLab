@@ -21,6 +21,11 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2025-09-12
+update function assignEchinaceaSite() in R/geospatialFunctions.R
+fix coordinates for sites `rhx` & `pal`
+add coordinates for site `nrpal`
+
 2025-05-28
 Add R/geospatialFunctions.R with several useful geospatial functions.
 
