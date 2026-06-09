@@ -2,12 +2,11 @@
 
 ## Installation
 
-You can install then use the **devtools** package to install the development version. Run this code:
+You can install then use the **pak** package to install the development version. Run this code:
 
 ```r
-install.packages("devtools")
-library("devtools")
-install_github("stuartWagenius/echinaceaLab")
+install.packages("pak")
+pak::pak("stuartWagenius/echinaceaLab")
 library("echinaceaLab")
 ?echinaceaLab
 ```
