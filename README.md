@@ -20,6 +20,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2026-11-03
+This R package now contains dataframes of the heads harvested from experimental plots (and tplot) in 2025 and 2026.
+
 2025-09-12
 update function assignEchinaceaSite() in R/geospatialFunctions.R
 fix coordinates for sites `rhx` & `pal`
@@ -35,7 +38,7 @@ Small update made to hh.2020.rda
 Small updates made to hh.2022.rda
 
 2025-01-19
-This R package now contains dataframes of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was update to make a number of small fixes.
+This R package now contains dataframes of the heads harvested from experimental plots in 2023 and 2024. These were added in fall 2024 without an update to the readme. hh.2023.rda was updated to make a number of small fixes.
 
 2024-11-12
 * Remove function `lookGC` and documentation because the growth chambers no longer work.
