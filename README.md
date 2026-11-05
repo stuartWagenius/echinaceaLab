@@ -20,6 +20,9 @@ For more information, visit the Echinacea Project website: http://echinaceaProje
 
 ## NEWS
 
+2026-11-04
+Small update made to hh.2025.rda
+
 2026-11-03
 This R package now contains dataframes of the heads harvested from experimental plots (and tplot) in 2025 and 2026.
 
